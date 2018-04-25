@@ -46,7 +46,7 @@ client.on_publish=on_publish
 client.on_connect=on_connect
 client.on_disconnect=on_disconnect
 
-
+# Connection to Broker
 print("connecting to broker")
 client.connect(broker_address,port) #connect to broker
 client.loop_start() #start the loop
