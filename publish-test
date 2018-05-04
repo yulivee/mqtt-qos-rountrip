@@ -1,0 +1,1 @@
+mosquitto_pub -m "Hello World" -t "test" -h 192.168.1.100

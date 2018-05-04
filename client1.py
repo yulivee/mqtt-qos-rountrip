@@ -34,11 +34,15 @@ def wait_for(client,msgType,period=0.25):
                 time.sleep(period)
 
 broker_address="192.168.1.100"
-port=1833
-qos_level="0"
+port=1883
+qos_level=0
+client_name="Schuhmacher"
+topic="test"
+answer_topic=topic+"_2"
+message="Hello World!"
 
-print("creating new instance")
-client = mqtt.Client("Schuhmacher") #create new client instance
+print("creating new instance "+client_name)
+client = mqtt.Client(client_name) #create new client instance
 #attach functions to callbacks
 client.on_log=on_log
 client.on_message=on_message 
@@ -47,23 +51,28 @@ client.on_connect=on_connect
 client.on_disconnect=on_disconnect
 
 # Connection to Broker
-print("connecting to broker")
+print("connecting to broker "+broker_address+":"+str(port))
 client.connect(broker_address,port) #connect to broker
 client.loop_start() #start the loop
 
-while not client.connected_flag:
-    print("waiting for connect")
-    time.sleep(2)
- 
-print("Publishing message to topic","test")
-# publish(topic, payload=None, qos=0, retain=False)
-pub_rc = client.publish("test","Hello World!", qos_level, False)
-print("publish returned ",pub_rc)
-time.sleep(4) # wait
+#while not client.connected_flag:
+#    print("waiting for connect")
+#    time.sleep(2)
 
-print("Subscribing to topic","test2")
-sub_rc = client.subscribe("test2",qos_level)
+print("Subscribing to topic "+answer_topic)
+sub_rc = client.subscribe(answer_topic,qos_level)
 print("subscribe returned ",sub_rc)
 wait_for(client, sub_rc)
+ 
+print("Publishing message to topic "+topic)
+# publish(topic, payload=None, qos=0, retain=False)
+
+i=10
+while (i!=0) :
+    print("publish message "+message+" on topic "+topic+", qos_level="+str(qos_level))
+    pub_rc = client.publish(topic,message, qos_level, False)
+    print("publish returned ",pub_rc)
+    time.sleep(2) # wait
+    i=i-1
 
 client.loop_stop() #stop the loop
