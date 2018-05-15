@@ -2,12 +2,41 @@
 import paho.mqtt.client as mqtt
 import time
 import logging
+import argparse
+
+parser = argparse.ArgumentParser()
+parser.add_argument('--qos_level', type=int, help="qos_level to be used" , choices=[0, 1, 2], default=0)
+parser.add_argument('--file', help="the file to be sent in the mqtt-message", default="")
+parser.add_argument('--time', type=int, help="time in minutes to send packages")
+parser.add_argument('--cycles', type=int, help="number of times a packet should be sent")
+args = parser.parse_args()
+
+qos_level=args.qos_level
+f=args.file
+logname="mqtt-roundtrip-"
+logname=logname+ "qos"+args.qos_level+"-"
+if f== "":
+   logname=logname+"empty_message-"
+else:
+   logname=logname+args.f+"-"
+
+if args.time:
+   logname=logname+args.time+"minutes-"
+
+if args.cycles:
+   logname=logname+args.cycles+"cycles-"
+
+topic=logname
+print "topic for client2:"+topic
+
+logname=logname+"-client1.log"
+
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 # create a file handler
-handler = logging.FileHandler('client1.log')
+handler = logging.FileHandler(logname)
 handler.setLevel(logging.INFO)
 
 # create a logging format
@@ -47,12 +76,10 @@ def wait_for(client,msgType,period=0.25):
                 time.sleep(period)
 
 broker_address="192.168.1.100"
-port=1883
-qos_level=0
 client_name="Schuhmacher"
-topic="test"
+port=1883
+#topic="test"
 answer_topic=topic+"_2"
-#message="Hello World!"
 
 print("creating new instance "+client_name)
 client = mqtt.Client(client_name) #create new client instance
@@ -73,14 +100,31 @@ sub_rc = client.subscribe(answer_topic,qos_level)
 logger.info("subscribe returned ",sub_rc)
 wait_for(client, sub_rc)
  
-f= open("file")
+if f == "":
+   message = f
+else:
+   f= open("file")
+   filecontent = f.read()
+   message = bytearray(filecontent)
 
-filecontent = f.read()
-message = bytearray(filecontent)
 
-i=10
-while (i!=0) :
-    pub_rc = client.publish(topic,message, qos_level, False)
-    i=i-1
+if args.cycles:
+   logger.info("Performing message publishing for "+args.cycles+" cycles")
+   i=args.cycles
+   while (i!=0) :
+       pub_rc = client.publish(topic,message, qos_level, False)
+       i=i-1
+
+   client.loop_stop() #stop the loop
+   exit
+
+if args.time:
+   logger.info("Performing message publishing for "+args.time+" minutes")
+   starttime = time.time()
+   stoptime = starttime + (args.time * 60);
+   while ( time.time() < stoptime ) :	
+       pub_rc = client.publish(topic,message, qos_level, False)
+   client.loop_stop() #stop the loop
+   exit
 
 client.loop_stop() #stop the loop
