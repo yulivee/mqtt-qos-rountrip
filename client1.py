@@ -34,10 +34,11 @@ logger = logging.getLogger(__name__)
 
 # create a file handler
 handler = logging.FileHandler('logs/'+logname)
-handler.setLevel(logging.INFO)
+handler.setLevel(logging.DEBUG)
+logger.setLevel(logging.DEBUG)
 
 # create a logging format
-formatter = logging.Formatter('%(asctime)s - %(message)s')
+formatter = logging.Formatter(fmt='%(asctime)s :%(msecs)03d- %(message)s',datefmt='%Y-%m-%d_%H:%M:%S')
 handler.setFormatter(formatter)
 
 # add the handlers to the logger
@@ -45,14 +46,14 @@ logger.addHandler(handler)
 
 
 def on_message(client, userdata, message):
-    logger.info("message received - id:"+message.id+" - topic:"+message.topic+" - qos:"+message.qos+" - size:"+str(len(message.payload)))
+    logger.info("message received - id:"+str(message.mid)+" - topic:"+message.topic+" - qos:"+str(message.qos)+" - size:"+str(len(message.payload)))
 
 def on_connect(client, userdata, flags, rc):
     if rc == 0:
         client.connected_flag=True
 	logger.info("Client connected to broker")
     else:
-	logger.info("Client failed to connected to broker, Return Code = ", rc)
+	logger.info("Client failed to connected to broker, Return Code = "+rc)
         client.loop_stop()
 
 def on_disconnect(client, userdata, rc):
@@ -76,7 +77,6 @@ def wait_for(client,msgType,period=0.25):
 broker_address="192.168.1.100"
 client_name="Schuhmacher"
 port=1883
-#topic="test"
 answer_topic=topic+"_2"
 
 client = mqtt.Client(client_name) #create new client instance
@@ -94,7 +94,7 @@ client.loop_start() #start the loop
 
 logger.info("Subscribing to topic "+answer_topic)
 sub_rc = client.subscribe(answer_topic,qos_level)
-logger.info("subscribe returned ",sub_rc)
+logger.info("subscribe returned "+str(sub_rc))
 wait_for(client, sub_rc)
  
 if f == "":
@@ -113,16 +113,13 @@ if args.cycles:
        pub_rc = client.publish(topic,message, qos_level, False)
        i=i-1
 
-   client.loop_stop() #stop the loop
-   exit
-
 if args.time:
-   logger.info("Performing message publishing for "+args.time+" minutes")
+   logger.info("Performing message publishing for "+str(args.time)+" minutes")
    starttime = time.time()
    stoptime = starttime + (args.time * 60);
    while ( time.time() < stoptime ) :	
        pub_rc = client.publish(topic,message, qos_level, False)
-   client.loop_stop() #stop the loop
-   exit
 
+
+time.sleep(3); #wait 10 seconds for incoming messages
 client.loop_stop() #stop the loop

@@ -28,7 +28,8 @@ logger = logging.getLogger(__name__)
 
 # create a file handler
 handler = logging.FileHandler('logs/'+logname)
-handler.setLevel(logging.INFO)
+handler.setLevel(logging.DEBUG)
+logger.setLevel(logging.DEBUG)
 
 # create a logging format
 formatter = logging.Formatter('%(asctime)s - %(message)s')
@@ -39,15 +40,15 @@ logger.addHandler(handler)
 
 
 def on_message(client, userdata, message):
-    logger.info("message received - id:"+message.id+" - topic:"+message.topic+" - qos:"+message.qos+" - size:"+str(len(message.payload)))
-    publish_back(message.topic, message.payload, message.qos, message.id)
+    logger.info("message received - id:"+str(message.mid)+" - topic:"+message.topic+" - qos:"+str(message.qos)+" - size:"+str(len(message.payload)))
+    publish_back(message.topic, message.payload, message.qos, message.mid)
 
 def on_connect(client, userdata, flags, rc):
     if rc == 0:
         client.connected_flag=True
 	logger.info("Client connected to broker")
     else:
-	logger.info("Client failed to connected to broker, Return Code = ", rc)
+	logger.info("Client failed to connected to broker, Return Code = "+rc)
         client.loop_stop()
 
 def on_disconnect(client, userdata, rc):
@@ -64,14 +65,14 @@ def wait_for(client,msgType,period=0.25):
     if msgType=="SUBACK":
         if client.on_subscribe:
             while not client.suback_flag:
-                logging.info("waiting suback")
+                logger.info("waiting suback")
                 client.loop()  #check for messages
                 time.sleep(period)
 
 def publish_back(topic, payload, qos, mid):
     topic=topic+"_2"
     pub_rc = client.publish(topic,payload, qos_level, False)
-    logger.info("message sent - id:"+mid+" - topic:"+topic+" - qos:"+qos_level+" - size:"+str(len(payload)))
+    logger.info("message sent - id:"+str(mid)+" - topic:"+topic+" - qos:"+str(qos_level)+" - size:"+str(len(payload)))
 
 broker_address="192.168.1.100"
 port=1883
@@ -92,9 +93,9 @@ client.connect(broker_address,port) #connect to broker
 client.loop_start() #start the loop
 
 
-logger.info("Subscribing to topic",topic)
-sub_rc = client.subscribe("test",qos_level)
-logger.info("subscribe returned ",sub_rc)
+logger.info("Subscribing to topic"+topic)
+sub_rc = client.subscribe(topic,qos_level)
+logger.info("subscribe returned "+str(sub_rc))
 wait_for(client, sub_rc)
 
 while ( 1 ):
