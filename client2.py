@@ -7,7 +7,7 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 # create a file handler
-handler = logging.FileHandler('client1.log')
+handler = logging.FileHandler('client2.log')
 handler.setLevel(logging.INFO)
 
 # create a logging format
