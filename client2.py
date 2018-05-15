@@ -2,12 +2,32 @@
 import paho.mqtt.client as mqtt
 import time
 import logging
+import argparse
 
-logging.basicConfig(level=logging.INFO)
+parser = argparse.ArgumentParser()
+parser.add_argument('--topic', help="the topic name client1 publishes to", default="")
+parser.add_argument('--qos_level', type=int, help="qos_level to be used" , choices=[0, 1, 2], default=4)
+
+args = parser.parse_args()
+
+if args.qos_level == 4 :
+   print "Argument qos_level is missing!"
+   exit(1)
+else: 
+   qos_level = args.qos_level
+
+if args.topic =="" :
+   print "Argument topic is missing!"
+   exit(1)
+else: 
+   topic = args.topic
+
+logname=topic+'-client2.log'
+
 logger = logging.getLogger(__name__)
 
 # create a file handler
-handler = logging.FileHandler('client2.log')
+handler = logging.FileHandler('logs/'+logname)
 handler.setLevel(logging.INFO)
 
 # create a logging format
@@ -34,8 +54,10 @@ def on_disconnect(client, userdata, rc):
     logger.info("Client disconnected from broker")
 
 def on_publish(client,userdata,mid):             #create function for callback
+    pass
 
 def on_log(client, userdata, level, buf):
+    pass
     #print("log: ",buf)
 
 def wait_for(client,msgType,period=0.25):
@@ -55,9 +77,7 @@ broker_address="192.168.1.100"
 port=1883
 qos_level=0
 client_name="Stolz"
-topic="test"
 
-print("creating new instance "+client_name)
 client = mqtt.Client(client_name) #create new client instance
 #attach functions to callbacks
 client.on_log=on_log

@@ -14,29 +14,26 @@ args = parser.parse_args()
 qos_level=args.qos_level
 f=args.file
 logname="mqtt-roundtrip-"
-logname=logname+ "qos"+args.qos_level+"-"
+logname=logname+ "qos"+str(args.qos_level)+"-"
 if f== "":
-   logname=logname+"empty_message-"
+   logname=logname+"empty_message"
 else:
-   logname=logname+args.f+"-"
+   logname=logname+args.f
 
 if args.time:
-   logname=logname+args.time+"minutes-"
+   logname=logname+"-"+str(args.time)+"-minutes"
 
 if args.cycles:
-   logname=logname+args.cycles+"cycles-"
+   logname=logname+"-"+str(args.cycles)+"-cycles"
 
 topic=logname
-print "topic for client2:"+topic
-
 logname=logname+"-client1.log"
 
 
-logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 # create a file handler
-handler = logging.FileHandler(logname)
+handler = logging.FileHandler('logs/'+logname)
 handler.setLevel(logging.INFO)
 
 # create a logging format
@@ -62,9 +59,10 @@ def on_disconnect(client, userdata, rc):
     logger.info("Client disconnected from broker")
 
 def on_publish(client,userdata,mid):             #create function for callback
-    logger.info("message sent - id:"+mid+" - topic:"+topic+" - qos:"+qos_level+" - size:"+str(len(message)))
+    logger.info("message sent - id:"+str(mid)+" - topic:"+topic+" - qos:"+str(qos_level)+" - size:"+str(len(message)))
 
 def on_log(client, userdata, level, buf):
+    pass
     #print("log: ",buf)
 
 def wait_for(client,msgType,period=0.25):
@@ -81,7 +79,6 @@ port=1883
 #topic="test"
 answer_topic=topic+"_2"
 
-print("creating new instance "+client_name)
 client = mqtt.Client(client_name) #create new client instance
 #attach functions to callbacks
 client.on_log=on_log
@@ -107,9 +104,10 @@ else:
    filecontent = f.read()
    message = bytearray(filecontent)
 
+raw_input("Press ENTER to proceed AFTER you have started client2.py with topic    "+topic)
 
 if args.cycles:
-   logger.info("Performing message publishing for "+args.cycles+" cycles")
+   logger.info("Performing message publishing for "+str(args.cycles)+" cycles")
    i=args.cycles
    while (i!=0) :
        pub_rc = client.publish(topic,message, qos_level, False)
