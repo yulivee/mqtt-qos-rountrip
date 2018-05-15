@@ -3,18 +3,12 @@ import paho.mqtt.client as mqtt
 import time
 import logging
 import argparse
+import re
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--topic', help="the topic name client1 publishes to", default="")
-parser.add_argument('--qos_level', type=int, help="qos_level to be used" , choices=[0, 1, 2], default=4)
 
 args = parser.parse_args()
-
-if args.qos_level == 4 :
-   print "Argument qos_level is missing!"
-   exit(1)
-else: 
-   qos_level = args.qos_level
 
 if args.topic =="" :
    print "Argument topic is missing!"
@@ -23,6 +17,8 @@ else:
    topic = args.topic
 
 logname=topic+'-client2.log'
+match = re.search(r'-qos(\d)-',topic)
+qos_level=match.group(1)
 
 logger = logging.getLogger(__name__)
 
