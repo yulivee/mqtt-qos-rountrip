@@ -3,6 +3,7 @@ import paho.mqtt.client as mqtt
 import time
 import logging
 import argparse
+import re
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--qos_level', type=int, help="qos_level to be used" , choices=[0, 1, 2], default=0)
@@ -18,7 +19,9 @@ logname=logname+ "qos"+str(args.qos_level)+"-"
 if f== "":
    logname=logname+"empty_message"
 else:
-   logname=logname+args.f
+   match = re.search(r'files/(.*).txt',args.file)
+   name = match.group(1)
+   logname=logname+name
 
 if args.time:
    logname=logname+"-"+str(args.time)+"-minutes"
@@ -102,7 +105,7 @@ wait_for(client, sub_rc)
 if f == "":
    message = f
 else:
-   f= open("file")
+   f= open(args.file)
    filecontent = f.read()
    message = bytearray(filecontent)
 
