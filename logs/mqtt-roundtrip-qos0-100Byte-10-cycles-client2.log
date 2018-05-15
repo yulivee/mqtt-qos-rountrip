@@ -1,0 +1,24 @@
+2018-05-15_23:05:27:141- connecting to broker 192.168.1.100:1883
+2018-05-15_23:05:27:142- Subscribing to topicmqtt-roundtrip-qos0-100Byte-10-cycles
+2018-05-15_23:05:27:143- subscribe returned (0, 1)
+2018-05-15_23:05:27:143- Client connected to broker
+2018-05-15_23:05:33:039- message received - id:0 - topic:mqtt-roundtrip-qos0-100Byte-10-cycles - qos:0 - size:100
+2018-05-15_23:05:33:040- message sent - id:0 - topic:mqtt-roundtrip-qos0-100Byte-10-cycles_2 - qos:0 - size:100
+2018-05-15_23:05:33:041- message received - id:0 - topic:mqtt-roundtrip-qos0-100Byte-10-cycles - qos:0 - size:100
+2018-05-15_23:05:33:041- message sent - id:0 - topic:mqtt-roundtrip-qos0-100Byte-10-cycles_2 - qos:0 - size:100
+2018-05-15_23:05:33:042- message received - id:0 - topic:mqtt-roundtrip-qos0-100Byte-10-cycles - qos:0 - size:100
+2018-05-15_23:05:33:042- message sent - id:0 - topic:mqtt-roundtrip-qos0-100Byte-10-cycles_2 - qos:0 - size:100
+2018-05-15_23:05:33:043- message received - id:0 - topic:mqtt-roundtrip-qos0-100Byte-10-cycles - qos:0 - size:100
+2018-05-15_23:05:33:043- message sent - id:0 - topic:mqtt-roundtrip-qos0-100Byte-10-cycles_2 - qos:0 - size:100
+2018-05-15_23:05:33:043- message received - id:0 - topic:mqtt-roundtrip-qos0-100Byte-10-cycles - qos:0 - size:100
+2018-05-15_23:05:33:043- message sent - id:0 - topic:mqtt-roundtrip-qos0-100Byte-10-cycles_2 - qos:0 - size:100
+2018-05-15_23:05:33:044- message received - id:0 - topic:mqtt-roundtrip-qos0-100Byte-10-cycles - qos:0 - size:100
+2018-05-15_23:05:33:044- message sent - id:0 - topic:mqtt-roundtrip-qos0-100Byte-10-cycles_2 - qos:0 - size:100
+2018-05-15_23:05:33:044- message received - id:0 - topic:mqtt-roundtrip-qos0-100Byte-10-cycles - qos:0 - size:100
+2018-05-15_23:05:33:044- message sent - id:0 - topic:mqtt-roundtrip-qos0-100Byte-10-cycles_2 - qos:0 - size:100
+2018-05-15_23:05:33:044- message received - id:0 - topic:mqtt-roundtrip-qos0-100Byte-10-cycles - qos:0 - size:100
+2018-05-15_23:05:33:045- message sent - id:0 - topic:mqtt-roundtrip-qos0-100Byte-10-cycles_2 - qos:0 - size:100
+2018-05-15_23:05:33:045- message received - id:0 - topic:mqtt-roundtrip-qos0-100Byte-10-cycles - qos:0 - size:100
+2018-05-15_23:05:33:045- message sent - id:0 - topic:mqtt-roundtrip-qos0-100Byte-10-cycles_2 - qos:0 - size:100
+2018-05-15_23:05:33:045- message received - id:0 - topic:mqtt-roundtrip-qos0-100Byte-10-cycles - qos:0 - size:100
+2018-05-15_23:05:33:046- message sent - id:0 - topic:mqtt-roundtrip-qos0-100Byte-10-cycles_2 - qos:0 - size:100

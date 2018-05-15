@@ -12,3 +12,8 @@ dd if=/dev/zero of=1MByte.txt bs=1M count=1
 dd if=/dev/zero of=10MByte.txt bs=10M count=1
 dd if=/dev/zero of=100MByte.txt bs=100M count=1
 dd if=/dev/zero of=256MByte.txt bs=256M count=1
+
+## Most efficient measuring
+```
+for qos in 0 1 2; do; for cycles in 10 100 1000; do echo "qos: $qos, cycles: $cycles"; python client1.py --file files/100Byte.txt --cycles $cycles --qos_level $qos ; sleep 3; killall python ; done ; done
+```
