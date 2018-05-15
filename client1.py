@@ -52,7 +52,7 @@ qos_level=0
 client_name="Schuhmacher"
 topic="test"
 answer_topic=topic+"_2"
-message="Hello World!"
+#message="Hello World!"
 
 print("creating new instance "+client_name)
 client = mqtt.Client(client_name) #create new client instance
@@ -73,6 +73,11 @@ sub_rc = client.subscribe(answer_topic,qos_level)
 logger.info("subscribe returned ",sub_rc)
 wait_for(client, sub_rc)
  
+f= open("file")
+
+filecontent = f.read()
+message = bytearray(filecontent)
+
 i=10
 while (i!=0) :
     pub_rc = client.publish(topic,message, qos_level, False)
