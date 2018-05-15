@@ -2,19 +2,11 @@
 import paho.mqtt.client as mqtt
 import time
 import logging
-import argparse
 import re
 
-parser = argparse.ArgumentParser()
-parser.add_argument('--topic', help="the topic name client1 publishes to", default="")
-
-args = parser.parse_args()
-
-if args.topic =="" :
-   print "Argument topic is missing!"
-   exit(1)
-else: 
-   topic = args.topic
+f = open('topic.ipc', 'r')
+topic = f.read()
+print topic
 
 logname=topic+'-client2.log'
 match = re.search(r'-qos(\d)-',topic)
@@ -28,7 +20,7 @@ handler.setLevel(logging.DEBUG)
 logger.setLevel(logging.DEBUG)
 
 # create a logging format
-formatter = logging.Formatter('%(asctime)s - %(message)s')
+formatter = logging.Formatter(fmt='%(asctime)s:%(msecs)03d- %(message)s',datefmt='%Y-%m-%d_%H:%M:%S')
 handler.setFormatter(formatter)
 
 # add the handlers to the logger

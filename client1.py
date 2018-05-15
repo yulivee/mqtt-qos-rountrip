@@ -29,6 +29,8 @@ if args.cycles:
 topic=logname
 logname=logname+"-client1.log"
 
+with open('topic.ipc', 'w') as the_file:
+    the_file.write(topic)
 
 logger = logging.getLogger(__name__)
 
@@ -38,7 +40,7 @@ handler.setLevel(logging.DEBUG)
 logger.setLevel(logging.DEBUG)
 
 # create a logging format
-formatter = logging.Formatter(fmt='%(asctime)s :%(msecs)03d- %(message)s',datefmt='%Y-%m-%d_%H:%M:%S')
+formatter = logging.Formatter(fmt='%(asctime)s:%(msecs)03d- %(message)s',datefmt='%Y-%m-%d_%H:%M:%S')
 handler.setFormatter(formatter)
 
 # add the handlers to the logger
@@ -104,7 +106,7 @@ else:
    filecontent = f.read()
    message = bytearray(filecontent)
 
-raw_input("Press ENTER to proceed AFTER you have started client2.py with topic    "+topic)
+raw_input("Press ENTER to proceed AFTER you have started client2.py")
 
 if args.cycles:
    logger.info("Performing message publishing for "+str(args.cycles)+" cycles")
