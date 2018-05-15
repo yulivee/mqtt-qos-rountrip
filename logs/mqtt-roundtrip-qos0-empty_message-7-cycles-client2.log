@@ -1,0 +1,42 @@
+2018-05-15_23:39:25:543- connecting to broker 192.168.1.100:1883
+2018-05-15_23:39:25:544- Subscribing to topicmqtt-roundtrip-qos0-empty_message-7-cycles
+2018-05-15_23:39:25:544- subscribe returned (0, 1)
+2018-05-15_23:39:25:544- Client connected to broker
+2018-05-15_23:39:27:366- message received - id:0 - topic:mqtt-roundtrip-qos0-empty_message-7-cycles - qos:0 - size:0
+2018-05-15_23:40:45:825- connecting to broker 192.168.1.100:1883
+2018-05-15_23:40:45:826- Subscribing to topicmqtt-roundtrip-qos0-empty_message-7-cycles
+2018-05-15_23:40:45:826- subscribe returned (0, 1)
+2018-05-15_23:40:45:826- Client connected to broker
+2018-05-15_23:40:52:832- message received - id:0 - topic:mqtt-roundtrip-qos0-empty_message-7-cycles - qos:0 - size:0
+2018-05-15_23:40:52:833- message sent - id:2 - topic:mqtt-roundtrip-qos0-empty_message-7-cycles - qos:0
+2018-05-15_23:40:52:834- message received - id:0 - topic:mqtt-roundtrip-qos0-empty_message-7-cycles - qos:0 - size:0
+2018-05-15_23:40:52:834- message sent - id:3 - topic:mqtt-roundtrip-qos0-empty_message-7-cycles - qos:0
+2018-05-15_23:40:52:835- message received - id:0 - topic:mqtt-roundtrip-qos0-empty_message-7-cycles - qos:0 - size:0
+2018-05-15_23:40:52:835- message received - id:0 - topic:mqtt-roundtrip-qos0-empty_message-7-cycles - qos:0 - size:0
+2018-05-15_23:40:52:835- message sent - id:4 - topic:mqtt-roundtrip-qos0-empty_message-7-cycles - qos:0
+2018-05-15_23:40:52:835- message sent - id:5 - topic:mqtt-roundtrip-qos0-empty_message-7-cycles - qos:0
+2018-05-15_23:40:52:835- message received - id:0 - topic:mqtt-roundtrip-qos0-empty_message-7-cycles - qos:0 - size:0
+2018-05-15_23:40:52:835- message sent - id:6 - topic:mqtt-roundtrip-qos0-empty_message-7-cycles - qos:0
+2018-05-15_23:40:52:836- message received - id:0 - topic:mqtt-roundtrip-qos0-empty_message-7-cycles - qos:0 - size:0
+2018-05-15_23:40:52:836- message sent - id:7 - topic:mqtt-roundtrip-qos0-empty_message-7-cycles - qos:0
+2018-05-15_23:40:52:836- message received - id:0 - topic:mqtt-roundtrip-qos0-empty_message-7-cycles - qos:0 - size:0
+2018-05-15_23:40:52:836- message sent - id:8 - topic:mqtt-roundtrip-qos0-empty_message-7-cycles - qos:0
+2018-05-15_23:42:41:840- connecting to broker 192.168.1.100:1883
+2018-05-15_23:42:41:841- Subscribing to topicmqtt-roundtrip-qos0-empty_message-7-cycles
+2018-05-15_23:42:41:842- subscribe returned (0, 1)
+2018-05-15_23:42:41:842- Client connected to broker
+2018-05-15_23:42:45:513- message received - id:0 - topic:mqtt-roundtrip-qos0-empty_message-7-cycles - qos:0 - size:0
+2018-05-15_23:42:45:514- message sent - id:2 - topic:mqtt-roundtrip-qos0-empty_message-7-cycles - qos:0
+2018-05-15_23:42:45:515- message received - id:0 - topic:mqtt-roundtrip-qos0-empty_message-7-cycles - qos:0 - size:0
+2018-05-15_23:42:45:515- message sent - id:3 - topic:mqtt-roundtrip-qos0-empty_message-7-cycles - qos:0
+2018-05-15_23:42:45:516- message received - id:0 - topic:mqtt-roundtrip-qos0-empty_message-7-cycles - qos:0 - size:0
+2018-05-15_23:42:45:516- message received - id:0 - topic:mqtt-roundtrip-qos0-empty_message-7-cycles - qos:0 - size:0
+2018-05-15_23:42:45:516- message sent - id:4 - topic:mqtt-roundtrip-qos0-empty_message-7-cycles - qos:0
+2018-05-15_23:42:45:516- message sent - id:5 - topic:mqtt-roundtrip-qos0-empty_message-7-cycles - qos:0
+2018-05-15_23:42:45:516- message received - id:0 - topic:mqtt-roundtrip-qos0-empty_message-7-cycles - qos:0 - size:0
+2018-05-15_23:42:45:517- message sent - id:6 - topic:mqtt-roundtrip-qos0-empty_message-7-cycles - qos:0
+2018-05-15_23:42:45:517- message received - id:0 - topic:mqtt-roundtrip-qos0-empty_message-7-cycles - qos:0 - size:0
+2018-05-15_23:42:45:517- message sent - id:7 - topic:mqtt-roundtrip-qos0-empty_message-7-cycles - qos:0
+2018-05-15_23:42:45:517- message received - id:0 - topic:mqtt-roundtrip-qos0-empty_message-7-cycles - qos:0 - size:0
+2018-05-15_23:42:45:517- message sent - id:8 - topic:mqtt-roundtrip-qos0-empty_message-7-cycles - qos:0
+2018-05-15_23:44:07:488- connecting to broker 192.168.1.100:1883

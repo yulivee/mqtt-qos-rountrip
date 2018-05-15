@@ -128,3 +128,4 @@ if args.time:
 
 time.sleep(3); #wait 10 seconds for incoming messages
 client.loop_stop() #stop the loop
+client.disconnect()

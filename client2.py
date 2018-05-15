@@ -43,7 +43,7 @@ def on_disconnect(client, userdata, rc):
     logger.info("Client disconnected from broker")
 
 def on_publish(client,userdata,mid):             #create function for callback
-    pass
+    logger.info("message sent - id:"+str(mid)+" - topic:"+topic+" - qos:"+str(qos_level))
 
 def on_log(client, userdata, level, buf):
     pass
@@ -60,7 +60,6 @@ def wait_for(client,msgType,period=0.25):
 def publish_back(topic, payload, qos, mid):
     topic=topic+"_2"
     pub_rc = client.publish(topic,payload, qos_level, False)
-    logger.info("message sent - id:"+str(mid)+" - topic:"+topic+" - qos:"+str(qos_level)+" - size:"+str(len(payload)))
 
 broker_address="192.168.1.100"
 port=1883
@@ -90,3 +89,4 @@ while ( 1 ):
     pass
 
 client.loop_stop() #stop the loop
+client.disconnect()

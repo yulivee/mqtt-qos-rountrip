@@ -1,0 +1,53 @@
+2018-05-15_23:39:10:209- connecting to broker 192.168.1.100:1883
+2018-05-15_23:39:18:539- connecting to broker 192.168.1.100:1883
+2018-05-15_23:39:21:697- connecting to broker 192.168.1.100:1883
+2018-05-15_23:39:21:699- Subscribing to topic mqtt-roundtrip-qos0-empty_message-7-cycles_2
+2018-05-15_23:39:21:700- subscribe returned (0, 1)
+2018-05-15_23:39:21:700- Client connected to broker
+2018-05-15_23:39:27:365- Performing message publishing for 7 cycles
+2018-05-15_23:39:27:365- message sent - id:2 - topic:mqtt-roundtrip-qos0-empty_message-7-cycles - qos:0 - size:0
+2018-05-15_23:39:27:365- message sent - id:3 - topic:mqtt-roundtrip-qos0-empty_message-7-cycles - qos:0 - size:0
+2018-05-15_23:39:27:366- message sent - id:4 - topic:mqtt-roundtrip-qos0-empty_message-7-cycles - qos:0 - size:0
+2018-05-15_23:39:27:366- message sent - id:5 - topic:mqtt-roundtrip-qos0-empty_message-7-cycles - qos:0 - size:0
+2018-05-15_23:39:27:366- message sent - id:6 - topic:mqtt-roundtrip-qos0-empty_message-7-cycles - qos:0 - size:0
+2018-05-15_23:39:27:366- message sent - id:7 - topic:mqtt-roundtrip-qos0-empty_message-7-cycles - qos:0 - size:0
+2018-05-15_23:39:27:366- message sent - id:8 - topic:mqtt-roundtrip-qos0-empty_message-7-cycles - qos:0 - size:0
+2018-05-15_23:39:27:367- message received - id:0 - topic:mqtt-roundtrip-qos0-empty_message-7-cycles_2 - qos:0 - size:0
+2018-05-15_23:40:51:872- connecting to broker 192.168.1.100:1883
+2018-05-15_23:40:51:873- Subscribing to topic mqtt-roundtrip-qos0-empty_message-7-cycles_2
+2018-05-15_23:40:51:873- subscribe returned (0, 1)
+2018-05-15_23:40:51:874- Client connected to broker
+2018-05-15_23:40:52:831- Performing message publishing for 7 cycles
+2018-05-15_23:40:52:831- message sent - id:2 - topic:mqtt-roundtrip-qos0-empty_message-7-cycles - qos:0 - size:0
+2018-05-15_23:40:52:831- message sent - id:3 - topic:mqtt-roundtrip-qos0-empty_message-7-cycles - qos:0 - size:0
+2018-05-15_23:40:52:831- message sent - id:4 - topic:mqtt-roundtrip-qos0-empty_message-7-cycles - qos:0 - size:0
+2018-05-15_23:40:52:832- message sent - id:5 - topic:mqtt-roundtrip-qos0-empty_message-7-cycles - qos:0 - size:0
+2018-05-15_23:40:52:832- message sent - id:6 - topic:mqtt-roundtrip-qos0-empty_message-7-cycles - qos:0 - size:0
+2018-05-15_23:40:52:832- message sent - id:7 - topic:mqtt-roundtrip-qos0-empty_message-7-cycles - qos:0 - size:0
+2018-05-15_23:40:52:833- message sent - id:8 - topic:mqtt-roundtrip-qos0-empty_message-7-cycles - qos:0 - size:0
+2018-05-15_23:40:52:833- message received - id:0 - topic:mqtt-roundtrip-qos0-empty_message-7-cycles_2 - qos:0 - size:0
+2018-05-15_23:40:52:835- message received - id:0 - topic:mqtt-roundtrip-qos0-empty_message-7-cycles_2 - qos:0 - size:0
+2018-05-15_23:40:52:873- message received - id:0 - topic:mqtt-roundtrip-qos0-empty_message-7-cycles_2 - qos:0 - size:0
+2018-05-15_23:40:52:880- message received - id:0 - topic:mqtt-roundtrip-qos0-empty_message-7-cycles_2 - qos:0 - size:0
+2018-05-15_23:40:52:880- message received - id:0 - topic:mqtt-roundtrip-qos0-empty_message-7-cycles_2 - qos:0 - size:0
+2018-05-15_23:40:52:880- message received - id:0 - topic:mqtt-roundtrip-qos0-empty_message-7-cycles_2 - qos:0 - size:0
+2018-05-15_23:40:52:880- message received - id:0 - topic:mqtt-roundtrip-qos0-empty_message-7-cycles_2 - qos:0 - size:0
+2018-05-15_23:42:39:877- connecting to broker 192.168.1.100:1883
+2018-05-15_23:42:39:878- Subscribing to topic mqtt-roundtrip-qos0-empty_message-7-cycles_2
+2018-05-15_23:42:39:878- subscribe returned (0, 1)
+2018-05-15_23:42:39:878- Client connected to broker
+2018-05-15_23:42:45:511- Performing message publishing for 7 cycles
+2018-05-15_23:42:45:512- message sent - id:2 - topic:mqtt-roundtrip-qos0-empty_message-7-cycles - qos:0 - size:0
+2018-05-15_23:42:45:512- message sent - id:3 - topic:mqtt-roundtrip-qos0-empty_message-7-cycles - qos:0 - size:0
+2018-05-15_23:42:45:512- message sent - id:4 - topic:mqtt-roundtrip-qos0-empty_message-7-cycles - qos:0 - size:0
+2018-05-15_23:42:45:512- message sent - id:5 - topic:mqtt-roundtrip-qos0-empty_message-7-cycles - qos:0 - size:0
+2018-05-15_23:42:45:512- message sent - id:6 - topic:mqtt-roundtrip-qos0-empty_message-7-cycles - qos:0 - size:0
+2018-05-15_23:42:45:512- message sent - id:7 - topic:mqtt-roundtrip-qos0-empty_message-7-cycles - qos:0 - size:0
+2018-05-15_23:42:45:512- message sent - id:8 - topic:mqtt-roundtrip-qos0-empty_message-7-cycles - qos:0 - size:0
+2018-05-15_23:42:45:514- message received - id:0 - topic:mqtt-roundtrip-qos0-empty_message-7-cycles_2 - qos:0 - size:0
+2018-05-15_23:42:45:516- message received - id:0 - topic:mqtt-roundtrip-qos0-empty_message-7-cycles_2 - qos:0 - size:0
+2018-05-15_23:42:45:553- message received - id:0 - topic:mqtt-roundtrip-qos0-empty_message-7-cycles_2 - qos:0 - size:0
+2018-05-15_23:42:45:559- message received - id:0 - topic:mqtt-roundtrip-qos0-empty_message-7-cycles_2 - qos:0 - size:0
+2018-05-15_23:42:45:559- message received - id:0 - topic:mqtt-roundtrip-qos0-empty_message-7-cycles_2 - qos:0 - size:0
+2018-05-15_23:42:45:560- message received - id:0 - topic:mqtt-roundtrip-qos0-empty_message-7-cycles_2 - qos:0 - size:0
+2018-05-15_23:42:45:560- message received - id:0 - topic:mqtt-roundtrip-qos0-empty_message-7-cycles_2 - qos:0 - size:0
