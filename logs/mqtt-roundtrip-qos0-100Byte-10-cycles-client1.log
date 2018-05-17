@@ -1,0 +1,42 @@
+2018-05-17_21:11:58:493- connecting to broker 192.168.1.100:1883
+2018-05-17_21:11:58:494- Subscribing to topic mqtt-roundtrip-qos0-100Byte-10-cycles_2
+2018-05-17_21:11:58:494- subscribe returned (0, 1)
+2018-05-17_21:11:58:494- Performing message publishing for 10 cycles
+2018-05-17_21:11:58:494- message sent - topic:mqtt-roundtrip-qos0-100Byte-10-cycles - qos:0 - id:000000
+2018-05-17_21:11:58:495- message sent - topic:mqtt-roundtrip-qos0-100Byte-10-cycles - qos:0 - id:000001
+2018-05-17_21:11:58:495- message sent - topic:mqtt-roundtrip-qos0-100Byte-10-cycles - qos:0 - id:000002
+2018-05-17_21:11:58:495- message sent - topic:mqtt-roundtrip-qos0-100Byte-10-cycles - qos:0 - id:000003
+2018-05-17_21:11:58:495- message sent - topic:mqtt-roundtrip-qos0-100Byte-10-cycles - qos:0 - id:000004
+2018-05-17_21:11:58:495- message sent - topic:mqtt-roundtrip-qos0-100Byte-10-cycles - qos:0 - id:000005
+2018-05-17_21:11:58:495- message sent - topic:mqtt-roundtrip-qos0-100Byte-10-cycles - qos:0 - id:000006
+2018-05-17_21:11:58:495- message sent - topic:mqtt-roundtrip-qos0-100Byte-10-cycles - qos:0 - id:000007
+2018-05-17_21:11:58:496- message sent - topic:mqtt-roundtrip-qos0-100Byte-10-cycles - qos:0 - id:000008
+2018-05-17_21:11:58:496- message sent - topic:mqtt-roundtrip-qos0-100Byte-10-cycles - qos:0 - id:000009
+2018-05-17_21:11:58:499- Client connected to broker
+2018-05-17_21:12:01:502- Client disconnected from broker
+2018-05-17_21:15:13:404- connecting to broker 192.168.1.100:1883
+2018-05-17_21:15:13:405- Subscribing to topic mqtt-roundtrip-qos0-100Byte-10-cycles_2
+2018-05-17_21:15:13:405- subscribe returned (0, 1)
+2018-05-17_21:15:13:405- Performing message publishing for 10 cycles
+2018-05-17_21:15:13:405- message sent - topic:mqtt-roundtrip-qos0-100Byte-10-cycles - qos:0 - id:000000
+2018-05-17_21:15:13:406- message sent - topic:mqtt-roundtrip-qos0-100Byte-10-cycles - qos:0 - id:000001
+2018-05-17_21:15:13:406- message sent - topic:mqtt-roundtrip-qos0-100Byte-10-cycles - qos:0 - id:000002
+2018-05-17_21:15:13:406- Client connected to broker
+2018-05-17_21:15:13:406- message sent - topic:mqtt-roundtrip-qos0-100Byte-10-cycles - qos:0 - id:000003
+2018-05-17_21:15:13:406- message sent - topic:mqtt-roundtrip-qos0-100Byte-10-cycles - qos:0 - id:000004
+2018-05-17_21:15:13:407- message sent - topic:mqtt-roundtrip-qos0-100Byte-10-cycles - qos:0 - id:000005
+2018-05-17_21:15:13:407- message sent - topic:mqtt-roundtrip-qos0-100Byte-10-cycles - qos:0 - id:000006
+2018-05-17_21:15:13:407- message sent - topic:mqtt-roundtrip-qos0-100Byte-10-cycles - qos:0 - id:000007
+2018-05-17_21:15:13:407- message sent - topic:mqtt-roundtrip-qos0-100Byte-10-cycles - qos:0 - id:000008
+2018-05-17_21:15:13:407- message sent - topic:mqtt-roundtrip-qos0-100Byte-10-cycles - qos:0 - id:000009
+2018-05-17_21:15:13:408- message received - topic:mqtt-roundtrip-qos0-100Byte-10-cycles_2 - qos:0 - size:106 - id:000000
+2018-05-17_21:15:13:409- message received - topic:mqtt-roundtrip-qos0-100Byte-10-cycles_2 - qos:0 - size:106 - id:000001
+2018-05-17_21:15:13:447- message received - topic:mqtt-roundtrip-qos0-100Byte-10-cycles_2 - qos:0 - size:106 - id:000002
+2018-05-17_21:15:13:447- message received - topic:mqtt-roundtrip-qos0-100Byte-10-cycles_2 - qos:0 - size:106 - id:000003
+2018-05-17_21:15:13:451- message received - topic:mqtt-roundtrip-qos0-100Byte-10-cycles_2 - qos:0 - size:106 - id:000004
+2018-05-17_21:15:13:451- message received - topic:mqtt-roundtrip-qos0-100Byte-10-cycles_2 - qos:0 - size:106 - id:000005
+2018-05-17_21:15:13:451- message received - topic:mqtt-roundtrip-qos0-100Byte-10-cycles_2 - qos:0 - size:106 - id:000006
+2018-05-17_21:15:13:451- message received - topic:mqtt-roundtrip-qos0-100Byte-10-cycles_2 - qos:0 - size:106 - id:000007
+2018-05-17_21:15:13:452- message received - topic:mqtt-roundtrip-qos0-100Byte-10-cycles_2 - qos:0 - size:106 - id:000008
+2018-05-17_21:15:13:452- message received - topic:mqtt-roundtrip-qos0-100Byte-10-cycles_2 - qos:0 - size:106 - id:000009
+2018-05-17_21:15:16:455- Client disconnected from broker

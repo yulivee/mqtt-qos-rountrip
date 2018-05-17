@@ -1,0 +1,22 @@
+2018-05-17_21:15:44:968- Subscribing to topicmqtt-roundtrip-qos2-100Byte-10-cycles
+2018-05-17_21:15:44:968- subscribe returned (0, 1)
+2018-05-17_21:15:44:974- message received - topic:mqtt-roundtrip-qos2-100Byte-10-cycles - qos:2 - size:106 - id:000000
+2018-05-17_21:15:44:974- message sent - topic:mqtt-roundtrip-qos2-100Byte-10-cycles_2 - qos:2 - id:000000
+2018-05-17_21:15:45:014- message received - topic:mqtt-roundtrip-qos2-100Byte-10-cycles - qos:2 - size:106 - id:000001
+2018-05-17_21:15:45:014- message sent - topic:mqtt-roundtrip-qos2-100Byte-10-cycles_2 - qos:2 - id:000001
+2018-05-17_21:15:45:015- message received - topic:mqtt-roundtrip-qos2-100Byte-10-cycles - qos:2 - size:106 - id:000002
+2018-05-17_21:15:45:015- message sent - topic:mqtt-roundtrip-qos2-100Byte-10-cycles_2 - qos:2 - id:000002
+2018-05-17_21:15:45:015- message received - topic:mqtt-roundtrip-qos2-100Byte-10-cycles - qos:2 - size:106 - id:000003
+2018-05-17_21:15:45:015- message sent - topic:mqtt-roundtrip-qos2-100Byte-10-cycles_2 - qos:2 - id:000003
+2018-05-17_21:15:45:015- message received - topic:mqtt-roundtrip-qos2-100Byte-10-cycles - qos:2 - size:106 - id:000004
+2018-05-17_21:15:45:016- message sent - topic:mqtt-roundtrip-qos2-100Byte-10-cycles_2 - qos:2 - id:000004
+2018-05-17_21:15:45:016- message received - topic:mqtt-roundtrip-qos2-100Byte-10-cycles - qos:2 - size:106 - id:000005
+2018-05-17_21:15:45:016- message sent - topic:mqtt-roundtrip-qos2-100Byte-10-cycles_2 - qos:2 - id:000005
+2018-05-17_21:15:45:017- message received - topic:mqtt-roundtrip-qos2-100Byte-10-cycles - qos:2 - size:106 - id:000006
+2018-05-17_21:15:45:017- message sent - topic:mqtt-roundtrip-qos2-100Byte-10-cycles_2 - qos:2 - id:000006
+2018-05-17_21:15:45:017- message received - topic:mqtt-roundtrip-qos2-100Byte-10-cycles - qos:2 - size:106 - id:000007
+2018-05-17_21:15:45:017- message sent - topic:mqtt-roundtrip-qos2-100Byte-10-cycles_2 - qos:2 - id:000007
+2018-05-17_21:15:45:017- message received - topic:mqtt-roundtrip-qos2-100Byte-10-cycles - qos:2 - size:106 - id:000008
+2018-05-17_21:15:45:017- message sent - topic:mqtt-roundtrip-qos2-100Byte-10-cycles_2 - qos:2 - id:000008
+2018-05-17_21:15:45:018- message received - topic:mqtt-roundtrip-qos2-100Byte-10-cycles - qos:2 - size:106 - id:000009
+2018-05-17_21:15:45:018- message sent - topic:mqtt-roundtrip-qos2-100Byte-10-cycles_2 - qos:2 - id:000009

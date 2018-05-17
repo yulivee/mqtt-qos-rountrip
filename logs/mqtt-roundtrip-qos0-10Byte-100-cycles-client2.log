@@ -1,0 +1,202 @@
+2018-05-17_21:17:55:816- Subscribing to topicmqtt-roundtrip-qos0-10Byte-100-cycles
+2018-05-17_21:17:55:816- subscribe returned (0, 1)
+2018-05-17_21:17:56:142- message received - topic:mqtt-roundtrip-qos0-10Byte-100-cycles - qos:0 - size:16 - id:000000
+2018-05-17_21:17:56:142- message sent - topic:mqtt-roundtrip-qos0-10Byte-100-cycles_2 - qos:0 - id:000000
+2018-05-17_21:17:56:142- message received - topic:mqtt-roundtrip-qos0-10Byte-100-cycles - qos:0 - size:16 - id:000001
+2018-05-17_21:17:56:142- message sent - topic:mqtt-roundtrip-qos0-10Byte-100-cycles_2 - qos:0 - id:000001
+2018-05-17_21:17:56:143- message received - topic:mqtt-roundtrip-qos0-10Byte-100-cycles - qos:0 - size:16 - id:000002
+2018-05-17_21:17:56:143- message sent - topic:mqtt-roundtrip-qos0-10Byte-100-cycles_2 - qos:0 - id:000002
+2018-05-17_21:17:56:143- message received - topic:mqtt-roundtrip-qos0-10Byte-100-cycles - qos:0 - size:16 - id:000003
+2018-05-17_21:17:56:143- message sent - topic:mqtt-roundtrip-qos0-10Byte-100-cycles_2 - qos:0 - id:000003
+2018-05-17_21:17:56:144- message received - topic:mqtt-roundtrip-qos0-10Byte-100-cycles - qos:0 - size:16 - id:000004
+2018-05-17_21:17:56:144- message sent - topic:mqtt-roundtrip-qos0-10Byte-100-cycles_2 - qos:0 - id:000004
+2018-05-17_21:17:56:144- message received - topic:mqtt-roundtrip-qos0-10Byte-100-cycles - qos:0 - size:16 - id:000005
+2018-05-17_21:17:56:144- message sent - topic:mqtt-roundtrip-qos0-10Byte-100-cycles_2 - qos:0 - id:000005
+2018-05-17_21:17:56:144- message received - topic:mqtt-roundtrip-qos0-10Byte-100-cycles - qos:0 - size:16 - id:000006
+2018-05-17_21:17:56:144- message sent - topic:mqtt-roundtrip-qos0-10Byte-100-cycles_2 - qos:0 - id:000006
+2018-05-17_21:17:56:145- message received - topic:mqtt-roundtrip-qos0-10Byte-100-cycles - qos:0 - size:16 - id:000007
+2018-05-17_21:17:56:145- message sent - topic:mqtt-roundtrip-qos0-10Byte-100-cycles_2 - qos:0 - id:000007
+2018-05-17_21:17:56:145- message received - topic:mqtt-roundtrip-qos0-10Byte-100-cycles - qos:0 - size:16 - id:000008
+2018-05-17_21:17:56:145- message sent - topic:mqtt-roundtrip-qos0-10Byte-100-cycles_2 - qos:0 - id:000008
+2018-05-17_21:17:56:146- message received - topic:mqtt-roundtrip-qos0-10Byte-100-cycles - qos:0 - size:16 - id:000009
+2018-05-17_21:17:56:146- message sent - topic:mqtt-roundtrip-qos0-10Byte-100-cycles_2 - qos:0 - id:000009
+2018-05-17_21:17:56:146- message received - topic:mqtt-roundtrip-qos0-10Byte-100-cycles - qos:0 - size:16 - id:000010
+2018-05-17_21:17:56:146- message sent - topic:mqtt-roundtrip-qos0-10Byte-100-cycles_2 - qos:0 - id:000010
+2018-05-17_21:17:56:147- message received - topic:mqtt-roundtrip-qos0-10Byte-100-cycles - qos:0 - size:16 - id:000011
+2018-05-17_21:17:56:147- message sent - topic:mqtt-roundtrip-qos0-10Byte-100-cycles_2 - qos:0 - id:000011
+2018-05-17_21:17:56:147- message received - topic:mqtt-roundtrip-qos0-10Byte-100-cycles - qos:0 - size:16 - id:000012
+2018-05-17_21:17:56:147- message sent - topic:mqtt-roundtrip-qos0-10Byte-100-cycles_2 - qos:0 - id:000012
+2018-05-17_21:17:56:148- message received - topic:mqtt-roundtrip-qos0-10Byte-100-cycles - qos:0 - size:16 - id:000013
+2018-05-17_21:17:56:148- message sent - topic:mqtt-roundtrip-qos0-10Byte-100-cycles_2 - qos:0 - id:000013
+2018-05-17_21:17:56:148- message received - topic:mqtt-roundtrip-qos0-10Byte-100-cycles - qos:0 - size:16 - id:000014
+2018-05-17_21:17:56:149- message sent - topic:mqtt-roundtrip-qos0-10Byte-100-cycles_2 - qos:0 - id:000014
+2018-05-17_21:17:56:149- message received - topic:mqtt-roundtrip-qos0-10Byte-100-cycles - qos:0 - size:16 - id:000015
+2018-05-17_21:17:56:149- message sent - topic:mqtt-roundtrip-qos0-10Byte-100-cycles_2 - qos:0 - id:000015
+2018-05-17_21:17:56:149- message received - topic:mqtt-roundtrip-qos0-10Byte-100-cycles - qos:0 - size:16 - id:000016
+2018-05-17_21:17:56:150- message sent - topic:mqtt-roundtrip-qos0-10Byte-100-cycles_2 - qos:0 - id:000016
+2018-05-17_21:17:56:150- message received - topic:mqtt-roundtrip-qos0-10Byte-100-cycles - qos:0 - size:16 - id:000017
+2018-05-17_21:17:56:150- message sent - topic:mqtt-roundtrip-qos0-10Byte-100-cycles_2 - qos:0 - id:000017
+2018-05-17_21:17:56:150- message received - topic:mqtt-roundtrip-qos0-10Byte-100-cycles - qos:0 - size:16 - id:000018
+2018-05-17_21:17:56:151- message sent - topic:mqtt-roundtrip-qos0-10Byte-100-cycles_2 - qos:0 - id:000018
+2018-05-17_21:17:56:151- message received - topic:mqtt-roundtrip-qos0-10Byte-100-cycles - qos:0 - size:16 - id:000019
+2018-05-17_21:17:56:151- message sent - topic:mqtt-roundtrip-qos0-10Byte-100-cycles_2 - qos:0 - id:000019
+2018-05-17_21:17:56:151- message received - topic:mqtt-roundtrip-qos0-10Byte-100-cycles - qos:0 - size:16 - id:000020
+2018-05-17_21:17:56:152- message sent - topic:mqtt-roundtrip-qos0-10Byte-100-cycles_2 - qos:0 - id:000020
+2018-05-17_21:17:56:152- message received - topic:mqtt-roundtrip-qos0-10Byte-100-cycles - qos:0 - size:16 - id:000021
+2018-05-17_21:17:56:152- message sent - topic:mqtt-roundtrip-qos0-10Byte-100-cycles_2 - qos:0 - id:000021
+2018-05-17_21:17:56:153- message received - topic:mqtt-roundtrip-qos0-10Byte-100-cycles - qos:0 - size:16 - id:000022
+2018-05-17_21:17:56:153- message sent - topic:mqtt-roundtrip-qos0-10Byte-100-cycles_2 - qos:0 - id:000022
+2018-05-17_21:17:56:153- message received - topic:mqtt-roundtrip-qos0-10Byte-100-cycles - qos:0 - size:16 - id:000023
+2018-05-17_21:17:56:153- message sent - topic:mqtt-roundtrip-qos0-10Byte-100-cycles_2 - qos:0 - id:000023
+2018-05-17_21:17:56:153- message received - topic:mqtt-roundtrip-qos0-10Byte-100-cycles - qos:0 - size:16 - id:000024
+2018-05-17_21:17:56:153- message sent - topic:mqtt-roundtrip-qos0-10Byte-100-cycles_2 - qos:0 - id:000024
+2018-05-17_21:17:56:154- message received - topic:mqtt-roundtrip-qos0-10Byte-100-cycles - qos:0 - size:16 - id:000025
+2018-05-17_21:17:56:154- message sent - topic:mqtt-roundtrip-qos0-10Byte-100-cycles_2 - qos:0 - id:000025
+2018-05-17_21:17:56:154- message received - topic:mqtt-roundtrip-qos0-10Byte-100-cycles - qos:0 - size:16 - id:000026
+2018-05-17_21:17:56:154- message sent - topic:mqtt-roundtrip-qos0-10Byte-100-cycles_2 - qos:0 - id:000026
+2018-05-17_21:17:56:154- message received - topic:mqtt-roundtrip-qos0-10Byte-100-cycles - qos:0 - size:16 - id:000027
+2018-05-17_21:17:56:155- message sent - topic:mqtt-roundtrip-qos0-10Byte-100-cycles_2 - qos:0 - id:000027
+2018-05-17_21:17:56:155- message received - topic:mqtt-roundtrip-qos0-10Byte-100-cycles - qos:0 - size:16 - id:000028
+2018-05-17_21:17:56:155- message sent - topic:mqtt-roundtrip-qos0-10Byte-100-cycles_2 - qos:0 - id:000028
+2018-05-17_21:17:56:155- message received - topic:mqtt-roundtrip-qos0-10Byte-100-cycles - qos:0 - size:16 - id:000029
+2018-05-17_21:17:56:155- message sent - topic:mqtt-roundtrip-qos0-10Byte-100-cycles_2 - qos:0 - id:000029
+2018-05-17_21:17:56:155- message received - topic:mqtt-roundtrip-qos0-10Byte-100-cycles - qos:0 - size:16 - id:000030
+2018-05-17_21:17:56:156- message sent - topic:mqtt-roundtrip-qos0-10Byte-100-cycles_2 - qos:0 - id:000030
+2018-05-17_21:17:56:156- message received - topic:mqtt-roundtrip-qos0-10Byte-100-cycles - qos:0 - size:16 - id:000031
+2018-05-17_21:17:56:156- message sent - topic:mqtt-roundtrip-qos0-10Byte-100-cycles_2 - qos:0 - id:000031
+2018-05-17_21:17:56:156- message received - topic:mqtt-roundtrip-qos0-10Byte-100-cycles - qos:0 - size:16 - id:000032
+2018-05-17_21:17:56:156- message sent - topic:mqtt-roundtrip-qos0-10Byte-100-cycles_2 - qos:0 - id:000032
+2018-05-17_21:17:56:157- message received - topic:mqtt-roundtrip-qos0-10Byte-100-cycles - qos:0 - size:16 - id:000033
+2018-05-17_21:17:56:157- message sent - topic:mqtt-roundtrip-qos0-10Byte-100-cycles_2 - qos:0 - id:000033
+2018-05-17_21:17:56:157- message received - topic:mqtt-roundtrip-qos0-10Byte-100-cycles - qos:0 - size:16 - id:000034
+2018-05-17_21:17:56:157- message sent - topic:mqtt-roundtrip-qos0-10Byte-100-cycles_2 - qos:0 - id:000034
+2018-05-17_21:17:56:157- message received - topic:mqtt-roundtrip-qos0-10Byte-100-cycles - qos:0 - size:16 - id:000035
+2018-05-17_21:17:56:157- message sent - topic:mqtt-roundtrip-qos0-10Byte-100-cycles_2 - qos:0 - id:000035
+2018-05-17_21:17:56:158- message received - topic:mqtt-roundtrip-qos0-10Byte-100-cycles - qos:0 - size:16 - id:000036
+2018-05-17_21:17:56:158- message sent - topic:mqtt-roundtrip-qos0-10Byte-100-cycles_2 - qos:0 - id:000036
+2018-05-17_21:17:56:158- message received - topic:mqtt-roundtrip-qos0-10Byte-100-cycles - qos:0 - size:16 - id:000037
+2018-05-17_21:17:56:158- message sent - topic:mqtt-roundtrip-qos0-10Byte-100-cycles_2 - qos:0 - id:000037
+2018-05-17_21:17:56:158- message received - topic:mqtt-roundtrip-qos0-10Byte-100-cycles - qos:0 - size:16 - id:000038
+2018-05-17_21:17:56:159- message sent - topic:mqtt-roundtrip-qos0-10Byte-100-cycles_2 - qos:0 - id:000038
+2018-05-17_21:17:56:159- message received - topic:mqtt-roundtrip-qos0-10Byte-100-cycles - qos:0 - size:16 - id:000039
+2018-05-17_21:17:56:159- message sent - topic:mqtt-roundtrip-qos0-10Byte-100-cycles_2 - qos:0 - id:000039
+2018-05-17_21:17:56:159- message received - topic:mqtt-roundtrip-qos0-10Byte-100-cycles - qos:0 - size:16 - id:000040
+2018-05-17_21:17:56:159- message sent - topic:mqtt-roundtrip-qos0-10Byte-100-cycles_2 - qos:0 - id:000040
+2018-05-17_21:17:56:159- message received - topic:mqtt-roundtrip-qos0-10Byte-100-cycles - qos:0 - size:16 - id:000041
+2018-05-17_21:17:56:160- message sent - topic:mqtt-roundtrip-qos0-10Byte-100-cycles_2 - qos:0 - id:000041
+2018-05-17_21:17:56:160- message received - topic:mqtt-roundtrip-qos0-10Byte-100-cycles - qos:0 - size:16 - id:000042
+2018-05-17_21:17:56:160- message sent - topic:mqtt-roundtrip-qos0-10Byte-100-cycles_2 - qos:0 - id:000042
+2018-05-17_21:17:56:160- message received - topic:mqtt-roundtrip-qos0-10Byte-100-cycles - qos:0 - size:16 - id:000043
+2018-05-17_21:17:56:160- message sent - topic:mqtt-roundtrip-qos0-10Byte-100-cycles_2 - qos:0 - id:000043
+2018-05-17_21:17:56:161- message received - topic:mqtt-roundtrip-qos0-10Byte-100-cycles - qos:0 - size:16 - id:000044
+2018-05-17_21:17:56:161- message sent - topic:mqtt-roundtrip-qos0-10Byte-100-cycles_2 - qos:0 - id:000044
+2018-05-17_21:17:56:161- message received - topic:mqtt-roundtrip-qos0-10Byte-100-cycles - qos:0 - size:16 - id:000045
+2018-05-17_21:17:56:161- message sent - topic:mqtt-roundtrip-qos0-10Byte-100-cycles_2 - qos:0 - id:000045
+2018-05-17_21:17:56:161- message received - topic:mqtt-roundtrip-qos0-10Byte-100-cycles - qos:0 - size:16 - id:000046
+2018-05-17_21:17:56:161- message sent - topic:mqtt-roundtrip-qos0-10Byte-100-cycles_2 - qos:0 - id:000046
+2018-05-17_21:17:56:162- message received - topic:mqtt-roundtrip-qos0-10Byte-100-cycles - qos:0 - size:16 - id:000047
+2018-05-17_21:17:56:162- message sent - topic:mqtt-roundtrip-qos0-10Byte-100-cycles_2 - qos:0 - id:000047
+2018-05-17_21:17:56:162- message received - topic:mqtt-roundtrip-qos0-10Byte-100-cycles - qos:0 - size:16 - id:000048
+2018-05-17_21:17:56:162- message sent - topic:mqtt-roundtrip-qos0-10Byte-100-cycles_2 - qos:0 - id:000048
+2018-05-17_21:17:56:163- message received - topic:mqtt-roundtrip-qos0-10Byte-100-cycles - qos:0 - size:16 - id:000049
+2018-05-17_21:17:56:163- message sent - topic:mqtt-roundtrip-qos0-10Byte-100-cycles_2 - qos:0 - id:000049
+2018-05-17_21:17:56:163- message received - topic:mqtt-roundtrip-qos0-10Byte-100-cycles - qos:0 - size:16 - id:000050
+2018-05-17_21:17:56:164- message sent - topic:mqtt-roundtrip-qos0-10Byte-100-cycles_2 - qos:0 - id:000050
+2018-05-17_21:17:56:164- message received - topic:mqtt-roundtrip-qos0-10Byte-100-cycles - qos:0 - size:16 - id:000051
+2018-05-17_21:17:56:164- message sent - topic:mqtt-roundtrip-qos0-10Byte-100-cycles_2 - qos:0 - id:000051
+2018-05-17_21:17:56:164- message received - topic:mqtt-roundtrip-qos0-10Byte-100-cycles - qos:0 - size:16 - id:000052
+2018-05-17_21:17:56:165- message sent - topic:mqtt-roundtrip-qos0-10Byte-100-cycles_2 - qos:0 - id:000052
+2018-05-17_21:17:56:165- message received - topic:mqtt-roundtrip-qos0-10Byte-100-cycles - qos:0 - size:16 - id:000053
+2018-05-17_21:17:56:165- message sent - topic:mqtt-roundtrip-qos0-10Byte-100-cycles_2 - qos:0 - id:000053
+2018-05-17_21:17:56:165- message received - topic:mqtt-roundtrip-qos0-10Byte-100-cycles - qos:0 - size:16 - id:000054
+2018-05-17_21:17:56:166- message sent - topic:mqtt-roundtrip-qos0-10Byte-100-cycles_2 - qos:0 - id:000054
+2018-05-17_21:17:56:166- message received - topic:mqtt-roundtrip-qos0-10Byte-100-cycles - qos:0 - size:16 - id:000055
+2018-05-17_21:17:56:166- message sent - topic:mqtt-roundtrip-qos0-10Byte-100-cycles_2 - qos:0 - id:000055
+2018-05-17_21:17:56:166- message received - topic:mqtt-roundtrip-qos0-10Byte-100-cycles - qos:0 - size:16 - id:000056
+2018-05-17_21:17:56:167- message sent - topic:mqtt-roundtrip-qos0-10Byte-100-cycles_2 - qos:0 - id:000056
+2018-05-17_21:17:56:167- message received - topic:mqtt-roundtrip-qos0-10Byte-100-cycles - qos:0 - size:16 - id:000057
+2018-05-17_21:17:56:167- message sent - topic:mqtt-roundtrip-qos0-10Byte-100-cycles_2 - qos:0 - id:000057
+2018-05-17_21:17:56:167- message received - topic:mqtt-roundtrip-qos0-10Byte-100-cycles - qos:0 - size:16 - id:000058
+2018-05-17_21:17:56:168- message sent - topic:mqtt-roundtrip-qos0-10Byte-100-cycles_2 - qos:0 - id:000058
+2018-05-17_21:17:56:168- message received - topic:mqtt-roundtrip-qos0-10Byte-100-cycles - qos:0 - size:16 - id:000059
+2018-05-17_21:17:56:168- message sent - topic:mqtt-roundtrip-qos0-10Byte-100-cycles_2 - qos:0 - id:000059
+2018-05-17_21:17:56:168- message received - topic:mqtt-roundtrip-qos0-10Byte-100-cycles - qos:0 - size:16 - id:000060
+2018-05-17_21:17:56:168- message sent - topic:mqtt-roundtrip-qos0-10Byte-100-cycles_2 - qos:0 - id:000060
+2018-05-17_21:17:56:169- message received - topic:mqtt-roundtrip-qos0-10Byte-100-cycles - qos:0 - size:16 - id:000061
+2018-05-17_21:17:56:169- message sent - topic:mqtt-roundtrip-qos0-10Byte-100-cycles_2 - qos:0 - id:000061
+2018-05-17_21:17:56:169- message received - topic:mqtt-roundtrip-qos0-10Byte-100-cycles - qos:0 - size:16 - id:000062
+2018-05-17_21:17:56:169- message sent - topic:mqtt-roundtrip-qos0-10Byte-100-cycles_2 - qos:0 - id:000062
+2018-05-17_21:17:56:169- message received - topic:mqtt-roundtrip-qos0-10Byte-100-cycles - qos:0 - size:16 - id:000063
+2018-05-17_21:17:56:170- message sent - topic:mqtt-roundtrip-qos0-10Byte-100-cycles_2 - qos:0 - id:000063
+2018-05-17_21:17:56:170- message received - topic:mqtt-roundtrip-qos0-10Byte-100-cycles - qos:0 - size:16 - id:000064
+2018-05-17_21:17:56:170- message sent - topic:mqtt-roundtrip-qos0-10Byte-100-cycles_2 - qos:0 - id:000064
+2018-05-17_21:17:56:170- message received - topic:mqtt-roundtrip-qos0-10Byte-100-cycles - qos:0 - size:16 - id:000065
+2018-05-17_21:17:56:170- message sent - topic:mqtt-roundtrip-qos0-10Byte-100-cycles_2 - qos:0 - id:000065
+2018-05-17_21:17:56:171- message received - topic:mqtt-roundtrip-qos0-10Byte-100-cycles - qos:0 - size:16 - id:000066
+2018-05-17_21:17:56:171- message sent - topic:mqtt-roundtrip-qos0-10Byte-100-cycles_2 - qos:0 - id:000066
+2018-05-17_21:17:56:171- message received - topic:mqtt-roundtrip-qos0-10Byte-100-cycles - qos:0 - size:16 - id:000067
+2018-05-17_21:17:56:171- message sent - topic:mqtt-roundtrip-qos0-10Byte-100-cycles_2 - qos:0 - id:000067
+2018-05-17_21:17:56:171- message received - topic:mqtt-roundtrip-qos0-10Byte-100-cycles - qos:0 - size:16 - id:000068
+2018-05-17_21:17:56:171- message sent - topic:mqtt-roundtrip-qos0-10Byte-100-cycles_2 - qos:0 - id:000068
+2018-05-17_21:17:56:172- message received - topic:mqtt-roundtrip-qos0-10Byte-100-cycles - qos:0 - size:16 - id:000069
+2018-05-17_21:17:56:172- message sent - topic:mqtt-roundtrip-qos0-10Byte-100-cycles_2 - qos:0 - id:000069
+2018-05-17_21:17:56:172- message received - topic:mqtt-roundtrip-qos0-10Byte-100-cycles - qos:0 - size:16 - id:000070
+2018-05-17_21:17:56:172- message sent - topic:mqtt-roundtrip-qos0-10Byte-100-cycles_2 - qos:0 - id:000070
+2018-05-17_21:17:56:172- message received - topic:mqtt-roundtrip-qos0-10Byte-100-cycles - qos:0 - size:16 - id:000071
+2018-05-17_21:17:56:173- message sent - topic:mqtt-roundtrip-qos0-10Byte-100-cycles_2 - qos:0 - id:000071
+2018-05-17_21:17:56:173- message received - topic:mqtt-roundtrip-qos0-10Byte-100-cycles - qos:0 - size:16 - id:000072
+2018-05-17_21:17:56:173- message sent - topic:mqtt-roundtrip-qos0-10Byte-100-cycles_2 - qos:0 - id:000072
+2018-05-17_21:17:56:173- message received - topic:mqtt-roundtrip-qos0-10Byte-100-cycles - qos:0 - size:16 - id:000073
+2018-05-17_21:17:56:173- message sent - topic:mqtt-roundtrip-qos0-10Byte-100-cycles_2 - qos:0 - id:000073
+2018-05-17_21:17:56:174- message received - topic:mqtt-roundtrip-qos0-10Byte-100-cycles - qos:0 - size:16 - id:000074
+2018-05-17_21:17:56:174- message sent - topic:mqtt-roundtrip-qos0-10Byte-100-cycles_2 - qos:0 - id:000074
+2018-05-17_21:17:56:174- message received - topic:mqtt-roundtrip-qos0-10Byte-100-cycles - qos:0 - size:16 - id:000075
+2018-05-17_21:17:56:174- message sent - topic:mqtt-roundtrip-qos0-10Byte-100-cycles_2 - qos:0 - id:000075
+2018-05-17_21:17:56:175- message received - topic:mqtt-roundtrip-qos0-10Byte-100-cycles - qos:0 - size:16 - id:000076
+2018-05-17_21:17:56:175- message sent - topic:mqtt-roundtrip-qos0-10Byte-100-cycles_2 - qos:0 - id:000076
+2018-05-17_21:17:56:175- message received - topic:mqtt-roundtrip-qos0-10Byte-100-cycles - qos:0 - size:16 - id:000077
+2018-05-17_21:17:56:175- message sent - topic:mqtt-roundtrip-qos0-10Byte-100-cycles_2 - qos:0 - id:000077
+2018-05-17_21:17:56:176- message received - topic:mqtt-roundtrip-qos0-10Byte-100-cycles - qos:0 - size:16 - id:000078
+2018-05-17_21:17:56:176- message sent - topic:mqtt-roundtrip-qos0-10Byte-100-cycles_2 - qos:0 - id:000078
+2018-05-17_21:17:56:176- message received - topic:mqtt-roundtrip-qos0-10Byte-100-cycles - qos:0 - size:16 - id:000079
+2018-05-17_21:17:56:176- message sent - topic:mqtt-roundtrip-qos0-10Byte-100-cycles_2 - qos:0 - id:000079
+2018-05-17_21:17:56:177- message received - topic:mqtt-roundtrip-qos0-10Byte-100-cycles - qos:0 - size:16 - id:000080
+2018-05-17_21:17:56:177- message sent - topic:mqtt-roundtrip-qos0-10Byte-100-cycles_2 - qos:0 - id:000080
+2018-05-17_21:17:56:177- message received - topic:mqtt-roundtrip-qos0-10Byte-100-cycles - qos:0 - size:16 - id:000081
+2018-05-17_21:17:56:177- message sent - topic:mqtt-roundtrip-qos0-10Byte-100-cycles_2 - qos:0 - id:000081
+2018-05-17_21:17:56:178- message received - topic:mqtt-roundtrip-qos0-10Byte-100-cycles - qos:0 - size:16 - id:000082
+2018-05-17_21:17:56:178- message sent - topic:mqtt-roundtrip-qos0-10Byte-100-cycles_2 - qos:0 - id:000082
+2018-05-17_21:17:56:178- message received - topic:mqtt-roundtrip-qos0-10Byte-100-cycles - qos:0 - size:16 - id:000083
+2018-05-17_21:17:56:178- message sent - topic:mqtt-roundtrip-qos0-10Byte-100-cycles_2 - qos:0 - id:000083
+2018-05-17_21:17:56:179- message received - topic:mqtt-roundtrip-qos0-10Byte-100-cycles - qos:0 - size:16 - id:000084
+2018-05-17_21:17:56:179- message sent - topic:mqtt-roundtrip-qos0-10Byte-100-cycles_2 - qos:0 - id:000084
+2018-05-17_21:17:56:179- message received - topic:mqtt-roundtrip-qos0-10Byte-100-cycles - qos:0 - size:16 - id:000085
+2018-05-17_21:17:56:179- message sent - topic:mqtt-roundtrip-qos0-10Byte-100-cycles_2 - qos:0 - id:000085
+2018-05-17_21:17:56:180- message received - topic:mqtt-roundtrip-qos0-10Byte-100-cycles - qos:0 - size:16 - id:000086
+2018-05-17_21:17:56:180- message sent - topic:mqtt-roundtrip-qos0-10Byte-100-cycles_2 - qos:0 - id:000086
+2018-05-17_21:17:56:180- message received - topic:mqtt-roundtrip-qos0-10Byte-100-cycles - qos:0 - size:16 - id:000087
+2018-05-17_21:17:56:180- message sent - topic:mqtt-roundtrip-qos0-10Byte-100-cycles_2 - qos:0 - id:000087
+2018-05-17_21:17:56:180- message received - topic:mqtt-roundtrip-qos0-10Byte-100-cycles - qos:0 - size:16 - id:000088
+2018-05-17_21:17:56:181- message sent - topic:mqtt-roundtrip-qos0-10Byte-100-cycles_2 - qos:0 - id:000088
+2018-05-17_21:17:56:181- message received - topic:mqtt-roundtrip-qos0-10Byte-100-cycles - qos:0 - size:16 - id:000089
+2018-05-17_21:17:56:181- message sent - topic:mqtt-roundtrip-qos0-10Byte-100-cycles_2 - qos:0 - id:000089
+2018-05-17_21:17:56:181- message received - topic:mqtt-roundtrip-qos0-10Byte-100-cycles - qos:0 - size:16 - id:000090
+2018-05-17_21:17:56:181- message sent - topic:mqtt-roundtrip-qos0-10Byte-100-cycles_2 - qos:0 - id:000090
+2018-05-17_21:17:56:182- message received - topic:mqtt-roundtrip-qos0-10Byte-100-cycles - qos:0 - size:16 - id:000091
+2018-05-17_21:17:56:182- message sent - topic:mqtt-roundtrip-qos0-10Byte-100-cycles_2 - qos:0 - id:000091
+2018-05-17_21:17:56:182- message received - topic:mqtt-roundtrip-qos0-10Byte-100-cycles - qos:0 - size:16 - id:000092
+2018-05-17_21:17:56:182- message sent - topic:mqtt-roundtrip-qos0-10Byte-100-cycles_2 - qos:0 - id:000092
+2018-05-17_21:17:56:182- message received - topic:mqtt-roundtrip-qos0-10Byte-100-cycles - qos:0 - size:16 - id:000093
+2018-05-17_21:17:56:182- message sent - topic:mqtt-roundtrip-qos0-10Byte-100-cycles_2 - qos:0 - id:000093
+2018-05-17_21:17:56:183- message received - topic:mqtt-roundtrip-qos0-10Byte-100-cycles - qos:0 - size:16 - id:000094
+2018-05-17_21:17:56:183- message sent - topic:mqtt-roundtrip-qos0-10Byte-100-cycles_2 - qos:0 - id:000094
+2018-05-17_21:17:56:183- message received - topic:mqtt-roundtrip-qos0-10Byte-100-cycles - qos:0 - size:16 - id:000095
+2018-05-17_21:17:56:183- message sent - topic:mqtt-roundtrip-qos0-10Byte-100-cycles_2 - qos:0 - id:000095
+2018-05-17_21:17:56:183- message received - topic:mqtt-roundtrip-qos0-10Byte-100-cycles - qos:0 - size:16 - id:000096
+2018-05-17_21:17:56:184- message sent - topic:mqtt-roundtrip-qos0-10Byte-100-cycles_2 - qos:0 - id:000096
+2018-05-17_21:17:56:184- message received - topic:mqtt-roundtrip-qos0-10Byte-100-cycles - qos:0 - size:16 - id:000097
+2018-05-17_21:17:56:184- message sent - topic:mqtt-roundtrip-qos0-10Byte-100-cycles_2 - qos:0 - id:000097
+2018-05-17_21:17:56:184- message received - topic:mqtt-roundtrip-qos0-10Byte-100-cycles - qos:0 - size:16 - id:000098
+2018-05-17_21:17:56:184- message sent - topic:mqtt-roundtrip-qos0-10Byte-100-cycles_2 - qos:0 - id:000098
+2018-05-17_21:17:56:184- message received - topic:mqtt-roundtrip-qos0-10Byte-100-cycles - qos:0 - size:16 - id:000099
+2018-05-17_21:17:56:185- message sent - topic:mqtt-roundtrip-qos0-10Byte-100-cycles_2 - qos:0 - id:000099

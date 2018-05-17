@@ -1,0 +1,16 @@
+2018-05-17_21:32:24:518- connecting to broker 192.168.1.100:1883
+2018-05-17_21:32:24:523- Subscribing to topic mqtt-roundtrip-qos1-1MByte-10-cycles_2
+2018-05-17_21:32:24:523- Client connected to broker
+2018-05-17_21:32:24:523- subscribe returned (0, 1)
+2018-05-17_21:32:24:523- Performing message publishing for 10 cycles
+2018-05-17_21:32:24:525- message sent - topic:mqtt-roundtrip-qos1-1MByte-10-cycles - qos:1 - id:000000
+2018-05-17_21:32:24:527- message sent - topic:mqtt-roundtrip-qos1-1MByte-10-cycles - qos:1 - id:000001
+2018-05-17_21:32:24:529- message sent - topic:mqtt-roundtrip-qos1-1MByte-10-cycles - qos:1 - id:000002
+2018-05-17_21:32:24:531- message sent - topic:mqtt-roundtrip-qos1-1MByte-10-cycles - qos:1 - id:000003
+2018-05-17_21:32:24:532- message sent - topic:mqtt-roundtrip-qos1-1MByte-10-cycles - qos:1 - id:000004
+2018-05-17_21:32:24:534- message sent - topic:mqtt-roundtrip-qos1-1MByte-10-cycles - qos:1 - id:000005
+2018-05-17_21:32:24:536- message sent - topic:mqtt-roundtrip-qos1-1MByte-10-cycles - qos:1 - id:000006
+2018-05-17_21:32:24:537- message sent - topic:mqtt-roundtrip-qos1-1MByte-10-cycles - qos:1 - id:000007
+2018-05-17_21:32:24:539- message sent - topic:mqtt-roundtrip-qos1-1MByte-10-cycles - qos:1 - id:000008
+2018-05-17_21:32:24:540- message sent - topic:mqtt-roundtrip-qos1-1MByte-10-cycles - qos:1 - id:000009
+2018-05-17_21:32:28:427- Client disconnected from broker

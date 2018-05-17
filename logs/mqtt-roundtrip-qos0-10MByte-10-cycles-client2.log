@@ -1,0 +1,16 @@
+2018-05-17_21:20:22:464- Subscribing to topicmqtt-roundtrip-qos0-10MByte-10-cycles
+2018-05-17_21:20:22:465- subscribe returned (0, 1)
+2018-05-17_21:20:24:601- message received - topic:mqtt-roundtrip-qos0-10MByte-10-cycles - qos:0 - size:10485766 - id:000000
+2018-05-17_21:20:24:605- message sent - topic:mqtt-roundtrip-qos0-10MByte-10-cycles_2 - qos:0 - id:000000
+2018-05-17_21:20:25:670- message received - topic:mqtt-roundtrip-qos0-10MByte-10-cycles - qos:0 - size:10485766 - id:000001
+2018-05-17_21:20:25:674- message sent - topic:mqtt-roundtrip-qos0-10MByte-10-cycles_2 - qos:0 - id:000001
+2018-05-17_21:20:26:740- message received - topic:mqtt-roundtrip-qos0-10MByte-10-cycles - qos:0 - size:10485766 - id:000002
+2018-05-17_21:20:26:744- message sent - topic:mqtt-roundtrip-qos0-10MByte-10-cycles_2 - qos:0 - id:000002
+2018-05-17_21:20:27:805- message received - topic:mqtt-roundtrip-qos0-10MByte-10-cycles - qos:0 - size:10485766 - id:000003
+2018-05-17_21:20:27:809- message sent - topic:mqtt-roundtrip-qos0-10MByte-10-cycles_2 - qos:0 - id:000003
+2018-05-17_21:20:28:863- message received - topic:mqtt-roundtrip-qos0-10MByte-10-cycles - qos:0 - size:10485766 - id:000004
+2018-05-17_21:20:28:867- message sent - topic:mqtt-roundtrip-qos0-10MByte-10-cycles_2 - qos:0 - id:000004
+2018-05-17_21:20:29:927- message received - topic:mqtt-roundtrip-qos0-10MByte-10-cycles - qos:0 - size:10485766 - id:000005
+2018-05-17_21:20:29:931- message sent - topic:mqtt-roundtrip-qos0-10MByte-10-cycles_2 - qos:0 - id:000005
+2018-05-17_21:20:30:997- message received - topic:mqtt-roundtrip-qos0-10MByte-10-cycles - qos:0 - size:10485766 - id:000006
+2018-05-17_21:20:31:001- message sent - topic:mqtt-roundtrip-qos0-10MByte-10-cycles_2 - qos:0 - id:000006

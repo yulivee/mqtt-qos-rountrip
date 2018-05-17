@@ -1,0 +1,26 @@
+2018-05-17_21:15:29:245- connecting to broker 192.168.1.100:1883
+2018-05-17_21:15:29:246- Subscribing to topic mqtt-roundtrip-qos1-100Byte-10-cycles_2
+2018-05-17_21:15:29:246- subscribe returned (0, 1)
+2018-05-17_21:15:29:246- Performing message publishing for 10 cycles
+2018-05-17_21:15:29:247- message sent - topic:mqtt-roundtrip-qos1-100Byte-10-cycles - qos:1 - id:000000
+2018-05-17_21:15:29:247- message sent - topic:mqtt-roundtrip-qos1-100Byte-10-cycles - qos:1 - id:000001
+2018-05-17_21:15:29:247- message sent - topic:mqtt-roundtrip-qos1-100Byte-10-cycles - qos:1 - id:000002
+2018-05-17_21:15:29:247- message sent - topic:mqtt-roundtrip-qos1-100Byte-10-cycles - qos:1 - id:000003
+2018-05-17_21:15:29:248- message sent - topic:mqtt-roundtrip-qos1-100Byte-10-cycles - qos:1 - id:000004
+2018-05-17_21:15:29:248- message sent - topic:mqtt-roundtrip-qos1-100Byte-10-cycles - qos:1 - id:000005
+2018-05-17_21:15:29:248- message sent - topic:mqtt-roundtrip-qos1-100Byte-10-cycles - qos:1 - id:000006
+2018-05-17_21:15:29:248- message sent - topic:mqtt-roundtrip-qos1-100Byte-10-cycles - qos:1 - id:000007
+2018-05-17_21:15:29:249- message sent - topic:mqtt-roundtrip-qos1-100Byte-10-cycles - qos:1 - id:000008
+2018-05-17_21:15:29:249- message sent - topic:mqtt-roundtrip-qos1-100Byte-10-cycles - qos:1 - id:000009
+2018-05-17_21:15:29:250- Client connected to broker
+2018-05-17_21:15:29:292- message received - topic:mqtt-roundtrip-qos1-100Byte-10-cycles_2 - qos:1 - size:106 - id:000000
+2018-05-17_21:15:29:292- message received - topic:mqtt-roundtrip-qos1-100Byte-10-cycles_2 - qos:1 - size:106 - id:000001
+2018-05-17_21:15:29:293- message received - topic:mqtt-roundtrip-qos1-100Byte-10-cycles_2 - qos:1 - size:106 - id:000002
+2018-05-17_21:15:29:293- message received - topic:mqtt-roundtrip-qos1-100Byte-10-cycles_2 - qos:1 - size:106 - id:000003
+2018-05-17_21:15:29:293- message received - topic:mqtt-roundtrip-qos1-100Byte-10-cycles_2 - qos:1 - size:106 - id:000004
+2018-05-17_21:15:29:331- message received - topic:mqtt-roundtrip-qos1-100Byte-10-cycles_2 - qos:1 - size:106 - id:000005
+2018-05-17_21:15:29:332- message received - topic:mqtt-roundtrip-qos1-100Byte-10-cycles_2 - qos:1 - size:106 - id:000006
+2018-05-17_21:15:29:332- message received - topic:mqtt-roundtrip-qos1-100Byte-10-cycles_2 - qos:1 - size:106 - id:000007
+2018-05-17_21:15:29:333- message received - topic:mqtt-roundtrip-qos1-100Byte-10-cycles_2 - qos:1 - size:106 - id:000008
+2018-05-17_21:15:29:333- message received - topic:mqtt-roundtrip-qos1-100Byte-10-cycles_2 - qos:1 - size:106 - id:000009
+2018-05-17_21:15:32:336- Client disconnected from broker

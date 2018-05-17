@@ -1,0 +1,5 @@
+2018-05-17_21:28:59:718- Subscribing to topicmqtt-roundtrip-qos0-1Byte-10-cycles
+2018-05-17_21:28:59:719- subscribe returned (4, None)
+2018-05-17_21:29:00:263- Client disconnected from broker
+2018-05-17_21:29:01:279- Client disconnected from broker
+2018-05-17_21:29:02:315- Client disconnected from broker
