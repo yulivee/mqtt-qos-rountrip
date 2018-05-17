@@ -32,6 +32,11 @@ def signal_handler(a,b):
     print "[client2] signal "+str(a)+" received"
     init_new_connection()
 
+def signal_handler_2(a,b):
+    print "[client2] signal "+str(a)+" received"
+    client.loop_stop() #stop the loop
+    client.disconnect()
+
 def read_topic():	
     f = open('topic.ipc', 'r')
     topic = f.read()
@@ -76,7 +81,7 @@ def on_message(client, userdata, message):
 def on_connect(client, userdata, flags, rc):
     if rc == 0:
         client.connected_flag=True
-	print("Client connected to broker")
+	print("[client2] Client connected to broker")
     else:
 	print("Client failed to connected to broker, Return Code = "+rc)
         client.loop_stop()
@@ -109,6 +114,7 @@ def publish_back(topic, payload, qos, mid, counter):
 
 
 signal.signal(signal.SIGUSR1,signal_handler);
+signal.signal(signal.SIGUSR2,signal_handler);
 
 with open('client2.pid', 'w') as the_file:
     the_file.write(str(os.getpid()))
@@ -126,10 +132,5 @@ print("[client2] connecting to broker "+broker_address+":"+str(port))
 client.connect(broker_address,port) #connect to broker
 client.loop_start() #start the loop
 
-
-
 while ( 1 ):
     pass
-
-client.loop_stop() #stop the loop
-client.disconnect()

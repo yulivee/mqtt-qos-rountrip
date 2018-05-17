@@ -150,5 +150,7 @@ if args.time:
 time.sleep(3); #wait 10 seconds for incoming messages
 client.loop_stop() #stop the loop
 client.disconnect()
+print "[client1] sending client2 disconnet signal"
+os.kill(pid, signal.SIGUSR2)
 print "[client1] killing client2"
 os.kill(pid, signal.SIGTERM)
