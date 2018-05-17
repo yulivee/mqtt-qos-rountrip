@@ -4,24 +4,31 @@ import time
 import logging
 import argparse
 import re
+import os
+import signal
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--qos_level', type=int, help="qos_level to be used" , choices=[0, 1, 2], default=0)
-parser.add_argument('--file', help="the file to be sent in the mqtt-message", default="")
+parser.add_argument('--file', help="the file to be sent in the mqtt-message", default="empty")
 parser.add_argument('--time', type=int, help="time in minutes to send packages")
 parser.add_argument('--cycles', type=int, help="number of times a packet should be sent")
 args = parser.parse_args()
 
-qos_level=args.qos_level
 f=args.file
+qos_level=args.qos_level
 logname="mqtt-roundtrip-"
 logname=logname+ "qos"+str(args.qos_level)+"-"
-if f== "":
+message=""
+
+if f== "empty":
    logname=logname+"empty_message"
 else:
    match = re.search(r'files/(.*).txt',args.file)
    name = match.group(1)
    logname=logname+name
+   f = open(args.file)
+   filecontent = f.read()
+   message = bytearray(filecontent)
 
 if args.time:
    logname=logname+"-"+str(args.time)+"-minutes"
@@ -32,8 +39,15 @@ if args.cycles:
 topic=logname
 logname=logname+"-client1.log"
 
+print "[client1] ---------- "+topic+" ----------"
+
 with open('topic.ipc', 'w') as the_file:
     the_file.write(topic)
+
+f = open('client2.pid','r')
+client2_pid = f.read()
+pid = int(client2_pid)
+os.kill(pid, signal.SIGUSR1)
 
 logger = logging.getLogger(__name__)
 
@@ -51,7 +65,8 @@ logger.addHandler(handler)
 
 
 def on_message(client, userdata, message):
-    logger.info("message received - id:"+str(message.mid)+" - topic:"+message.topic+" - qos:"+str(message.qos)+" - size:"+str(len(message.payload)))
+    counter=message.payload[:6]
+    logger.info("message received - topic:"+message.topic+" - qos:"+str(message.qos)+" - size:"+str(len(message.payload))+" - id:"+counter)
 
 def on_connect(client, userdata, flags, rc):
     if rc == 0:
@@ -65,7 +80,7 @@ def on_disconnect(client, userdata, rc):
     logger.info("Client disconnected from broker")
 
 def on_publish(client,userdata,mid):             #create function for callback
-    logger.info("message sent - id:"+str(mid)+" - topic:"+topic+" - qos:"+str(qos_level)+" - size:"+str(len(message)))
+    pass
 
 def on_log(client, userdata, level, buf):
     pass
@@ -102,20 +117,22 @@ sub_rc = client.subscribe(answer_topic,qos_level)
 logger.info("subscribe returned "+str(sub_rc))
 wait_for(client, sub_rc)
  
-if f == "":
-   message = f
-else:
-   f= open(args.file)
-   filecontent = f.read()
-   message = bytearray(filecontent)
-
-raw_input("Press ENTER to proceed AFTER you have started client2.py")
+counter = 0
+max_counter = 100000
 
 if args.cycles:
    logger.info("Performing message publishing for "+str(args.cycles)+" cycles")
    i=args.cycles
    while (i!=0) :
-       pub_rc = client.publish(topic,message, qos_level, False)
+       pub_rc = client.publish(topic,str(counter).zfill(6)+message, qos_level, False)
+       if pub_rc[0] == 0:
+           logger.info("message sent - topic:"+topic+" - qos:"+str(qos_level) +" - id:"+str(counter).zfill(6))
+       else:
+           logger.info("message publish failed for message "+str(counter).zfill(6))
+       if counter < max_counter:
+           counter = counter + 1
+       else:
+           counter = 0
        i=i-1
 
 if args.time:
@@ -123,9 +140,15 @@ if args.time:
    starttime = time.time()
    stoptime = starttime + (args.time * 60);
    while ( time.time() < stoptime ) :	
-       pub_rc = client.publish(topic,message, qos_level, False)
+       pub_rc = client.publish(topic,str(counter).zfill(6)+message, qos_level, False)
+       if counter < max_counter:
+           counter = counter + 1
+       else:
+           counter = 0
 
 
 time.sleep(3); #wait 10 seconds for incoming messages
 client.loop_stop() #stop the loop
 client.disconnect()
+print "[client1] killing client2"
+os.kill(pid, signal.SIGTERM)
