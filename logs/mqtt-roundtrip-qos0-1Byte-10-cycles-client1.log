@@ -1,16 +1,20 @@
-2018-05-17_21:28:59:718- connecting to broker 192.168.1.100:1883
-2018-05-17_21:28:59:723- Subscribing to topic mqtt-roundtrip-qos0-1Byte-10-cycles_2
-2018-05-17_21:28:59:723- subscribe returned (0, 1)
-2018-05-17_21:28:59:723- Performing message publishing for 10 cycles
-2018-05-17_21:28:59:723- message sent - topic:mqtt-roundtrip-qos0-1Byte-10-cycles - qos:0 - id:000000
-2018-05-17_21:28:59:723- message sent - topic:mqtt-roundtrip-qos0-1Byte-10-cycles - qos:0 - id:000001
-2018-05-17_21:28:59:723- message sent - topic:mqtt-roundtrip-qos0-1Byte-10-cycles - qos:0 - id:000002
-2018-05-17_21:28:59:723- message sent - topic:mqtt-roundtrip-qos0-1Byte-10-cycles - qos:0 - id:000003
-2018-05-17_21:28:59:724- message sent - topic:mqtt-roundtrip-qos0-1Byte-10-cycles - qos:0 - id:000004
-2018-05-17_21:28:59:724- message sent - topic:mqtt-roundtrip-qos0-1Byte-10-cycles - qos:0 - id:000005
-2018-05-17_21:28:59:724- message sent - topic:mqtt-roundtrip-qos0-1Byte-10-cycles - qos:0 - id:000006
-2018-05-17_21:28:59:724- message sent - topic:mqtt-roundtrip-qos0-1Byte-10-cycles - qos:0 - id:000007
-2018-05-17_21:28:59:724- message sent - topic:mqtt-roundtrip-qos0-1Byte-10-cycles - qos:0 - id:000008
-2018-05-17_21:28:59:724- message sent - topic:mqtt-roundtrip-qos0-1Byte-10-cycles - qos:0 - id:000009
-2018-05-17_21:28:59:727- Client connected to broker
-2018-05-17_21:29:02:731- Client disconnected from broker
+2018-05-18,13:21:29:585,sent,topic:mqtt-roundtrip-qos0-1Byte-10-cycles,qos:0,size:1,id:000000
+2018-05-18,13:21:29:585,sent,topic:mqtt-roundtrip-qos0-1Byte-10-cycles,qos:0,size:1,id:000001
+2018-05-18,13:21:29:586,sent,topic:mqtt-roundtrip-qos0-1Byte-10-cycles,qos:0,size:1,id:000002
+2018-05-18,13:21:29:586,sent,topic:mqtt-roundtrip-qos0-1Byte-10-cycles,qos:0,size:1,id:000003
+2018-05-18,13:21:29:586,sent,topic:mqtt-roundtrip-qos0-1Byte-10-cycles,qos:0,size:1,id:000004
+2018-05-18,13:21:29:586,sent,topic:mqtt-roundtrip-qos0-1Byte-10-cycles,qos:0,size:1,id:000005
+2018-05-18,13:21:29:587,sent,topic:mqtt-roundtrip-qos0-1Byte-10-cycles,qos:0,size:1,id:000006
+2018-05-18,13:21:29:587,sent,topic:mqtt-roundtrip-qos0-1Byte-10-cycles,qos:0,size:1,id:000007
+2018-05-18,13:21:29:587,sent,topic:mqtt-roundtrip-qos0-1Byte-10-cycles,qos:0,size:1,id:000008
+2018-05-18,13:21:29:587,sent,topic:mqtt-roundtrip-qos0-1Byte-10-cycles,qos:0,size:1,id:000009
+2018-05-18,13:21:29:589,received,topic:mqtt-roundtrip-qos0-1Byte-10-cycles_2,qos:0,size:7,id:000000
+2018-05-18,13:21:29:590,received,topic:mqtt-roundtrip-qos0-1Byte-10-cycles_2,qos:0,size:7,id:000001
+2018-05-18,13:21:29:628,received,topic:mqtt-roundtrip-qos0-1Byte-10-cycles_2,qos:0,size:7,id:000002
+2018-05-18,13:21:29:628,received,topic:mqtt-roundtrip-qos0-1Byte-10-cycles_2,qos:0,size:7,id:000003
+2018-05-18,13:21:29:628,received,topic:mqtt-roundtrip-qos0-1Byte-10-cycles_2,qos:0,size:7,id:000004
+2018-05-18,13:21:29:632,received,topic:mqtt-roundtrip-qos0-1Byte-10-cycles_2,qos:0,size:7,id:000005
+2018-05-18,13:21:29:632,received,topic:mqtt-roundtrip-qos0-1Byte-10-cycles_2,qos:0,size:7,id:000006
+2018-05-18,13:21:29:633,received,topic:mqtt-roundtrip-qos0-1Byte-10-cycles_2,qos:0,size:7,id:000007
+2018-05-18,13:21:29:633,received,topic:mqtt-roundtrip-qos0-1Byte-10-cycles_2,qos:0,size:7,id:000008
+2018-05-18,13:21:29:633,received,topic:mqtt-roundtrip-qos0-1Byte-10-cycles_2,qos:0,size:7,id:000009

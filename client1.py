@@ -126,9 +126,9 @@ if args.cycles:
    while (i!=0) :
        pub_rc = client.publish(topic,str(counter).zfill(6)+message, qos_level, False)
        if pub_rc[0] == 0:
-           logger.info("sent,topic:"+topic+",qos:"+str(qos_level) +",size:"+str(len(message.payload))+",id:"+str(counter).zfill(6))
+           logger.info("sent,topic:"+topic+",qos:"+str(qos_level) +",size:"+str(len(message))+",id:"+str(counter).zfill(6))
        else:
-           logger.info("fail,topic:"+topic+",qos:"+str(qos_level) +",size:"+str(len(message.payload))+",id:"+str(counter).zfill(6))
+           logger.info("fail,topic:"+topic+",qos:"+str(qos_level) +",size:"+str(len(message))+",id:"+str(counter).zfill(6))
        if counter < max_counter:
            counter = counter + 1
        else:
@@ -151,10 +151,10 @@ if args.time:
            counter = 0
 
 
-time.sleep(3); #wait 10 seconds for incoming messages
+time.sleep(10); #wait 10 seconds for incoming messages
 client.loop_stop() #stop the loop
 client.disconnect()
-print "[client1] sending client2 disconnet signal"
+print "[client1] sending client2 disconnect signal"
 os.kill(pid, signal.SIGUSR2)
 print "[client1] killing client2"
 os.kill(pid, signal.SIGTERM)

@@ -114,7 +114,7 @@ def publish_back(topic, payload, qos, mid, counter):
 
 
 signal.signal(signal.SIGUSR1,signal_handler);
-signal.signal(signal.SIGUSR2,signal_handler);
+signal.signal(signal.SIGUSR2,signal_handler_2);
 
 with open('client2.pid', 'w') as the_file:
     the_file.write(str(os.getpid()))
