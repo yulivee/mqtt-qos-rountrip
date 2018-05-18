@@ -75,7 +75,7 @@ def subscribe(topic,qos_level):
 
 def on_message(client, userdata, message):
     counter = message.payload[:6]
-    logger.info("received,topic:"+message.topic+",qos:"+str(message.qos)+",size:"+str(len(message.payload))+",id:"+counter)
+    logger.info("received,"+message.topic+","+str(message.qos)+","+str(len(message.payload))+","+counter)
     publish_back(message.topic, message.payload, message.qos, message.mid, counter)
 
 def on_connect(client, userdata, flags, rc):
@@ -108,9 +108,9 @@ def publish_back(topic, payload, qos, mid, counter):
     topic=topic+"_2"
     pub_rc = client.publish(topic,payload, qos, False)
     if pub_rc[0] == 0:
-           logger.info("sent,topic:"+topic+",qos:"+str(qos_level) +",size:"+str(len(payload))+",id:"+str(counter).zfill(6))
+           logger.info("sent,"+topic+","+str(qos_level) +","+str(len(payload))+","+str(counter).zfill(6))
     else:
-           logger.info("fail,topic:"+topic+",qos:"+str(qos_level) +",size:"+str(len(payload))+",id:"+str(counter).zfill(6))
+           logger.info("fail,"+topic+","+str(qos_level) +","+str(len(payload))+","+str(counter).zfill(6))
 
 
 signal.signal(signal.SIGUSR1,signal_handler);

@@ -66,7 +66,7 @@ logger.addHandler(handler)
 
 def on_message(client, userdata, message):
     counter=message.payload[:6]
-    logger.info("received,topic:"+message.topic+",qos:"+str(message.qos)+",size:"+str(len(message.payload))+",id:"+counter)
+    logger.info("received,"+message.topic+","+str(message.qos)+","+str(len(message.payload))+","+counter)
 
 def on_connect(client, userdata, flags, rc):
     if rc == 0:
@@ -126,9 +126,9 @@ if args.cycles:
    while (i!=0) :
        pub_rc = client.publish(topic,str(counter).zfill(6)+message, qos_level, False)
        if pub_rc[0] == 0:
-           logger.info("sent,topic:"+topic+",qos:"+str(qos_level) +",size:"+str(len(message))+",id:"+str(counter).zfill(6))
+           logger.info("sent,"+topic+","+str(qos_level) +","+str(len(message))+","+str(counter).zfill(6))
        else:
-           logger.info("fail,topic:"+topic+",qos:"+str(qos_level) +",size:"+str(len(message))+",id:"+str(counter).zfill(6))
+           logger.info("fail,"+topic+","+str(qos_level) +","+str(len(message))+","+str(counter).zfill(6))
        if counter < max_counter:
            counter = counter + 1
        else:
@@ -142,9 +142,9 @@ if args.time:
    while ( time.time() < stoptime ) :	
        pub_rc = client.publish(topic,str(counter).zfill(6)+message, qos_level, False)
        if pub_rc[0] == 0:
-           logger.info("sent,topic:"+topic+",qos:"+str(qos_level) +",size:"+str(len(message.payload))+",id:"+str(counter).zfill(6))
+           logger.info("sent,"+topic+","+str(qos_level) +","+str(len(message))+","+str(counter).zfill(6))
        else:
-           logger.info("fail,topic:"+topic+",qos:"+str(qos_level) +",size:"+str(len(message.payload))+",id:"+str(counter).zfill(6))
+           logger.info("fail,"+topic+","+str(qos_level) +","+str(len(message))+","+str(counter).zfill(6))
        if counter < max_counter:
            counter = counter + 1
        else:
