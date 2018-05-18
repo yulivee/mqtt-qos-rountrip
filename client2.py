@@ -60,7 +60,7 @@ def get_logger(logname):
     handler.setLevel(logging.DEBUG)
     logger.setLevel(logging.DEBUG)
     # create a logging format
-    formatter = logging.Formatter(fmt='%(asctime)s:%(msecs)03d- %(message)s',datefmt='%Y-%m-%d_%H:%M:%S')
+    formatter = logging.Formatter(fmt='%(asctime)s:%(msecs)03d,%(message)s',datefmt='%Y-%m-%d,%H:%M:%S')
     handler.setFormatter(formatter)
     # add the handlers to the logger
     logger.addHandler(handler)
@@ -68,26 +68,26 @@ def get_logger(logname):
 
 
 def subscribe(topic,qos_level):
-    logger.info("Subscribing to topic"+topic)
+    print("[client2] subscribing to topic"+topic)
     sub_rc = client.subscribe(topic,int(qos_level))
-    logger.info("subscribe returned "+str(sub_rc))
+    print("[client2] subscribe returned "+str(sub_rc))
     wait_for(client, sub_rc)
 
 def on_message(client, userdata, message):
     counter = message.payload[:6]
-    logger.info("message received - topic:"+message.topic+" - qos:"+str(message.qos)+" - size:"+str(len(message.payload))+" - id:"+counter)
+    logger.info("received,topic:"+message.topic+",qos:"+str(message.qos)+",size:"+str(len(message.payload))+",id:"+counter)
     publish_back(message.topic, message.payload, message.qos, message.mid, counter)
 
 def on_connect(client, userdata, flags, rc):
     if rc == 0:
         client.connected_flag=True
-	print("[client2] Client connected to broker")
+	print("[client2] client connected to broker")
     else:
-	print("Client failed to connected to broker, Return Code = "+rc)
+	print("[client2] client failed to connected to broker, Return Code = "+rc)
         client.loop_stop()
 
 def on_disconnect(client, userdata, rc):
-    logger.info("Client disconnected from broker")
+    print("[client2] client disconnected from broker")
 
 def on_publish(client,userdata,mid):             #create function for callback
     pass
@@ -100,7 +100,7 @@ def wait_for(client,msgType,period=0.25):
     if msgType=="SUBACK":
         if client.on_subscribe:
             while not client.suback_flag:
-                logger.info("waiting suback")
+                print("[client2] waiting suback")
                 client.loop()  #check for messages
                 time.sleep(period)
 
@@ -108,9 +108,9 @@ def publish_back(topic, payload, qos, mid, counter):
     topic=topic+"_2"
     pub_rc = client.publish(topic,payload, qos, False)
     if pub_rc[0] == 0:
-        logger.info("message sent - topic:"+topic+" - qos:"+str(qos_level) +" - id:"+counter)
+           logger.info("sent,topic:"+topic+",qos:"+str(qos_level) +",size:"+str(len(payload))+",id:"+str(counter).zfill(6))
     else:
-        logger.info("message publish failed for message "+counter)
+           logger.info("fail,topic:"+topic+",qos:"+str(qos_level) +",size:"+str(len(payload))+",id:"+str(counter).zfill(6))
 
 
 signal.signal(signal.SIGUSR1,signal_handler);
