@@ -118,7 +118,7 @@ print("[client1] subscribe returned "+str(sub_rc))
 wait_for(client, sub_rc)
  
 counter = 0
-max_counter = 100000
+max_counter = 999999
 
 if args.cycles:
    print("[client1] performing message publishing for "+str(args.cycles)+" cycles")
