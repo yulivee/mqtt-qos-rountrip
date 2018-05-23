@@ -12,6 +12,7 @@ parser.add_argument('--qos_level', type=int, help="qos_level to be used" , choic
 parser.add_argument('--file', help="the file to be sent in the mqtt-message", default="empty")
 parser.add_argument('--time', type=int, help="time in minutes to send packages")
 parser.add_argument('--cycles', type=int, help="number of times a packet should be sent")
+parser.add_argument('--pbs', type=int, help="packets per second")
 args = parser.parse_args()
 
 f=args.file
@@ -35,6 +36,9 @@ if args.time:
 
 if args.cycles:
    logname=logname+"-"+str(args.cycles)+"-cycles"
+
+if args.pbs:
+   logname=logname+"-"+str(args.pbs)+"pbs"
 
 topic=logname
 logname=logname+"-client1.log"
@@ -63,6 +67,10 @@ handler.setFormatter(formatter)
 # add the handlers to the logger
 logger.addHandler(handler)
 
+def signal_handler_2(a,b):
+    print "[client1] signal "+str(a)+" received"
+    client.loop_stop() #stop the loop
+    client.disconnect()
 
 def on_message(client, userdata, message):
     counter=message.payload[:6]
@@ -94,10 +102,16 @@ def wait_for(client,msgType,period=0.25):
                 client.loop()  #check for messages
                 time.sleep(period)
 
-broker_address="192.168.1.100"
+broker_address="192.168.1.115"
+#broker_address="192.168.1.100"
 client_name="Schuhmacher"
 port=1883
 answer_topic=topic+"_2"
+
+signal.signal(signal.SIGUSR2,signal_handler_2);
+with open('client1.pid', 'w') as the_file:
+    the_file.write(str(os.getpid()))
+
 
 client = mqtt.Client(client_name) #create new client instance
 #attach functions to callbacks
@@ -120,10 +134,13 @@ wait_for(client, sub_rc)
 counter = 0
 max_counter = 999999
 
+time.sleep(2)
+
 if args.cycles:
    print("[client1] performing message publishing for "+str(args.cycles)+" cycles")
    i=args.cycles
    while (i!=0) :
+       time.sleep(0.005)
        pub_rc = client.publish(topic,str(counter).zfill(6)+message, qos_level, False)
        if pub_rc[0] == 0:
            logger.info("sent,"+topic+","+str(qos_level) +","+str(len(message))+","+str(counter).zfill(6))
@@ -139,22 +156,35 @@ if args.time:
    print("[client1] performing message publishing for "+str(args.time)+" minutes")
    starttime = time.time()
    stoptime = starttime + (args.time * 60);
+   sleeptime = 0
+
+   if ( args.pbs == 1 ):
+       sleeptime = 1
+   if ( args.pbs == 10 ):
+       sleeptime = 0.1
+   if ( args.pbs == 100 ):
+       sleeptime = 0.1
+
    while ( time.time() < stoptime ) :	
+       time.sleep(sleeptime)
        pub_rc = client.publish(topic,str(counter).zfill(6)+message, qos_level, False)
        if pub_rc[0] == 0:
            logger.info("sent,"+topic+","+str(qos_level) +","+str(len(message))+","+str(counter).zfill(6))
        else:
            logger.info("fail,"+topic+","+str(qos_level) +","+str(len(message))+","+str(counter).zfill(6))
+           logger.info("discard,"+topic+","+str(qos_level) +","+str(len(message))+","+str(counter).zfill(6))
        if counter < max_counter:
            counter = counter + 1
        else:
            counter = 0
 
+print "DONE SENDING - Grace time waiting"
 
-time.sleep(10); #wait 10 seconds for incoming messages
+time.sleep(180); #wait 10 seconds for incoming messages
 client.loop_stop() #stop the loop
 client.disconnect()
 print "[client1] sending client2 disconnect signal"
 os.kill(pid, signal.SIGUSR2)
+time.sleep(1)
 print "[client1] killing client2"
 os.kill(pid, signal.SIGTERM)
