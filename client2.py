@@ -9,40 +9,26 @@ import os
 logger = logging.getLogger(__name__)
 handler = ""
 broker_address="192.168.1.115"
-#broker_address="192.168.1.100"
 port=1883
 client_name="Stolz"
 qos_level=""
 topic=""
 
-def init_new_connection():
-    global topic
-    global qos_level
-    global logger
-    global handler
-    if 'logger' in globals():
-        logger = ""
-        handler = ""
-    topic = read_topic()
-    qos_level = get_qos(topic)
-    logname = get_logname(topic)
-    logger = get_logger(logname)
-    subscribe(topic,qos_level)
-
-def signal_handler(a,b):
-    print "[client2] signal "+str(a)+" received"
-    init_new_connection()
-
-def signal_handler_2(a,b):
-    print "[client2] signal "+str(a)+" received"
-    client.loop_stop() #stop the loop
-    client.disconnect()
-
 def read_topic():	
+    global topic
     f = open('topic.ipc', 'r')
     topic = f.read()
-    print "[client2] topic "+topic
+    print "[client2] topic from file: "+topic
     return topic
+
+def signal_handler(a,b):
+    print "[client2] signal "+str(a)+" received, READING TOPIC"
+    read_topic()
+
+def signal_handler_2(a,b):
+    print "[client2] signal "+str(a)+" received, DISCONNECTING"
+    client.loop_stop() #stop the loop
+    client.disconnect()
 
 def get_qos(topic):
     match = re.search(r'-qos(\d)-',topic)
@@ -67,8 +53,7 @@ def get_logger(logname):
     logger.addHandler(handler)
     return logger
 
-
-def subscribe(topic,qos_level):
+def subscribe(client,topic,qos_level):
     print("[client2] subscribing to topic"+topic)
     sub_rc = client.subscribe(topic,int(qos_level))
     print("[client2] subscribe returned "+str(sub_rc))
@@ -113,12 +98,20 @@ def publish_back(topic, payload, qos, mid, counter):
     else:
            logger.info("fail,"+topic+","+str(qos_level) +","+str(len(payload))+","+str(counter).zfill(6))
 
-
 signal.signal(signal.SIGUSR1,signal_handler);
 signal.signal(signal.SIGUSR2,signal_handler_2);
 
+
 with open('client2.pid', 'w') as the_file:
     the_file.write(str(os.getpid()))
+
+time.sleep(1)
+
+f = open('client1.pid','r')
+client1_pid = f.read()
+c1pid = int(client1_pid)
+
+print "[client2] client1 pid: "+str(c1pid)
 
 client = mqtt.Client(client_name) #create new client instance
 #attach functions to callbacks
@@ -128,10 +121,34 @@ client.on_publish=on_publish
 client.on_connect=on_connect
 client.on_disconnect=on_disconnect
 
+
 # Connection to Broker
 print("[client2] connecting to broker "+broker_address+":"+str(port))
-client.connect(broker_address,port) #connect to broker
+rc = client.connect(broker_address,port) #connect to broker
+
+time.sleep(0.5)
+print "[client2] connect returned "+str(rc)
+
+while( rc != 0 ):
+    time.sleep(0.5)
+    rc = client.connect(broker_address,port) #connect to broker
+    print "[client2] connect returned "+str(rc)
+
 client.loop_start() #start the loop
+
+while( topic == ""):
+    pass
+
+print "[client2] topic "+topic
+qos_level = get_qos(topic)
+logname = get_logname(topic)
+logger = get_logger(logname)
+subscribe(client,topic,qos_level)
+
+print "[client2] sending client1 the signal to start sending"
+os.kill(c1pid,signal.SIGUSR1)
+
+
 
 while ( 1 ):
     pass

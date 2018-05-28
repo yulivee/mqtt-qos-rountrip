@@ -42,16 +42,27 @@ if args.pbs:
 
 topic=logname
 logname=logname+"-client1.log"
+start_sending = 0
 
 print "[client1] ---------- "+topic+" ----------"
 
 with open('topic.ipc', 'w') as the_file:
     the_file.write(topic)
 
+with open('client1.pid', 'w') as the_file:
+    the_file.write(str(os.getpid()))
+
+print "[client1] own pid: "+str(os.getpid())
+
+time.sleep(2)
+
 f = open('client2.pid','r')
 client2_pid = f.read()
 pid = int(client2_pid)
 os.kill(pid, signal.SIGUSR1)
+print "[client1] client2 pid: "+str(pid)
+print "[client1] sending client 2 signal to read topic"
+
 
 logger = logging.getLogger(__name__)
 
@@ -67,8 +78,13 @@ handler.setFormatter(formatter)
 # add the handlers to the logger
 logger.addHandler(handler)
 
+def signal_handler(a,b):
+    print "[client1] signal "+str(a)+" received, START SENDING"
+    global start_sending
+    start_sending = 1
+
 def signal_handler_2(a,b):
-    print "[client1] signal "+str(a)+" received"
+    print "[client1] signal "+str(a)+" received, DISCONNECTING"
     client.loop_stop() #stop the loop
     client.disconnect()
 
@@ -102,15 +118,15 @@ def wait_for(client,msgType,period=0.25):
                 client.loop()  #check for messages
                 time.sleep(period)
 
+signal.signal(signal.SIGUSR1,signal_handler);
+signal.signal(signal.SIGUSR2,signal_handler_2);
+
 broker_address="192.168.1.115"
 #broker_address="192.168.1.100"
 client_name="Schuhmacher"
 port=1883
 answer_topic=topic+"_2"
 
-signal.signal(signal.SIGUSR2,signal_handler_2);
-with open('client1.pid', 'w') as the_file:
-    the_file.write(str(os.getpid()))
 
 
 client = mqtt.Client(client_name) #create new client instance
@@ -134,7 +150,8 @@ wait_for(client, sub_rc)
 counter = 0
 max_counter = 999999
 
-time.sleep(2)
+while ( start_sending != 1 ):
+   pass
 
 if args.cycles:
    print("[client1] performing message publishing for "+str(args.cycles)+" cycles")
@@ -180,7 +197,7 @@ if args.time:
 
 print "DONE SENDING - Grace time waiting"
 
-time.sleep(180); #wait 10 seconds for incoming messages
+time.sleep(10); #wait 10 seconds for incoming messages
 client.loop_stop() #stop the loop
 client.disconnect()
 print "[client1] sending client2 disconnect signal"
