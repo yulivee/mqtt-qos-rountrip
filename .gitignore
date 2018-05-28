@@ -1,2 +1,6 @@
 topic.ipc
 client2.pid
+client1.pid
+logs/overhead/qos0-10mbyte.pcapng
+logs/overhead/qos1-10mbyte.pcapng
+logs/overhead/qos2-10mbyte.pcapng
