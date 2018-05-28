@@ -54,7 +54,8 @@ with open('client1.pid', 'w') as the_file:
 
 print "[client1] own pid: "+str(os.getpid())
 
-time.sleep(2)
+while ( not os.path.isfile('client2.pid') ):
+    pass
 
 f = open('client2.pid','r')
 client2_pid = f.read()
@@ -114,15 +115,14 @@ def wait_for(client,msgType,period=0.25):
     if msgType=="SUBACK":
         if client.on_subscribe:
             while not client.suback_flag:
-                logging.info("waiting suback")
+                print("waiting suback")
                 client.loop()  #check for messages
-                time.sleep(period)
 
 signal.signal(signal.SIGUSR1,signal_handler);
 signal.signal(signal.SIGUSR2,signal_handler_2);
 
-broker_address="192.168.1.115"
-#broker_address="192.168.1.100"
+#broker_address="192.168.1.115"
+broker_address="192.168.1.100"
 client_name="Schuhmacher"
 port=1883
 answer_topic=topic+"_2"
@@ -205,3 +205,5 @@ os.kill(pid, signal.SIGUSR2)
 time.sleep(1)
 print "[client1] killing client2"
 os.kill(pid, signal.SIGTERM)
+os.remove('client1.pid')
+os.remove('topic.ipc')

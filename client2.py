@@ -8,7 +8,7 @@ import os
 
 logger = logging.getLogger(__name__)
 handler = ""
-broker_address="192.168.1.115"
+broker_address="192.168.1.100"
 port=1883
 client_name="Stolz"
 qos_level=""
@@ -16,19 +16,22 @@ topic=""
 
 def read_topic():	
     global topic
+    while ( not os.path.isfile('topic.ipc') ):
+        pass
     f = open('topic.ipc', 'r')
     topic = f.read()
-    print "[client2] topic from file: "+topic
+    print "[client2]{read_topic} topic from file: "+topic
     return topic
 
 def signal_handler(a,b):
-    print "[client2] signal "+str(a)+" received, READING TOPIC"
+    print "[client2]{signal_handler} signal "+str(a)+" received, READING TOPIC"
     read_topic()
 
 def signal_handler_2(a,b):
-    print "[client2] signal "+str(a)+" received, DISCONNECTING"
+    print "[client2]{signal_handler_2} signal "+str(a)+" received, DISCONNECTING"
     client.loop_stop() #stop the loop
     client.disconnect()
+    os.remove('client2.pid')
 
 def get_qos(topic):
     match = re.search(r'-qos(\d)-',topic)
@@ -54,9 +57,9 @@ def get_logger(logname):
     return logger
 
 def subscribe(client,topic,qos_level):
-    print("[client2] subscribing to topic"+topic)
+    print("[client2]{subscribe} subscribing to topic"+topic)
     sub_rc = client.subscribe(topic,int(qos_level))
-    print("[client2] subscribe returned "+str(sub_rc))
+    print("[client2]{subscribe} subscribe returned "+str(sub_rc))
     wait_for(client, sub_rc)
 
 def on_message(client, userdata, message):
@@ -67,13 +70,13 @@ def on_message(client, userdata, message):
 def on_connect(client, userdata, flags, rc):
     if rc == 0:
         client.connected_flag=True
-	print("[client2] client connected to broker")
+	print("[client2]{on_connect} client connected to broker")
     else:
-	print("[client2] client failed to connected to broker, Return Code = "+rc)
+	print("[client2]{on_connect} client failed to connected to broker, Return Code = "+rc)
         client.loop_stop()
 
 def on_disconnect(client, userdata, rc):
-    print("[client2] client disconnected from broker")
+    print("[client2]{on_disconnect} client disconnected from broker")
 
 def on_publish(client,userdata,mid):             #create function for callback
     pass
@@ -86,9 +89,9 @@ def wait_for(client,msgType,period=0.25):
     if msgType=="SUBACK":
         if client.on_subscribe:
             while not client.suback_flag:
-                print("[client2] waiting suback")
+                print("[client2]{wait_for} waiting suback")
                 client.loop()  #check for messages
-                time.sleep(period)
+                #time.sleep(period)
 
 def publish_back(topic, payload, qos, mid, counter):
     topic=topic+"_2"
@@ -101,11 +104,11 @@ def publish_back(topic, payload, qos, mid, counter):
 signal.signal(signal.SIGUSR1,signal_handler);
 signal.signal(signal.SIGUSR2,signal_handler_2);
 
-
 with open('client2.pid', 'w') as the_file:
     the_file.write(str(os.getpid()))
 
-time.sleep(1)
+while ( not os.path.isfile('client1.pid') ):
+    pass
 
 f = open('client1.pid','r')
 client1_pid = f.read()
@@ -126,13 +129,10 @@ client.on_disconnect=on_disconnect
 print("[client2] connecting to broker "+broker_address+":"+str(port))
 rc = client.connect(broker_address,port) #connect to broker
 
-time.sleep(0.5)
-print "[client2] connect returned "+str(rc)
-
-while( rc != 0 ):
-    time.sleep(0.5)
-    rc = client.connect(broker_address,port) #connect to broker
-    print "[client2] connect returned "+str(rc)
+#while( rc != 0 ):
+#    time.sleep(0.5)
+#    rc = client.connect(broker_address,port) #connect to broker
+#    print "[client2] connect returned "+str(rc)
 
 client.loop_start() #start the loop
 
@@ -147,8 +147,6 @@ subscribe(client,topic,qos_level)
 
 print "[client2] sending client1 the signal to start sending"
 os.kill(c1pid,signal.SIGUSR1)
-
-
 
 while ( 1 ):
     pass
