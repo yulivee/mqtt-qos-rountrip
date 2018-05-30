@@ -1,0 +1,314 @@
+---
+title: 
+author:
+date: 
+output: pdf_document
+header-includes: 
+    - \usepackage{amsthm}
+    - \usepackage{xcolor}
+documentclass: article
+<!---output: beamer_presentation--->
+---
+
+
+
+
+
+<!--- Below are global settings for knitr. You can override any of them by adding the changes to individual chunks --->
+
+```{r global_options, include=FALSE}
+knitr::opts_chunk$set(error=TRUE,        # Keep compiling upon error
+                      collapse=TRUE,     # collapse by default
+                      echo=TRUE,         # echo code by default
+                      comment = "#>",    # change comment character
+                      fig.width = 7,     # set figure width
+                      out.width = "40%", # set width of displayed images
+                      warning=TRUE,      # show R warnings
+                      message=FALSE)     # show R messages
+```
+
+
+<!--- Solution Region --->
+<style>
+#solution {
+  background-color: #8FBC8F;
+  border-style: solid;
+  border-color: blue;
+  margin-left: 20px;
+  margin-bottom: 15px;
+  padding: 5px;
+}
+</style>
+
+
+
+<!---**Wintersemester 2016 |Studiengang Data Science | Hochschule Darmstadt **--->
+
+
+
+
+<!---\theoremstyle{break}**--->
+\theoremstyle{definition}
+\newtheorem{auf}{Aufgabe}
+
+
+\newcommand{\R}{{\sffamily R} }
+\newcommand{\RStudio}{{\sffamily RStudio} }
+\newcommand{\RMarkdown}{{\sffamily R Markdown} }
+
+
+\begin{centering}
+%\vspace{-2 cm}
+\Huge
+{\bf Praktikum und Übung}\\
+\Large
+Nichtlineare und nichtparametrische Methoden\\
+\normalsize
+Sommersemester 2018\\
+S. Döhler\\
+\end{centering}
+
+
+\hrulefill
+
+
+
+<!---\setcounter{auf}{23} **--->
+\setcounter{auf}{-2}
+\begin{auf}
+\begin{itemize}
+	\item[a)] Installieren Sie die neuesten Versionen von \R,  \RStudio sowie \LaTeX (MikTeX fuer windows, MacTeX für mac, TexLive fuer Linux).
+	\item[b)] Prüfen Sie die Lauffaehigkeit von \R in \RStudio indem Sie die R-demos laufen lassen.
+\end{itemize}
+\end{auf}
+
+\vspace{1.5em}
+
+\begin{auf}
+\begin{itemize}
+	\item[a)] Studieren Sie sorgfältig die Abschnitte 16.1 und 16.2 aus dem Dokument 'Nonparametric Tests' (entnommen aus 'Introduction to the practice of statistics' von Moore und McCabe) welches Sie in moodle finden.  Einen Ausdruck des Dokuments koennen Sie beim Laboringenieur Herrn Schepers erhalten.
+	\item[b)] Wenn Sie sich schon auf den weiteren Verlauf der LV vorbereiten wollen, koennen Sie das Dokument 'Linear Regression' (entnommen aus 'An introduction to statistical learning' von Hastie et al.) auf moodle lesen. Einen Ausdruck des Dokuments koennen Sie beim Laboringenieur Herrn Schepers erhalten. 
+\end{itemize}
+\end{auf}
+
+\begin{table}[htbp]
+  \centering
+  \caption{}
+    \begin{tabular}{cccc}
+    child & progress & story1 & story2 \\ \hline
+    1     & high  & 0.55  & 0.8 \\
+    2     & high  & 0.57  & 0.82 \\
+    3     & high  & 0.72  & 0.54 \\
+    4     & high  & 0.70  & 0.79 \\
+    5     & high  & 0.84  & 0.89 \\
+    6     & low   & 0.40  & 0.77 \\
+    7     & low   & 0.72  & 0.49 \\
+    8     & low   & 0.00  & 0.66 \\
+    9     & low   & 0.36  & 0.28 \\
+    10    & low   & 0.55  & 0.38 \\
+    \end{tabular}%
+  \label{tab:addlabel}%
+\end{table}
+
+% verfeinerte Zielsetzung
+\section{Logging}
+
+Die folgenden Logging Daten werden auf den Clients und dem Broker aufgezeichnet:
+
+\begin{itemize}
+	\item Paket ID zur eindeutigen Identifikation
+    \item Timestamp (TS) Package sent und Package received \\
+    \texttt{Jahr-Monat-Tag\_Stunden:Minuten:Sekunden:Millisekunden}
+\end{itemize}
+
+\section{Geplante Testabläufe}
+Die Tests werden für die 3 QoS-Modi durchgeführt:
+\begin{itemize}
+\item  \textbf{0 – once at most} – Nachricht maximal einmal versandt Übertragung hat die gleichen Garantien wie TCP
+\item  \textbf{1 – at least once} – Nachricht wird mindestens einmal übertragen
+\item  \textbf{2 – exactly once} – Nachricht wird genau einmal übertragen
+\end{itemize}
+
+\subsection{Latenzzeit}
+Untersucht wird anhand geloggter TS die Latenzzeit der verschiedenen QoS-Modi.\\
+\textbf{Variiert} werden die Größenordnungen der Testdaten für Requests (jeweils 1, 10 und 100 Byte, KB und MB). \\
+Die im folgenden gelisteten Payloads, werden ggf. im Laufe der Experimente noch angepasst.
+Ebenfalls im Laufe der Experimente zu kennzeichnen, ist der Übergang wenn die versendeten Payloads die die MTU (Maximum Transmission Unit) des Netzwerks überschreiten und die übermittelten Nachrichten in mehrere Pakete aufgeteilt werden. Die voreingestellte MTU size auf den Clients und dem Broker beträgt 1500 Bytes. Siehe auch \ref{tab:latenz}.
+
+\begin{table}
+\caption{Latenzzeit in Abhängigkeit der Paketgröße} 
+\label{tab:latenz}
+\begin{tabular}{L{5.5cm}L{3cm}L{3cm}L{3cm}} 
+\hline
+\textbf{Payload} & \textbf{QoS-0} & \textbf{QoS-1} & \textbf{QoS-2}\\ 
+\hline
+leeres Paket & & & \\
+1 Byte & & &  \\
+10 Byte & & &  \\
+100 Byte & & &  \\
+1 kB   & & &  \\
+1500 Bytes (MTU Size Limit) & & & \\
+10 kB   & & &  \\
+100 kB   & & &  \\
+1 MB   & & &  \\
+10 MB   & & &  \\
+100 MB   & & &  \\
+1 GB   & & &  \\
+\hline
+\end{tabular}
+\end{table}
+
+
+```{r}
+setwd("/home/lisa/Darmstadt/05_Speicher und Datennetze IoT/Praktikum/Git/mqtt-qos-rountrip/logs/latenz-tc-1mbps/")
+options(digits.secs=3) # needs to be set from time to time - otherwise R doesn't allow for ms
+library("data.table", lib.loc="~/R/x86_64-pc-linux-gnu-library/3.4")
+library("h2o", lib.loc="~/R/x86_64-pc-linux-gnu-library/3.4")
+library("tidyr", lib.loc="~/R/x86_64-pc-linux-gnu-library/3.4")
+
+#Create the list of log files in the folder
+files <- list.files(pattern = "*client1.log", full.names = TRUE, recursive = FALSE)
+names <- substr(files, start = 18, stop = 60)
+```
+
+```{r}
+# Read the logs into dataFrames and bind
+# df <- rbindlist(lapply(files, fread))
+
+#####################
+# Create dataFrames # 
+#####################
+# Take Date + Time for adequate TS and formate to POSIXct
+
+Timestamp<-c(as.POSIXct("2018-05-18 14:01:41.264 CEST"))
+newID<-c()
+
+for (i in 1:length(files)) {
+  #x <- get(files[i])
+  x<-rbindlist(lapply(files[i], fread))
+  colnames(x)<- c("Date", "Time", "Action", "Topic", "QoS", "Size", "ID")
+  
+  for (j in 1:nrow(x)) {
+    Timestamp[j]<-as.POSIXct(strptime(gsub(":", ".", paste(x[j,1],x[j,2])),"%Y-%m-%d %H.%M.%OS"))
+    newID[j]<-paste(x[j,4], x[j,7])
+  }
+  x<-cbind(x, Timestamp, newID)
+  
+  assign(paste(names[i]),x)
+}
+```
+
+```{r}
+
+#########################
+# Create DF to hold RTT #
+#########################
+# name Vector
+namesSent<-c()
+namesRec<-c()
+namesTime<-c()
+
+# Split each set into sent and receive to substract in next step (each stored separately)
+# Create name Vectors for Sent, Receive and Time to access in next step
+for (i in 1:length(names)){
+  sentTimes <- subset(get(paste(names[i])), Action=="sent")
+  recTimes <- subset(get(paste(names[i])), Action=="received")
+  assign(paste("sentTimes", names[i]), sentTimes)
+  namesSent[i]<-paste("sentTimes", names[i])
+  assign(paste("recTimes", names[i]), recTimes)
+  namesRec[i]<-paste("recTimes", names[i])
+  
+  times<-as.data.frame(matrix(nrow=2000, ncol=6)) # Create times Matces to store RTT in next step
+  colnames(times)<- c("sent", "s_newid", "rec", "r_newid", "rtt", "id")
+  times[,1] <-as.POSIXct(strptime(times[, "sent"],"%Y-%m-%d %H.%M.%OS"))
+  times[,3] <-as.POSIXct(strptime(times[, "rec"],"%Y-%m-%d %H.%M.%OS"))
+  assign(paste("times", names[i]), times)
+  namesTime[i]<-paste("times", names[i]) # Store Names of Time Matrices to access with get command
+}
+```
+
+```{r}
+
+#################
+# Calculate RTT #
+#################
+
+# Fill times Data Frames with Sent TS and IDs
+for(i in 1 : length(namesSent)){
+  sentTimes<- get(paste(namesSent[i]))
+  times<- get(paste(namesTime[i]))
+  
+  for (j in sentTimes$ID) {
+    times[j, "sent"]<- sentTimes[which(sentTimes$ID == j),"Timestamp"]
+    times[j, "id"]<- sentTimes[which(sentTimes$ID == j),"ID"]
+    times[j, "s_newid"]<- sentTimes[which(sentTimes$ID == j),"newID"]
+  }
+  assign(paste("times", names[i]), times)
+  #assign(times, paste("times", names[i]))
+}
+
+# Fill times Data Frames with Recieved TS and IDs
+for(i in 1 : length(namesRec)){
+  recTimes<- get(paste(namesRec[i]))
+  times<- get(paste(namesTime[i]))
+  
+  for (j in recTimes$ID) {
+    times[j, "rec"]<- recTimes[which(recTimes$ID == j),"Timestamp"]
+    times[j, "id"]<- recTimes[which(recTimes$ID == j),"ID"]
+    times[j, "r_newid"]<- recTimes[which(recTimes$ID == j),"newID"]
+  }
+  assign(paste("times", names[i]), times)
+  #assign(times, paste("times", names[i]))
+}
+
+
+# Calculate Difference
+for (i in 1:length(namesTime)){
+  times<- get(paste(namesTime[i]))
+  
+  for (j in 1:nrow(times)) {
+    times[j,"rtt"]<- difftime(times[j,3], times[j,1])
+  }
+  
+  times <- na.omit(times)
+  assign(paste("times", names[i]), times)
+}
+
+
+```
+
+```{r}
+
+#####################
+# Merge Data Frames #
+#####################
+latenzTC1mbps <- merge(get(namesTime[1]), get(namesTime[2]), by = "r_newid")
+
+for (i in 1:length(namesTime)){
+latenzTC1mbps <- rbind(latenzTC1mbps, get(namesTime[i]))
+}
+
+```
+
+```{r}
+####################
+# Split Topic Name #
+####################
+separate(latenzTC1mbps$s_newid)
+
+latenzTC1mbpsSep <- latenzTC1mbps %>% separate(s_newid, c("n1", "n2", "QoS", "Size", "Min", "n3", "Speed", "n4" ))
+z <- c(-2, -3, -7, -9)
+latenzTC1mbps <- latenzTC1mbpsSep[,z]
+```
+
+```{r}
+################
+# Plot Results #
+################
+
+par(mfrow = c(3, 2))
+for (i in 1:length(namesTime)){
+time<-get(namesTime[i])
+plot(time$id, time$rtt, title(namesTime[1]))
+}
+```
