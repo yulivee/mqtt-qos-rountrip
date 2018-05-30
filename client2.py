@@ -8,7 +8,7 @@ import os
 
 logger = logging.getLogger(__name__)
 handler = ""
-broker_address="192.168.1.100"
+broker_address="192.168.1.115"
 port=1883
 client_name="Stolz"
 qos_level=""

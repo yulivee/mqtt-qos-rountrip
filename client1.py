@@ -121,8 +121,8 @@ def wait_for(client,msgType,period=0.25):
 signal.signal(signal.SIGUSR1,signal_handler);
 signal.signal(signal.SIGUSR2,signal_handler_2);
 
-#broker_address="192.168.1.115"
-broker_address="192.168.1.100"
+broker_address="192.168.1.115"
+#broker_address="192.168.1.100"
 client_name="Schuhmacher"
 port=1883
 answer_topic=topic+"_2"

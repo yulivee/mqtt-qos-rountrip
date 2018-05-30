@@ -1,0 +1,8 @@
+2018-05-30,00:25:18:408,received,mqtt-roundtrip-qos1-10KByte-1-minutes-1pbs,1,10246,000000
+2018-05-30,00:25:18:409,sent,mqtt-roundtrip-qos1-10KByte-1-minutes-1pbs_2,1,10246,000000
+2018-05-30,00:25:18:409,received,mqtt-roundtrip-qos1-10KByte-1-minutes-1pbs,1,10246,000001
+2018-05-30,00:25:18:410,sent,mqtt-roundtrip-qos1-10KByte-1-minutes-1pbs_2,1,10246,000001
+2018-05-30,00:25:22:503,received,mqtt-roundtrip-qos1-10KByte-1-minutes-1pbs,1,10246,000002
+2018-05-30,00:25:22:504,sent,mqtt-roundtrip-qos1-10KByte-1-minutes-1pbs_2,1,10246,000002
+2018-05-30,00:25:39:263,received,mqtt-roundtrip-qos1-10KByte-1-minutes-1pbs,1,10246,000003
+2018-05-30,00:25:39:264,sent,mqtt-roundtrip-qos1-10KByte-1-minutes-1pbs_2,1,10246,000003
