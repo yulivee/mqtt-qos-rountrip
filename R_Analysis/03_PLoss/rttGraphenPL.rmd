@@ -1,0 +1,346 @@
+---
+output: pdf_document
+header-includes: 
+    - \usepackage{amsthm}
+    - \usepackage{xcolor}
+documentclass: article
+<!---output: beamer_presentation--->
+---
+
+
+```{r global_options, include=FALSE}
+knitr::opts_chunk$set(error=TRUE,        # Keep compiling upon error
+                      collapse=TRUE,     # collapse by default
+                      echo=TRUE,         # echo code by default
+                      comment = "#>",    # change comment character
+                      fig.width = 7,     # set figure width
+                      out.width = "100%", # set width of displayed images
+                      warning=FALSE,      # show R warnings
+                      message=FALSE)     # show R messages
+```
+
+
+<!--- Solution Region --->
+<style>
+#solution {
+  background-color: #8FBC8F;
+  border-style: solid;
+  border-color: blue;
+  margin-left: 20px;
+  margin-bottom: 15px;
+  padding: 5px;
+}
+</style>
+
+\theoremstyle{break}
+\newtheorem{auf}{Aufgabe}
+
+\newcommand{\R}{{\sffamily R} }
+
+\begin{centering}
+\Huge
+{\bf Anhang 4}\\
+\Large
+Graphische Darstellung der Paketloss Messungen\\
+\normalsize
+
+\end{centering}
+
+
+```{r}
+setwd("/home/lisa/Darmstadt/05_Speicher und Datennetze IoT/Praktikum/Git/mqtt-qos-rountrip/R_Analysis/03_PLoss/")
+options(digits.secs=3) # needs to be set from time to time - otherwise R doesn't allow for ms
+library("data.table", lib.loc="~/R/x86_64-pc-linux-gnu-library/3.4")
+library("h2o", lib.loc="~/R/x86_64-pc-linux-gnu-library/3.4")
+library("tidyr", lib.loc="~/R/x86_64-pc-linux-gnu-library/3.4")
+library("plyr")
+library(kableExtra)
+
+load("./latenzPL1proz.Rda")
+load("./latenzPL5proz.Rda")
+load("./latenzPL10proz.Rda")
+load("./latenzPL15proz.Rda")
+load("./latenzPL20proz.Rda")
+load("./latenzPL25proz.Rda")
+load("./latenzPL30proz.Rda")
+```
+
+```{r}
+#files <- list.files(pattern = "*bps.Rda", full.names = TRUE, recursive = FALSE)
+files <- c("latenzPL1proz", "latenzPL5proz", "latenzPL10proz", "latenzPL15proz", "latenzPL20proz", "latenzPL25proz", "latenzPL30proz")
+
+```
+
+Zusammenfügn eines großen Datensatzes aller Paketloss-files
+```{r}
+latenzPL1proz$PL_Proz <- 1
+latenzPL5proz$PL_Proz <- 5
+latenzPL10proz$PL_Proz <- 10
+latenzPL15proz$PL_Proz <- 15
+latenzPL20proz$PL_Proz <- 20
+latenzPL25proz$PL_Proz <- 25
+latenzPL30proz$PL_Proz <- 30
+
+
+PLoss_Logs <- rbind(latenzPL1proz, latenzPL5proz, latenzPL10proz, latenzPL15proz, latenzPL20proz, latenzPL25proz, latenzPL30proz)
+
+
+
+```
+
+```{r}
+########################
+# Aufsplittung nach PL #
+########################
+
+PLoss_Logs_1PL<-PLoss_Logs[PLoss_Logs$PL_Proz == 1,]
+PLoss_Logs_5PL<-PLoss_Logs[PLoss_Logs$PL_Proz == 5,]
+PLoss_Logs_10PL<-PLoss_Logs[PLoss_Logs$PL_Proz == 10,]
+PLoss_Logs_15PL<-PLoss_Logs[PLoss_Logs$PL_Proz == 15,]
+PLoss_Logs_20PL<-PLoss_Logs[PLoss_Logs$PL_Proz == 20,]
+PLoss_Logs_25PL<-PLoss_Logs[PLoss_Logs$PL_Proz == 25,]
+PLoss_Logs_30PL<-PLoss_Logs[PLoss_Logs$PL_Proz == 30,]
+```
+
+```{r}
+############################
+# Aufsplittung PL nach QoS #
+############################
+
+PLoss_Logs_1PL_QoS0<-PLoss_Logs_1PL[PLoss_Logs_1PL$QoS == "qos0",]
+PLoss_Logs_1PL_QoS1<-PLoss_Logs_1PL[PLoss_Logs_1PL$QoS == "qos1",]
+PLoss_Logs_1PL_QoS2<-PLoss_Logs_1PL[PLoss_Logs_1PL$QoS == "qos2",]
+
+PLoss_Logs_5PL_QoS0<-PLoss_Logs_5PL[PLoss_Logs_5PL$QoS == "qos0",]
+PLoss_Logs_5PL_QoS1<-PLoss_Logs_5PL[PLoss_Logs_5PL$QoS == "qos1",]
+PLoss_Logs_5PL_QoS2<-PLoss_Logs_5PL[PLoss_Logs_5PL$QoS == "qos2",]
+
+PLoss_Logs_10PL_QoS0<-PLoss_Logs_10PL[PLoss_Logs_10PL$QoS == "qos0",]
+PLoss_Logs_10PL_QoS1<-PLoss_Logs_10PL[PLoss_Logs_10PL$QoS == "qos1",]
+PLoss_Logs_10PL_QoS2<-PLoss_Logs_10PL[PLoss_Logs_10PL$QoS == "qos2",]
+
+PLoss_Logs_15PL_QoS0<-PLoss_Logs_15PL[PLoss_Logs_15PL$QoS == "qos0",]
+PLoss_Logs_15PL_QoS1<-PLoss_Logs_15PL[PLoss_Logs_15PL$QoS == "qos1",]
+PLoss_Logs_15PL_QoS2<-PLoss_Logs_15PL[PLoss_Logs_15PL$QoS == "qos2",]
+
+PLoss_Logs_20PL_QoS0<-PLoss_Logs_20PL[PLoss_Logs_20PL$QoS == "qos0",]
+PLoss_Logs_20PL_QoS1<-PLoss_Logs_20PL[PLoss_Logs_20PL$QoS == "qos1",]
+PLoss_Logs_20PL_QoS2<-PLoss_Logs_20PL[PLoss_Logs_20PL$QoS == "qos2",]
+
+PLoss_Logs_25PL_QoS0<-PLoss_Logs_25PL[PLoss_Logs_25PL$QoS == "qos0",]
+PLoss_Logs_25PL_QoS1<-PLoss_Logs_25PL[PLoss_Logs_25PL$QoS == "qos1",]
+PLoss_Logs_25PL_QoS2<-PLoss_Logs_25PL[PLoss_Logs_25PL$QoS == "qos2",]
+
+PLoss_Logs_30PL_QoS0<-PLoss_Logs_30PL[PLoss_Logs_30PL$QoS == "qos0",]
+PLoss_Logs_30PL_QoS1<-PLoss_Logs_30PL[PLoss_Logs_30PL$QoS == "qos1",]
+PLoss_Logs_30PL_QoS2<-PLoss_Logs_30PL[PLoss_Logs_30PL$QoS == "qos2",]
+
+#rttQoS0<-get(namesTime[1])
+#rttQoS1<-get(namesTime[2])
+#rttQoS2<-get(namesTime[3])
+
+par(mfrow = c(1, 1))
+######
+# 1% #
+######
+plot(PLoss_Logs_1PL_QoS0$id, PLoss_Logs_1PL_QoS0$rtt, main = "RTT Paketloss 1% (10KByte, 1PproSek)", 
+     ylim = c(0, 0.3), ylab = "RTT (in Sek)", xlab = "Paket_ID", type = "b")
+points(PLoss_Logs_1PL_QoS1$id, PLoss_Logs_1PL_QoS1$rtt, col = "red", type = "b")
+points(PLoss_Logs_1PL_QoS2$id, PLoss_Logs_1PL_QoS2$rtt, col = "blue", type = "b")
+
+legend("topleft", c("QoS0", "QoS1", "QoS2"), text.width = 4,
+       col = c("black", "red", "blue"),
+       text.col = "black", cex = 1  ,lwd = c(2, 2, 2),
+       y.intersp = 1.5, merge = FALSE, bg = "gray95")
+######
+# 5% #
+######
+plot(PLoss_Logs_5PL_QoS0$id, PLoss_Logs_5PL_QoS0$rtt, main = "RTT Paketloss 5% (10KByte, 1PproSek)", 
+     ylim = c(0, 1.2), ylab = "RTT (in Sek)", xlab = "Paket_ID", type = "b")
+points(PLoss_Logs_5PL_QoS1$id, PLoss_Logs_5PL_QoS1$rtt, col = "red", type = "b")
+points(PLoss_Logs_5PL_QoS2$id, PLoss_Logs_5PL_QoS2$rtt, col = "blue", type = "b")
+
+legend("topleft", c("QoS0", "QoS1", "QoS2"), text.width = 4,
+       col = c("black", "red", "blue"),
+       text.col = "black", cex = 1  ,lwd = c(2, 2, 2),
+       y.intersp = 1.5, merge = FALSE, bg = "gray95")
+
+#######
+# 10% #
+#######
+plot(PLoss_Logs_10PL_QoS0$id, PLoss_Logs_10PL_QoS0$rtt, main = "RTT Paketloss 10% (10KByte, 1PproSek)", 
+     ylim = c(0,1.8), ylab = "RTT (in Sek)", xlab = "Paket_ID", type = "b")
+points(PLoss_Logs_10PL_QoS1$id, PLoss_Logs_10PL_QoS1$rtt, col = "red", type = "b")
+points(PLoss_Logs_10PL_QoS2$id, PLoss_Logs_10PL_QoS2$rtt, col = "blue", type = "b")
+
+legend("topleft", c("QoS0", "QoS1", "QoS2"), text.width = 3, cex = 0.6,
+       col = c("black", "red", "blue"),
+       text.col = "black", lwd = c(2, 2, 2),
+       y.intersp = 1.5, merge = FALSE, bg = "gray95")
+
+#######
+# 15% #
+#######
+plot(PLoss_Logs_15PL_QoS0$id, PLoss_Logs_15PL_QoS0$rtt, main = "RTT Paketloss 15% (10KByte, 1PproSek)", 
+     ylab = "RTT (in Sek)", xlab = "Paket_ID", type = "b")
+points(PLoss_Logs_15PL_QoS1$id, PLoss_Logs_15PL_QoS1$rtt, col = "red", type = "b")
+points(PLoss_Logs_15PL_QoS2$id, PLoss_Logs_15PL_QoS2$rtt, col = "blue", type = "b")
+
+legend("topleft", c("QoS0", "QoS1", "QoS2"), text.width = 4,
+       col = c("black", "red", "blue"),
+       text.col = "black", cex = 1  ,lwd = c(2, 2, 2),
+       y.intersp = 1.5, merge = FALSE, bg = "gray95")
+
+#######
+# 20% #
+#######
+plot(PLoss_Logs_20PL_QoS0$id, PLoss_Logs_20PL_QoS0$rtt, main = "RTT Paketloss 20% (10KByte, 1PproSek)", 
+     ylab = "RTT (in Sek)", xlab = "Paket_ID", type = "b")
+points(PLoss_Logs_20PL_QoS1$id, PLoss_Logs_20PL_QoS1$rtt, col = "red", type = "b")
+points(PLoss_Logs_20PL_QoS2$id, PLoss_Logs_20PL_QoS2$rtt, col = "blue", type = "b")
+
+legend("top", c("QoS0", "QoS1", "QoS2"), text.width = 3.5, cex = 0.7,
+       col = c("black", "red", "blue"),
+       text.col = "black", lwd = c(2, 2, 2),
+       y.intersp = 1.5, merge = FALSE, bg = "gray95")
+
+#######
+# 25% #
+#######
+plot(PLoss_Logs_25PL_QoS0$id, PLoss_Logs_25PL_QoS0$rtt, main = "RTT Paketloss 25% (10KByte, 1PproSek)", 
+     ylim = c(0, 50), ylab = "RTT (in Sek)", xlab = "Paket_ID", type = "b")
+points(PLoss_Logs_25PL_QoS1$id, PLoss_Logs_25PL_QoS1$rtt, col = "red", type = "b")
+points(PLoss_Logs_25PL_QoS2$id, PLoss_Logs_25PL_QoS2$rtt, col = "blue", type = "b")
+
+legend("top", c("QoS0", "QoS1", "QoS2"), text.width = 2.5, cex = 0.7,
+       col = c("black", "red", "blue"),
+       text.col = "black", lwd = c(2, 2, 2),
+       y.intersp = 1.5, merge = FALSE, bg = "gray95")
+
+#######
+# 30% #
+#######
+plot(PLoss_Logs_30PL_QoS0$id, PLoss_Logs_30PL_QoS0$rtt, main = "RTT Paketloss 30% (10KByte, 1PproSek)", 
+     ylim = c(0, 60), ylab = "RTT (in Sek)", xlab = "Paket_ID", type = "b")
+points(PLoss_Logs_30PL_QoS1$id, PLoss_Logs_30PL_QoS1$rtt, col = "red", type = "b")
+points(PLoss_Logs_30PL_QoS2$id, PLoss_Logs_30PL_QoS2$rtt, col = "blue", type = "b")
+
+legend("top", c("QoS0", "QoS1", "QoS2"), col = c("black", "red", "blue"), text.width = 2, cex = 0.7,
+       text.col = "black", lwd = c(2, 2, 2),
+       y.intersp = 1.5, merge = FALSE, bg = "gray95")
+
+```
+
+```{r}
+#########################
+# Aufsplittung nach QoS #
+#########################
+
+PLoss_LogsQoS0<-PLoss_Logs[PLoss_Logs$QoS == "qos0",]
+PLoss_LogsQoS1<-PLoss_Logs[PLoss_Logs$QoS == "qos1",]
+PLoss_LogsQoS2<-PLoss_Logs[PLoss_Logs$QoS == "qos2",]
+
+plot(PLoss_LogsQoS0$id, PLoss_LogsQoS0$rtt, type = "l", main = "RTT QoS0 (10KByte, 1PproSek)")
+plot(PLoss_LogsQoS1$id, PLoss_LogsQoS1$rtt, type = "l", main = "RTT QoS1 (10KByte, 1PproSek)")
+plot(PLoss_LogsQoS2$id, PLoss_LogsQoS2$rtt, type = "l", main = "RTT QoS2 (10KByte, 1PproSek)")
+```
+
+```{r}
+#################################
+# Aufsplittung QoS nach PL_Proz #
+#################################
+
+PLoss_LogsQoS0_1PL<-PLoss_LogsQoS0[PLoss_LogsQoS0$PL_Proz == 1,]
+PLoss_LogsQoS0_5PL<-PLoss_LogsQoS0[PLoss_LogsQoS0$PL_Proz == 5,]
+PLoss_LogsQoS0_10PL<-PLoss_LogsQoS0[PLoss_LogsQoS0$PL_Proz == 10,]
+PLoss_LogsQoS0_15PL<-PLoss_LogsQoS0[PLoss_LogsQoS0$PL_Proz == 15,]
+PLoss_LogsQoS0_20PL<-PLoss_LogsQoS0[PLoss_LogsQoS0$PL_Proz == 20,]
+PLoss_LogsQoS0_25PL<-PLoss_LogsQoS0[PLoss_LogsQoS0$PL_Proz == 25,]
+PLoss_LogsQoS0_30PL<-PLoss_LogsQoS0[PLoss_LogsQoS0$PL_Proz == 30,]
+
+plot(PLoss_LogsQoS0_1PL$id, PLoss_LogsQoS0_1PL$rtt, type = "b", main = "RTT QoS0_PL1 (10KByte, 1PproSek)")
+plot(PLoss_LogsQoS0_5PL$id, PLoss_LogsQoS0_5PL$rtt, type = "b", main = "RTT QoS0_PL5 (10KByte, 1PproSek)")
+plot(PLoss_LogsQoS0_10PL$id, PLoss_LogsQoS0_10PL$rtt, type = "b", main = "RTT QoS0_PL10 (10KByte, 1PproSek)")
+plot(PLoss_LogsQoS0_15PL$id, PLoss_LogsQoS0_15PL$rtt, type = "b", main = "RTT QoS0_PL15 (10KByte, 1PproSek)")
+plot(PLoss_LogsQoS0_20PL$id, PLoss_LogsQoS0_20PL$rtt, type = "b", main = "RTT QoS0_PL20 (10KByte, 1PproSek)")
+plot(PLoss_LogsQoS0_25PL$id, PLoss_LogsQoS0_25PL$rtt, type = "b", main = "RTT QoS0_PL25 (10KByte, 1PproSek)")
+plot(PLoss_LogsQoS0_30PL$id, PLoss_LogsQoS0_30PL$rtt, type = "b", main = "RTT QoS0_PL30 (10KByte, 1PproSek)")
+
+plot(PLoss_LogsQoS0_1PL$id, PLoss_LogsQoS0_1PL$rtt, main = "RTT QoS0 (10KByte, 1PproSek)", ylim = c(0, 45),
+     ylab = "RTT (in Sek)", xlab = "Paket_ID", type = "l")
+points(PLoss_LogsQoS0_10PL$id, PLoss_LogsQoS0_10PL$rtt, col = "red", type = "l")
+points(PLoss_LogsQoS0_20PL$id, PLoss_LogsQoS0_20PL$rtt, col = "blue", type = "b")
+points(PLoss_LogsQoS0_25PL$id, PLoss_LogsQoS0_25PL$rtt, col = "green4", type = "b")
+points(PLoss_LogsQoS0_30PL$id, PLoss_LogsQoS0_30PL$rtt, col = "purple2", type = "b")
+
+
+legend("topright", c("  1% P_loss", "10% P_loss", "20% P_loss", "25% P_loss", "30% P_loss"), text.width = 10, col = c("black", "red", "blue", "green4", "purple2"),
+       text.col = "black", cex = 1  ,lwd = c(2, 2, 2),
+       y.intersp = 1.5, merge = FALSE, bg = "gray95")
+
+```
+```{r}
+PLoss_LogsQoS1_1PL<-PLoss_LogsQoS1[PLoss_LogsQoS1$PL_Proz == 1,]
+PLoss_LogsQoS1_5PL<-PLoss_LogsQoS1[PLoss_LogsQoS1$PL_Proz == 5,]
+PLoss_LogsQoS1_10PL<-PLoss_LogsQoS1[PLoss_LogsQoS1$PL_Proz == 10,]
+PLoss_LogsQoS1_15PL<-PLoss_LogsQoS1[PLoss_LogsQoS1$PL_Proz == 15,]
+PLoss_LogsQoS1_20PL<-PLoss_LogsQoS1[PLoss_LogsQoS1$PL_Proz == 20,]
+PLoss_LogsQoS1_25PL<-PLoss_LogsQoS1[PLoss_LogsQoS1$PL_Proz == 25,]
+PLoss_LogsQoS1_30PL<-PLoss_LogsQoS1[PLoss_LogsQoS1$PL_Proz == 30,]
+
+plot(PLoss_LogsQoS1_1PL$id, PLoss_LogsQoS1_1PL$rtt, type = "b", main = "RTT QoS1_PL1 (10KByte, 1PproSek)")
+plot(PLoss_LogsQoS1_5PL$id, PLoss_LogsQoS1_5PL$rtt, type = "b", main = "RTT QoS1_PL5 (10KByte, 1PproSek)")
+plot(PLoss_LogsQoS1_10PL$id, PLoss_LogsQoS1_10PL$rtt, type = "b", main = "RTT QoS1_PL10 (10KByte, 1PproSek)")
+plot(PLoss_LogsQoS1_15PL$id, PLoss_LogsQoS1_15PL$rtt, type = "b", main = "RTT QoS1_PL15 (10KByte, 1PproSek)")
+plot(PLoss_LogsQoS1_20PL$id, PLoss_LogsQoS1_20PL$rtt, type = "b", main = "RTT QoS1_PL20 (10KByte, 1PproSek)")
+plot(PLoss_LogsQoS1_25PL$id, PLoss_LogsQoS1_25PL$rtt, type = "b", main = "RTT QoS1_PL25 (10KByte, 1PproSek)")
+plot(PLoss_LogsQoS1_30PL$id, PLoss_LogsQoS1_30PL$rtt, type = "b", main = "RTT QoS1_PL30 (10KByte, 1PproSek)")
+
+plot(PLoss_LogsQoS1_1PL$id, PLoss_LogsQoS1_1PL$rtt, main = "RTT QoS0 (10KByte, 1PproSek)", ylim = c(0, 60),
+     ylab = "RTT (in Sek)", xlab = "Paket_ID", type = "l")
+points(PLoss_LogsQoS1_10PL$id, PLoss_LogsQoS1_10PL$rtt, col = "red", type = "l")
+points(PLoss_LogsQoS1_20PL$id, PLoss_LogsQoS1_20PL$rtt, col = "blue", type = "l")
+points(PLoss_LogsQoS1_25PL$id, PLoss_LogsQoS1_25PL$rtt, col = "green4", type = "b")
+points(PLoss_LogsQoS1_30PL$id, PLoss_LogsQoS1_30PL$rtt, col = "purple2", type = "b")
+
+
+legend("topright", c("  1% P_loss", "10% P_loss", "20% P_loss", "25% P_loss", "30% P_loss"), text.width = 10, col = c("black", "red", "blue", "green4", "purple2"),
+       text.col = "black", cex = 1  ,lwd = c(2, 2, 2),
+       y.intersp = 1.5, merge = FALSE, bg = "gray95")
+```
+```{r}
+PLoss_LogsQoS2_1PL<-PLoss_LogsQoS2[PLoss_LogsQoS2$PL_Proz == 1,]
+PLoss_LogsQoS2_5PL<-PLoss_LogsQoS2[PLoss_LogsQoS2$PL_Proz == 5,]
+PLoss_LogsQoS2_10PL<-PLoss_LogsQoS2[PLoss_LogsQoS2$PL_Proz == 10,]
+PLoss_LogsQoS2_15PL<-PLoss_LogsQoS2[PLoss_LogsQoS2$PL_Proz == 15,]
+PLoss_LogsQoS2_20PL<-PLoss_LogsQoS2[PLoss_LogsQoS2$PL_Proz == 20,]
+PLoss_LogsQoS2_25PL<-PLoss_LogsQoS2[PLoss_LogsQoS2$PL_Proz == 25,]
+PLoss_LogsQoS2_30PL<-PLoss_LogsQoS2[PLoss_LogsQoS2$PL_Proz == 30,]
+
+plot(PLoss_LogsQoS2_1PL$id, PLoss_LogsQoS2_1PL$rtt, type = "b", main = "RTT QoS2_PL1 (10KByte, 1PproSek)")
+plot(PLoss_LogsQoS2_5PL$id, PLoss_LogsQoS2_5PL$rtt, type = "b", main = "RTT QoS2_PL5 (10KByte, 1PproSek)")
+plot(PLoss_LogsQoS2_10PL$id, PLoss_LogsQoS2_10PL$rtt, type = "b", main = "RTT QoS2_PL10 (10KByte, 1PproSek)")
+plot(PLoss_LogsQoS2_15PL$id, PLoss_LogsQoS2_15PL$rtt, type = "b", main = "RTT QoS2_PL15 (10KByte, 1PproSek)")
+plot(PLoss_LogsQoS2_20PL$id, PLoss_LogsQoS2_20PL$rtt, type = "b", main = "RTT QoS2_PL20 (10KByte, 1PproSek)")
+plot(PLoss_LogsQoS2_25PL$id, PLoss_LogsQoS2_25PL$rtt, type = "b", main = "RTT QoS2_PL25 (10KByte, 1PproSek)")
+plot(PLoss_LogsQoS2_30PL$id, PLoss_LogsQoS2_30PL$rtt, type = "b", main = "RTT QoS2_PL30 (10KByte, 1PproSek)")
+
+plot(PLoss_LogsQoS2_1PL$id, PLoss_LogsQoS2_1PL$rtt, main = "RTT QoS2 (10KByte, 1PproSek)", ylim = c(0, 60),
+     ylab = "RTT (in Sek)", xlab = "Paket_ID", type = "l")
+points(PLoss_LogsQoS2_10PL$id, PLoss_LogsQoS2_10PL$rtt, col = "red", type = "l")
+points(PLoss_LogsQoS2_20PL$id, PLoss_LogsQoS2_20PL$rtt, col = "blue", type = "l")
+points(PLoss_LogsQoS2_25PL$id, PLoss_LogsQoS2_25PL$rtt, col = "green4", type = "b")
+points(PLoss_LogsQoS2_30PL$id, PLoss_LogsQoS2_30PL$rtt, col = "purple2", type = "b")
+
+
+legend("topright", c("  1% P_loss", "10% P_loss", "20% P_loss", "25% P_loss", "30% P_loss"), text.width = 10, col = c("black", "red", "blue", "green4", "purple2"),
+       text.col = "black", cex = 1  ,lwd = c(2, 2, 2),
+       y.intersp = 1.5, merge = FALSE, bg = "gray95")
+
+```
+
+
+
+
+\textcolor{gray}{\hrulefill}
+
