@@ -1,0 +1,418 @@
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\hypersetup{unicode=true,
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\newcommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+  \title{}
+  \pretitle{\vspace{\droptitle}}
+  \posttitle{}
+  \author{}
+  \preauthor{}\postauthor{}
+  \date{}
+  \predate{}\postdate{}
+
+\usepackage{amsthm}
+\usepackage{xcolor}
+
+\begin{document}
+
+\theoremstyle{definition} \newtheorem{auf}{Aufgabe}
+
+\newcommand{\R}{{\sffamily R} }
+\newcommand{\RStudio}{{\sffamily RStudio} }
+\newcommand{\RMarkdown}{{\sffamily R Markdown} }
+
+
+\begin{centering}
+%\vspace{-2 cm}
+\Huge
+{\bf Praktikum und Übung}\\
+\Large
+Nichtlineare und nichtparametrische Methoden\\
+\normalsize
+Sommersemester 2018\\
+S. Döhler\\
+\end{centering}
+
+\hrulefill
+
+\setcounter{auf}{-2}
+
+\begin{auf}
+\begin{itemize}
+    \item[a)] Installieren Sie die neuesten Versionen von \R,  \RStudio sowie \LaTeX (MikTeX fuer windows, MacTeX für mac, TexLive fuer Linux).
+    \item[b)] Prüfen Sie die Lauffaehigkeit von \R in \RStudio indem Sie die R-demos laufen lassen.
+\end{itemize}
+\end{auf}
+
+\vspace{1.5em}
+
+\begin{auf}
+\begin{itemize}
+    \item[a)] Studieren Sie sorgfältig die Abschnitte 16.1 und 16.2 aus dem Dokument 'Nonparametric Tests' (entnommen aus 'Introduction to the practice of statistics' von Moore und McCabe) welches Sie in moodle finden.  Einen Ausdruck des Dokuments koennen Sie beim Laboringenieur Herrn Schepers erhalten.
+    \item[b)] Wenn Sie sich schon auf den weiteren Verlauf der LV vorbereiten wollen, koennen Sie das Dokument 'Linear Regression' (entnommen aus 'An introduction to statistical learning' von Hastie et al.) auf moodle lesen. Einen Ausdruck des Dokuments koennen Sie beim Laboringenieur Herrn Schepers erhalten. 
+\end{itemize}
+\end{auf}
+
+\begin{table}[htbp]
+  \centering
+  \caption{}
+    \begin{tabular}{cccc}
+    child & progress & story1 & story2 \\ \hline
+    1     & high  & 0.55  & 0.8 \\
+    2     & high  & 0.57  & 0.82 \\
+    3     & high  & 0.72  & 0.54 \\
+    4     & high  & 0.70  & 0.79 \\
+    5     & high  & 0.84  & 0.89 \\
+    6     & low   & 0.40  & 0.77 \\
+    7     & low   & 0.72  & 0.49 \\
+    8     & low   & 0.00  & 0.66 \\
+    9     & low   & 0.36  & 0.28 \\
+    10    & low   & 0.55  & 0.38 \\
+    \end{tabular}%
+  \label{tab:addlabel}%
+\end{table}
+
+\% verfeinerte Zielsetzung \section{Logging}
+
+Die folgenden Logging Daten werden auf den Clients und dem Broker
+aufgezeichnet:
+
+\begin{itemize}
+    \item Paket ID zur eindeutigen Identifikation
+    \item Timestamp (TS) Package sent und Package received \\
+    \texttt{Jahr-Monat-Tag\_Stunden:Minuten:Sekunden:Millisekunden}
+\end{itemize}
+
+\section{Geplante Testabläufe}
+
+Die Tests werden für die 3 QoS-Modi durchgeführt:
+
+\begin{itemize}
+\item  \textbf{0 – once at most} – Nachricht maximal einmal versandt Übertragung hat die gleichen Garantien wie TCP
+\item  \textbf{1 – at least once} – Nachricht wird mindestens einmal übertragen
+\item  \textbf{2 – exactly once} – Nachricht wird genau einmal übertragen
+\end{itemize}
+
+\subsection{Latenzzeit}
+
+Untersucht wird anhand geloggter TS die Latenzzeit der verschiedenen
+QoS-Modi.\textbackslash{} \textbf{Variiert} werden die Größenordnungen
+der Testdaten für Requests (jeweils 1, 10 und 100 Byte, KB und MB).
+\textbackslash{} Die im folgenden gelisteten Payloads, werden ggf. im
+Laufe der Experimente noch angepasst. Ebenfalls im Laufe der Experimente
+zu kennzeichnen, ist der Übergang wenn die versendeten Payloads die die
+MTU (Maximum Transmission Unit) des Netzwerks überschreiten und die
+übermittelten Nachrichten in mehrere Pakete aufgeteilt werden. Die
+voreingestellte MTU size auf den Clients und dem Broker beträgt 1500
+Bytes. Siehe auch \ref{tab:latenz}.
+
+\begin{table}
+\caption{Latenzzeit in Abhängigkeit der Paketgröße} 
+\label{tab:latenz}
+\begin{tabular}{L{5.5cm}L{3cm}L{3cm}L{3cm}} 
+\hline
+\textbf{Payload} & \textbf{QoS-0} & \textbf{QoS-1} & \textbf{QoS-2}\\ 
+\hline
+leeres Paket & & & \\
+1 Byte & & &  \\
+10 Byte & & &  \\
+100 Byte & & &  \\
+1 kB   & & &  \\
+1500 Bytes (MTU Size Limit) & & & \\
+10 kB   & & &  \\
+100 kB   & & &  \\
+1 MB   & & &  \\
+10 MB   & & &  \\
+100 MB   & & &  \\
+1 GB   & & &  \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{setwd}\NormalTok{(}\StringTok{"/home/lisa/Darmstadt/05_Speicher und Datennetze IoT/Praktikum/Git/mqtt-qos-rountrip/logs/latenz-tc-1mbps/"}\NormalTok{)}
+\KeywordTok{options}\NormalTok{(}\DataTypeTok{digits.secs=}\DecValTok{3}\NormalTok{) }\CommentTok{# needs to be set from time to time - otherwise R doesn't allow for ms}
+\KeywordTok{library}\NormalTok{(}\StringTok{"data.table"}\NormalTok{, }\DataTypeTok{lib.loc=}\StringTok{"~/R/x86_64-pc-linux-gnu-library/3.4"}\NormalTok{)}
+\KeywordTok{library}\NormalTok{(}\StringTok{"h2o"}\NormalTok{, }\DataTypeTok{lib.loc=}\StringTok{"~/R/x86_64-pc-linux-gnu-library/3.4"}\NormalTok{)}
+\KeywordTok{library}\NormalTok{(}\StringTok{"tidyr"}\NormalTok{, }\DataTypeTok{lib.loc=}\StringTok{"~/R/x86_64-pc-linux-gnu-library/3.4"}\NormalTok{)}
+
+\CommentTok{#Create the list of log files in the folder}
+\NormalTok{files <-}\StringTok{ }\KeywordTok{list.files}\NormalTok{(}\DataTypeTok{pattern =} \StringTok{"*client1.log"}\NormalTok{, }\DataTypeTok{full.names =} \OtherTok{TRUE}\NormalTok{, }\DataTypeTok{recursive =} \OtherTok{FALSE}\NormalTok{)}
+\NormalTok{names <-}\StringTok{ }\KeywordTok{substr}\NormalTok{(files, }\DataTypeTok{start =} \DecValTok{18}\NormalTok{, }\DataTypeTok{stop =} \DecValTok{60}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Read the logs into dataFrames and bind}
+\CommentTok{# df <- rbindlist(lapply(files, fread))}
+
+\NormalTok{#####################}
+\CommentTok{# Create dataFrames # }
+\NormalTok{#####################}
+\CommentTok{# Take Date + Time for adequate TS and formate to POSIXct}
+
+\NormalTok{Timestamp<-}\KeywordTok{c}\NormalTok{(}\KeywordTok{as.POSIXct}\NormalTok{(}\StringTok{"2018-05-18 14:01:41.264 CEST"}\NormalTok{))}
+\NormalTok{newID<-}\KeywordTok{c}\NormalTok{()}
+
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\KeywordTok{length}\NormalTok{(files)) \{}
+  \CommentTok{#x <- get(files[i])}
+\NormalTok{  x<-}\KeywordTok{rbindlist}\NormalTok{(}\KeywordTok{lapply}\NormalTok{(files[i], fread))}
+  \KeywordTok{colnames}\NormalTok{(x)<-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"Date"}\NormalTok{, }\StringTok{"Time"}\NormalTok{, }\StringTok{"Action"}\NormalTok{, }\StringTok{"Topic"}\NormalTok{, }\StringTok{"QoS"}\NormalTok{, }\StringTok{"Size"}\NormalTok{, }\StringTok{"ID"}\NormalTok{)}
+  
+  \ControlFlowTok{for}\NormalTok{ (j }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\KeywordTok{nrow}\NormalTok{(x)) \{}
+\NormalTok{    Timestamp[j]<-}\KeywordTok{as.POSIXct}\NormalTok{(}\KeywordTok{strptime}\NormalTok{(}\KeywordTok{gsub}\NormalTok{(}\StringTok{":"}\NormalTok{, }\StringTok{"."}\NormalTok{, }\KeywordTok{paste}\NormalTok{(x[j,}\DecValTok{1}\NormalTok{],x[j,}\DecValTok{2}\NormalTok{])),}\StringTok{"%Y-%m-%d %H.%M.%OS"}\NormalTok{))}
+\NormalTok{    newID[j]<-}\KeywordTok{paste}\NormalTok{(x[j,}\DecValTok{4}\NormalTok{], x[j,}\DecValTok{7}\NormalTok{])}
+\NormalTok{  \}}
+\NormalTok{  x<-}\KeywordTok{cbind}\NormalTok{(x, Timestamp, newID)}
+  
+  \KeywordTok{assign}\NormalTok{(}\KeywordTok{paste}\NormalTok{(names[i]),x)}
+\NormalTok{\}}
+\CommentTok{#> Error in FUN(X[[i]], ...): File './mqtt-roundtrip-qos0-10KByte-1-minutes-100pbs-client1.log' does not exist; getwd()=='/home/lisa/Documents/Bildung/Darmstadt/05_Speicher und Datennetze IoT/Praktikum/R_Analysis/Markup'. Include correct full path, or one or more spaces to consider the input a system command.}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\NormalTok{#########################}
+\CommentTok{# Create DF to hold RTT #}
+\NormalTok{#########################}
+\CommentTok{# name Vector}
+\NormalTok{namesSent<-}\KeywordTok{c}\NormalTok{()}
+\NormalTok{namesRec<-}\KeywordTok{c}\NormalTok{()}
+\NormalTok{namesTime<-}\KeywordTok{c}\NormalTok{()}
+
+\CommentTok{# Split each set into sent and receive to substract in next step (each stored separately)}
+\CommentTok{# Create name Vectors for Sent, Receive and Time to access in next step}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\KeywordTok{length}\NormalTok{(names))\{}
+\NormalTok{  sentTimes <-}\StringTok{ }\KeywordTok{subset}\NormalTok{(}\KeywordTok{get}\NormalTok{(}\KeywordTok{paste}\NormalTok{(names[i])), Action}\OperatorTok{==}\StringTok{"sent"}\NormalTok{)}
+\NormalTok{  recTimes <-}\StringTok{ }\KeywordTok{subset}\NormalTok{(}\KeywordTok{get}\NormalTok{(}\KeywordTok{paste}\NormalTok{(names[i])), Action}\OperatorTok{==}\StringTok{"received"}\NormalTok{)}
+  \KeywordTok{assign}\NormalTok{(}\KeywordTok{paste}\NormalTok{(}\StringTok{"sentTimes"}\NormalTok{, names[i]), sentTimes)}
+\NormalTok{  namesSent[i]<-}\KeywordTok{paste}\NormalTok{(}\StringTok{"sentTimes"}\NormalTok{, names[i])}
+  \KeywordTok{assign}\NormalTok{(}\KeywordTok{paste}\NormalTok{(}\StringTok{"recTimes"}\NormalTok{, names[i]), recTimes)}
+\NormalTok{  namesRec[i]<-}\KeywordTok{paste}\NormalTok{(}\StringTok{"recTimes"}\NormalTok{, names[i])}
+  
+\NormalTok{  times<-}\KeywordTok{as.data.frame}\NormalTok{(}\KeywordTok{matrix}\NormalTok{(}\DataTypeTok{nrow=}\DecValTok{2000}\NormalTok{, }\DataTypeTok{ncol=}\DecValTok{6}\NormalTok{)) }\CommentTok{# Create times Matces to store RTT in next step}
+  \KeywordTok{colnames}\NormalTok{(times)<-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"sent"}\NormalTok{, }\StringTok{"s_newid"}\NormalTok{, }\StringTok{"rec"}\NormalTok{, }\StringTok{"r_newid"}\NormalTok{, }\StringTok{"rtt"}\NormalTok{, }\StringTok{"id"}\NormalTok{)}
+\NormalTok{  times[,}\DecValTok{1}\NormalTok{] <-}\KeywordTok{as.POSIXct}\NormalTok{(}\KeywordTok{strptime}\NormalTok{(times[, }\StringTok{"sent"}\NormalTok{],}\StringTok{"%Y-%m-%d %H.%M.%OS"}\NormalTok{))}
+\NormalTok{  times[,}\DecValTok{3}\NormalTok{] <-}\KeywordTok{as.POSIXct}\NormalTok{(}\KeywordTok{strptime}\NormalTok{(times[, }\StringTok{"rec"}\NormalTok{],}\StringTok{"%Y-%m-%d %H.%M.%OS"}\NormalTok{))}
+  \KeywordTok{assign}\NormalTok{(}\KeywordTok{paste}\NormalTok{(}\StringTok{"times"}\NormalTok{, names[i]), times)}
+\NormalTok{  namesTime[i]<-}\KeywordTok{paste}\NormalTok{(}\StringTok{"times"}\NormalTok{, names[i]) }\CommentTok{# Store Names of Time Matrices to access with get command}
+\NormalTok{\}}
+\CommentTok{#> Error in get(paste(names[i])): Objekt 'qos0-10KByte-1-minutes-100pbs-client1.log' nicht gefunden}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\NormalTok{#################}
+\CommentTok{# Calculate RTT #}
+\NormalTok{#################}
+
+\CommentTok{# Fill times Data Frames with Sent TS and IDs}
+\ControlFlowTok{for}\NormalTok{(i }\ControlFlowTok{in} \DecValTok{1} \OperatorTok{:}\StringTok{ }\KeywordTok{length}\NormalTok{(namesSent))\{}
+\NormalTok{  sentTimes<-}\StringTok{ }\KeywordTok{get}\NormalTok{(}\KeywordTok{paste}\NormalTok{(namesSent[i]))}
+\NormalTok{  times<-}\StringTok{ }\KeywordTok{get}\NormalTok{(}\KeywordTok{paste}\NormalTok{(namesTime[i]))}
+  
+  \ControlFlowTok{for}\NormalTok{ (j }\ControlFlowTok{in}\NormalTok{ sentTimes}\OperatorTok{$}\NormalTok{ID) \{}
+\NormalTok{    times[j, }\StringTok{"sent"}\NormalTok{]<-}\StringTok{ }\NormalTok{sentTimes[}\KeywordTok{which}\NormalTok{(sentTimes}\OperatorTok{$}\NormalTok{ID }\OperatorTok{==}\StringTok{ }\NormalTok{j),}\StringTok{"Timestamp"}\NormalTok{]}
+\NormalTok{    times[j, }\StringTok{"id"}\NormalTok{]<-}\StringTok{ }\NormalTok{sentTimes[}\KeywordTok{which}\NormalTok{(sentTimes}\OperatorTok{$}\NormalTok{ID }\OperatorTok{==}\StringTok{ }\NormalTok{j),}\StringTok{"ID"}\NormalTok{]}
+\NormalTok{    times[j, }\StringTok{"s_newid"}\NormalTok{]<-}\StringTok{ }\NormalTok{sentTimes[}\KeywordTok{which}\NormalTok{(sentTimes}\OperatorTok{$}\NormalTok{ID }\OperatorTok{==}\StringTok{ }\NormalTok{j),}\StringTok{"newID"}\NormalTok{]}
+\NormalTok{  \}}
+  \KeywordTok{assign}\NormalTok{(}\KeywordTok{paste}\NormalTok{(}\StringTok{"times"}\NormalTok{, names[i]), times)}
+  \CommentTok{#assign(times, paste("times", names[i]))}
+\NormalTok{\}}
+\CommentTok{#> Error in get(paste(namesSent[i])): ungültiges erstes Argument}
+
+\CommentTok{# Fill times Data Frames with Recieved TS and IDs}
+\ControlFlowTok{for}\NormalTok{(i }\ControlFlowTok{in} \DecValTok{1} \OperatorTok{:}\StringTok{ }\KeywordTok{length}\NormalTok{(namesRec))\{}
+\NormalTok{  recTimes<-}\StringTok{ }\KeywordTok{get}\NormalTok{(}\KeywordTok{paste}\NormalTok{(namesRec[i]))}
+\NormalTok{  times<-}\StringTok{ }\KeywordTok{get}\NormalTok{(}\KeywordTok{paste}\NormalTok{(namesTime[i]))}
+  
+  \ControlFlowTok{for}\NormalTok{ (j }\ControlFlowTok{in}\NormalTok{ recTimes}\OperatorTok{$}\NormalTok{ID) \{}
+\NormalTok{    times[j, }\StringTok{"rec"}\NormalTok{]<-}\StringTok{ }\NormalTok{recTimes[}\KeywordTok{which}\NormalTok{(recTimes}\OperatorTok{$}\NormalTok{ID }\OperatorTok{==}\StringTok{ }\NormalTok{j),}\StringTok{"Timestamp"}\NormalTok{]}
+\NormalTok{    times[j, }\StringTok{"id"}\NormalTok{]<-}\StringTok{ }\NormalTok{recTimes[}\KeywordTok{which}\NormalTok{(recTimes}\OperatorTok{$}\NormalTok{ID }\OperatorTok{==}\StringTok{ }\NormalTok{j),}\StringTok{"ID"}\NormalTok{]}
+\NormalTok{    times[j, }\StringTok{"r_newid"}\NormalTok{]<-}\StringTok{ }\NormalTok{recTimes[}\KeywordTok{which}\NormalTok{(recTimes}\OperatorTok{$}\NormalTok{ID }\OperatorTok{==}\StringTok{ }\NormalTok{j),}\StringTok{"newID"}\NormalTok{]}
+\NormalTok{  \}}
+  \KeywordTok{assign}\NormalTok{(}\KeywordTok{paste}\NormalTok{(}\StringTok{"times"}\NormalTok{, names[i]), times)}
+  \CommentTok{#assign(times, paste("times", names[i]))}
+\NormalTok{\}}
+\CommentTok{#> Error in get(paste(namesRec[i])): ungültiges erstes Argument}
+
+
+\CommentTok{# Calculate Difference}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\KeywordTok{length}\NormalTok{(namesTime))\{}
+\NormalTok{  times<-}\StringTok{ }\KeywordTok{get}\NormalTok{(}\KeywordTok{paste}\NormalTok{(namesTime[i]))}
+  
+  \ControlFlowTok{for}\NormalTok{ (j }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\KeywordTok{nrow}\NormalTok{(times)) \{}
+\NormalTok{    times[j,}\StringTok{"rtt"}\NormalTok{]<-}\StringTok{ }\KeywordTok{difftime}\NormalTok{(times[j,}\DecValTok{3}\NormalTok{], times[j,}\DecValTok{1}\NormalTok{])}
+\NormalTok{  \}}
+  
+\NormalTok{  times <-}\StringTok{ }\KeywordTok{na.omit}\NormalTok{(times)}
+  \KeywordTok{assign}\NormalTok{(}\KeywordTok{paste}\NormalTok{(}\StringTok{"times"}\NormalTok{, names[i]), times)}
+\NormalTok{\}}
+\CommentTok{#> Error in get(paste(namesTime[i])): ungültiges erstes Argument}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\NormalTok{#####################}
+\CommentTok{# Merge Data Frames #}
+\NormalTok{#####################}
+\NormalTok{latenzTC1mbps <-}\StringTok{ }\KeywordTok{merge}\NormalTok{(}\KeywordTok{get}\NormalTok{(namesTime[}\DecValTok{1}\NormalTok{]), }\KeywordTok{get}\NormalTok{(namesTime[}\DecValTok{2}\NormalTok{]), }\DataTypeTok{by =} \StringTok{"r_newid"}\NormalTok{)}
+\CommentTok{#> Error in get(namesTime[1]): ungültiges erstes Argument}
+
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\KeywordTok{length}\NormalTok{(namesTime))\{}
+\NormalTok{latenzTC1mbps <-}\StringTok{ }\KeywordTok{rbind}\NormalTok{(latenzTC1mbps, }\KeywordTok{get}\NormalTok{(namesTime[i]))}
+\NormalTok{\}}
+\CommentTok{#> Error in rbind(latenzTC1mbps, get(namesTime[i])): Objekt 'latenzTC1mbps' nicht gefunden}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{####################}
+\CommentTok{# Split Topic Name #}
+\NormalTok{####################}
+\KeywordTok{separate}\NormalTok{(latenzTC1mbps}\OperatorTok{$}\NormalTok{s_newid)}
+\CommentTok{#> Error in separate(latenzTC1mbps$s_newid): Objekt 'latenzTC1mbps' nicht gefunden}
+
+\NormalTok{latenzTC1mbpsSep <-}\StringTok{ }\NormalTok{latenzTC1mbps }\OperatorTok{%>%}\StringTok{ }\KeywordTok{separate}\NormalTok{(s_newid, }\KeywordTok{c}\NormalTok{(}\StringTok{"n1"}\NormalTok{, }\StringTok{"n2"}\NormalTok{, }\StringTok{"QoS"}\NormalTok{, }\StringTok{"Size"}\NormalTok{, }\StringTok{"Min"}\NormalTok{, }\StringTok{"n3"}\NormalTok{, }\StringTok{"Speed"}\NormalTok{, }\StringTok{"n4"}\NormalTok{ ))}
+\CommentTok{#> Error in eval(lhs, parent, parent): Objekt 'latenzTC1mbps' nicht gefunden}
+\NormalTok{z <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\OperatorTok{-}\DecValTok{2}\NormalTok{, }\DecValTok{-3}\NormalTok{, }\DecValTok{-7}\NormalTok{, }\DecValTok{-9}\NormalTok{)}
+\NormalTok{latenzTC1mbps <-}\StringTok{ }\NormalTok{latenzTC1mbpsSep[,z]}
+\CommentTok{#> Error in eval(expr, envir, enclos): Objekt 'latenzTC1mbpsSep' nicht gefunden}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{################}
+\CommentTok{# Plot Results #}
+\NormalTok{################}
+
+\KeywordTok{par}\NormalTok{(}\DataTypeTok{mfrow =} \KeywordTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{, }\DecValTok{2}\NormalTok{))}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\KeywordTok{length}\NormalTok{(namesTime))\{}
+\NormalTok{time<-}\KeywordTok{get}\NormalTok{(namesTime[i])}
+\KeywordTok{plot}\NormalTok{(time}\OperatorTok{$}\NormalTok{id, time}\OperatorTok{$}\NormalTok{rtt, }\KeywordTok{title}\NormalTok{(namesTime[}\DecValTok{1}\NormalTok{]))}
+\NormalTok{\}}
+\CommentTok{#> Error in get(namesTime[i]): ungültiges erstes Argument}
+\end{Highlighting}
+\end{Shaded}
+
+
+\end{document}
