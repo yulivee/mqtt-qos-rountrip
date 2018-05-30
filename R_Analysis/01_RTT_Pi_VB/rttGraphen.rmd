@@ -39,30 +39,15 @@ knitr::opts_chunk$set(error=TRUE,        # Keep compiling upon error
 
 \begin{centering}
 \Huge
-{\bf Praktikum\\ Speicher-/ und Datennetze im IoT }\\
+{\bf Anhang 2}\\
 \Large
-QoS Eigenschaften von MQTT\\
+Graphische Darstellung der VB (und Pi) Messungen\\
 \normalsize
-Sommersemester 2018\\
+
 \end{centering}
 
-
-\hrulefill
-
-**Name:** Schuhmacher, Stolz
-
-
-\hrulefill
-
-\subsection{Latenzzeit}
-Untersucht wird anhand geloggter TS die Latenzzeit der verschiedenen QoS-Modi.\\
-\textbf{Variiert} werden die Größenordnungen der Testdaten für Requests (jeweils 1, 10 und 100 Byte, KB und MB). \\
-Die im folgenden gelisteten Payloads, werden ggf. im Laufe der Experimente noch angepasst.
-Ebenfalls im Laufe der Experimente zu kennzeichnen, ist der Übergang wenn die versendeten Payloads die die MTU (Maximum Transmission Unit) des Netzwerks überschreiten und die übermittelten Nachrichten in mehrere Pakete aufgeteilt werden. Die voreingestellte MTU size auf den Clients und dem Broker beträgt 1500 Bytes. Siehe auch \ref{tab:latenz}.
-
-
 ```{r}
-setwd("/home/lisa/Darmstadt/05_Speicher und Datennetze IoT/Praktikum/Git/mqtt-qos-rountrip/logs/latenz-tc-1mbps/")
+setwd("/home/lisa/Darmstadt/05_Speicher und Datennetze IoT/Praktikum/Git/mqtt-qos-rountrip/R_Analysis/01_RTT_Pi_VB/")
 options(digits.secs=3) # needs to be set from time to time - otherwise R doesn't allow for ms
 library("data.table", lib.loc="~/R/x86_64-pc-linux-gnu-library/3.4")
 library("h2o", lib.loc="~/R/x86_64-pc-linux-gnu-library/3.4")
@@ -71,8 +56,8 @@ library("plyr")
 library(knitr)
 library(kableExtra)
 
-load("/home/lisa/Darmstadt/05_Speicher und Datennetze IoT/Praktikum/R_Analysis/latenzVB.Rda")
-load("/home/lisa/Darmstadt/05_Speicher und Datennetze IoT/Praktikum/R_Analysis/logs_pi.Rda")
+load("./latenzVB.Rda")
+load("./logs_pi.Rda")
 ```
 
 ```{r}
@@ -238,7 +223,7 @@ latenzVBQoS010Byte<-latenzVBQoS0[latenzVBQoS0$Size == "10Byte",]
 latenzVBQoS0100Byte<-latenzVBQoS0[latenzVBQoS0$Size == "100Byte",]
 latenzVBQoS01KByte<-latenzVBQoS0[latenzVBQoS0$Size == "1KByte",]
 latenzVBQoS01500Byte<-latenzVBQoS0[latenzVBQoS0$Size == "1500Byte",]
-latenzVBQoS010Kyte<-latenzVBQoS0[latenzVBQoS0$Size == "10KByte",]
+latenzVBQoS010KByte<-latenzVBQoS0[latenzVBQoS0$Size == "10KByte",]
 latenzVBQoS0100KByte<-latenzVBQoS0[latenzVBQoS0$Size == "100KByte",]
 latenzVBQoS0500KByte<-latenzVBQoS0[latenzVBQoS0$Size == "500KByte",]
 latenzVBQoS01MByte<-latenzVBQoS0[latenzVBQoS0$Size == "1MByte",]
@@ -249,16 +234,38 @@ plot(latenzVBQoS010Byte$id, latenzVBQoS010Byte$rtt, type = "l")
 plot(latenzVBQoS0100Byte$id, latenzVBQoS0100Byte$rtt, type = "l")
 plot(latenzVBQoS01KByte$id, latenzVBQoS01KByte$rtt, type = "l")
 plot(latenzVBQoS01500Byte$id, latenzVBQoS01500Byte$rtt, type = "l")
-plot(latenzVBQoS010Kyte$id, latenzVBQoS010Kyte$rtt, type = "l")
+plot(latenzVBQoS010KByte$id, latenzVBQoS010KByte$rtt, type = "l")
 plot(latenzVBQoS0100KByte$id, latenzVBQoS0100KByte$rtt, type = "l")
 plot(latenzVBQoS0500KByte$id, latenzVBQoS0500KByte$rtt, type = "l")
 plot(latenzVBQoS01MByte$id, latenzVBQoS01MByte$rtt, type = "l")
 plot(latenzVBQoS010MByte$id, latenzVBQoS010MByte$rtt, type = "l")
+
+
+## QoS0 - Aufsplittung - eine Grafik!
+plot(latenzVBQoS01Byte$id, latenzVBQoS01Byte$rtt, type = "l", ylim = c(0, 30),
+     main = "Aufsplittung aller Messungen mit QoS_0 nach Paketgröße")
+points(latenzVBQoS010Byte$id, latenzVBQoS010Byte$rtt, col = "red", type = "l")
+points(latenzVBQoS0100Byte$id, latenzVBQoS0100Byte$rtt, col = "blue", type = "l")
+points(latenzVBQoS01KByte$id, latenzVBQoS01KByte$rtt, col = "green4", type = "l")
+points(latenzVBQoS01500Byte$id, latenzVBQoS01500Byte$rtt, col = "purple", type = "l")
+points(latenzVBQoS010KByte$id, latenzVBQoS010KByte$rtt, col = "orange",  type = "l")
+points(latenzVBQoS0100KByte$id, latenzVBQoS0100KByte$rtt, col = "pink", type = "l")
+points(latenzVBQoS0500KByte$id, latenzVBQoS0500KByte$rtt, col = "brown", type = "l")
+points(latenzVBQoS01MByte$id, latenzVBQoS01MByte$rtt, col = "yellow2", type = "l")
+points(latenzVBQoS010MByte$id, latenzVBQoS010MByte$rtt, col = "gray", type = "l")
+
+
+legend("right", c("1Byte", "10Byte", "100Byte", "1KByte", "1500Byte", "10KByte", "100KByte", "500KByte", "1MByte", "10MByte"),
+       cex = 0.8,
+       col = c("black", "red", "blue", "green4", "purple", "orange", "pink", "brown", "yellow2", "gray"),
+       text.col = "black" ,lwd = c(2, 2, 2),
+       y.intersp = 1.5, merge = FALSE, bg = "gray95")
+
 ```
 
 ```{r}
 #######################################
-# QoS_0 Aufteilen nach Payload/ Größe #
+# QoS_1 Aufteilen nach Payload/ Größe #
 #######################################
 latenzVBQoS11Byte<-latenzVBQoS1[latenzVBQoS1$Size == "1Byte",]
 latenzVBQoS110Byte<-latenzVBQoS1[latenzVBQoS1$Size == "10Byte",]
@@ -281,6 +288,26 @@ plot(latenzVBQoS1100KByte$id, latenzVBQoS1100KByte$rtt, type = "l")
 plot(latenzVBQoS1500KByte$id, latenzVBQoS1500KByte$rtt, type = "l")
 plot(latenzVBQoS11MByte$id, latenzVBQoS11MByte$rtt, type = "l")
 plot(latenzVBQoS110MByte$id, latenzVBQoS110MByte$rtt, type = "l")
+
+## QoS1 - Aufsplittung - eine Grafik!
+plot(latenzVBQoS11Byte$id, latenzVBQoS11Byte$rtt, type = "l", ylim = c(0, 30),
+     main = "Aufsplittung aller Messungen mit QoS_0 nach Paketgröße")
+points(latenzVBQoS110Byte$id, latenzVBQoS110Byte$rtt, col = "red", type = "l")
+points(latenzVBQoS1100Byte$id, latenzVBQoS1100Byte$rtt, col = "blue", type = "l")
+points(latenzVBQoS11KByte$id, latenzVBQoS11KByte$rtt, col = "green4", type = "l")
+points(latenzVBQoS11500Byte$id, latenzVBQoS11500Byte$rtt, col = "purple", type = "l")
+points(latenzVBQoS110KByte$id, latenzVBQoS110KByte$rtt, col = "orange",  type = "l")
+points(latenzVBQoS1100KByte$id, latenzVBQoS1100KByte$rtt, col = "pink", type = "l")
+points(latenzVBQoS1500KByte$id, latenzVBQoS1500KByte$rtt, col = "brown", type = "l")
+points(latenzVBQoS11MByte$id, latenzVBQoS11MByte$rtt, col = "yellow2", type = "l")
+points(latenzVBQoS110MByte$id, latenzVBQoS110MByte$rtt, col = "gray", type = "l")
+
+
+legend("right", c("1Byte", "10Byte", "100Byte", "1KByte", "1500Byte", "10KByte", "100KByte", "500KByte", "1MByte", "10MByte"),
+       cex = 0.8,
+       col = c("black", "red", "blue", "green4", "purple", "orange", "pink", "brown", "yellow2", "gray"),
+       text.col = "black" ,lwd = c(2, 2, 2),
+       y.intersp = 1.5, merge = FALSE, bg = "gray95")
 ```
 
 ```{r}
@@ -306,6 +333,26 @@ plot(latenzVBQoS2100KByte$id, latenzVBQoS2100KByte$rtt, type = "l")
 plot(latenzVBQoS2500KByte$id, latenzVBQoS2500KByte$rtt, type = "l")
 plot(latenzVBQoS21MByte$id, latenzVBQoS21MByte$rtt, type = "l")
 plot(latenzVBQoS210MByte$id, latenzVBQoS210MByte$rtt, type = "l")
+
+## QoS2 - Aufsplittung - eine Grafik!
+plot(latenzVBQoS21Byte$id, latenzVBQoS21Byte$rtt, type = "l", ylim = c(0, 0.18),
+     main = "Aufsplittung aller Messungen mit QoS_0 nach Paketgröße")
+points(latenzVBQoS210Byte$id, latenzVBQoS210Byte$rtt, col = "red", type = "l")
+points(latenzVBQoS2100Byte$id, latenzVBQoS2100Byte$rtt, col = "blue", type = "l")
+points(latenzVBQoS21KByte$id, latenzVBQoS21KByte$rtt, col = "green4", type = "l")
+points(latenzVBQoS21500Byte$id, latenzVBQoS21500Byte$rtt, col = "purple", type = "l")
+points(latenzVBQoS210KByte$id, latenzVBQoS210KByte$rtt, col = "orange",  type = "l")
+points(latenzVBQoS2100KByte$id, latenzVBQoS2100KByte$rtt, col = "pink", type = "l")
+points(latenzVBQoS2500KByte$id, latenzVBQoS2500KByte$rtt, col = "brown", type = "l")
+points(latenzVBQoS21MByte$id, latenzVBQoS21MByte$rtt, col = "yellow2", type = "l")
+points(latenzVBQoS210MByte$id, latenzVBQoS210MByte$rtt, col = "gray", type = "l")
+
+
+legend("right", c("1Byte", "10Byte", "100Byte", "1KByte", "1500Byte", "10KByte", "100KByte", "500KByte", "1MByte", "10MByte"),
+       cex = 0.8,
+       col = c("black", "red", "blue", "green4", "purple", "orange", "pink", "brown", "yellow2", "gray"),
+       text.col = "black" ,lwd = c(2, 2, 2),
+       y.intersp = 1.5, merge = FALSE, bg = "gray95")
 ```
 
 

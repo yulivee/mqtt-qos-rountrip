@@ -317,11 +317,11 @@ legend("topleft", c("10kb Max", "100kb Max", "1mb Max", "10mb Max"),
        text.col = "black" ,lwd = c(2, 2, 2),
        y.intersp = 1.5, merge = FALSE, bg = "gray95")
 
-plot(tcLogsQoS01pbs100kbps$id, tcLogsQoS01pbs100kbps$rtt, type = "l", col = "red", main = "QoS0 1Paket/Sek nach Max (ohne 10kb)")
+plot(tcLogsQoS01pbs100kbps$id, tcLogsQoS01pbs100kbps$rtt, ylim = c(0,0.2), type = "l", col = "red", main = "QoS0 1Paket/Sek nach Max (ohne 10kb)")
 points(tcLogsQoS01pbs1mbps$id, tcLogsQoS01pbs1mbps$rtt, type = "l", col = "blue")
 points(tcLogsQoS01pbs10mbps$id, tcLogsQoS01pbs10mbps$rtt, type = "l", col = "green4")
 
-legend("topleft", c("100kb Max", "1mb Max", "10mb Max"), 
+legend("left", c("100kb Max", "1mb Max", "10mb Max"), 
        text.width = 7, cex = 0.8,
        col = c("red", "blue", "green4"),
        text.col = "black" ,lwd = c(2, 2, 2),
@@ -345,6 +345,37 @@ plot(tcLogsQoS010pbs100kbps$id, tcLogsQoS010pbs100kbps$rtt, type = "l", main = "
 plot(tcLogsQoS010pbs1mbps$id, tcLogsQoS010pbs1mbps$rtt, type = "l", main = "QoS_0 10_Pakete/Sek 1mb_Max")
 plot(tcLogsQoS010pbs10mbps$id, tcLogsQoS010pbs10mbps$rtt, type = "l", main = "QoS_0 10_Pakete/Sek 10mb_Max")
 #plot(tcLogsQoS010pbs100mbps$id, tcLogsQoS010pbs100mbps$rtt, type = "l", main = "QoS_0 10_Pakete/Sek 100mb_Max")
+
+## Eine Grafik
+plot(tcLogsQoS010pbs10kbps$id, tcLogsQoS010pbs10kbps$rtt, type = "l", main = "QoS0 10Pakete/Sek aufgeteilt nach Max Durchsatz")
+points(tcLogsQoS010pbs100kbps$id, tcLogsQoS010pbs100kbps$rtt, type = "l", col = "red")
+points(tcLogsQoS010pbs1mbps$id, tcLogsQoS010pbs1mbps$rtt, type = "l", col = "blue")
+points(tcLogsQoS010pbs10mbps$id, tcLogsQoS010pbs10mbps$rtt, type = "l", col = "green4")
+
+legend("topleft", c("10kb Max", "100kb Max", "1mb Max", "10mb Max"), 
+       text.width = 7, cex = 0.8,
+       col = c("black", "red", "blue", "green4"),
+       text.col = "black" ,lwd = c(2, 2, 2),
+       y.intersp = 1.5, merge = FALSE, bg = "gray95")
+
+plot(tcLogsQoS010pbs100kbps$id, tcLogsQoS010pbs100kbps$rtt, ylim = c(0,65), type = "l", col = "red", main = "QoS0 10Pakete/Sek nach Max (ohne 10kb)")
+points(tcLogsQoS010pbs1mbps$id, tcLogsQoS010pbs1mbps$rtt, type = "l", col = "blue")
+points(tcLogsQoS010pbs10mbps$id, tcLogsQoS010pbs10mbps$rtt, type = "l", col = "green4")
+
+legend("topleft", c("100kb Max", "1mb Max", "10mb Max"), cex = 0.8,
+       col = c("red", "blue", "green4"),
+       text.col = "black" ,lwd = c(2, 2, 2),
+       y.intersp = 1.5, merge = FALSE, bg = "gray95")
+
+plot(tcLogsQoS010pbs1mbps$id, tcLogsQoS010pbs1mbps$rtt, ylim = c(0,0.021), type = "l", col = "blue", main = "QoS0 10Pakete/Sek nach Max (ohne 10kb und 100kb)")
+points(tcLogsQoS010pbs10mbps$id, tcLogsQoS010pbs10mbps$rtt, type = "l", col = "green4")
+
+legend("right", c("1mb Max", "10mb Max"), cex = 0.8,
+       col = c("blue", "green4"),
+       text.col = "black" ,lwd = c(2, 2, 2),
+       y.intersp = 1.5, merge = FALSE, bg = "gray95")
+
+
 ```
 
 ```{r}
@@ -363,6 +394,26 @@ plot(tcLogsQoS0100pbs100kbps$id, tcLogsQoS0100pbs100kbps$rtt, type = "l", main =
 plot(tcLogsQoS0100pbs1mbps$id, tcLogsQoS0100pbs1mbps$rtt, type = "l", main = "QoS_0 100_Pakete/Sek 1mb_Max")
 #plot(tcLogsQoS0100pbs10mbps$id, tcLogsQoS0100pbs10mbps$rtt, type = "l", main = "QoS_0 100_Pakete/Sek 10mb_Max")
 #plot(tcLogsQoS0100pbs100mbps$id, tcLogsQoS0100pbs100mbps$rtt, type = "l", main = "QoS_0 100_Pakete/Sek 100mb_Max")
+
+## Eine Grafik
+plot(tcLogsQoS0100pbs10kbps$id, tcLogsQoS0100pbs10kbps$rtt, type = "l", main = "QoS0 100Pakete/Sek nach Max (ohne 10mb und 100mb)")
+points(tcLogsQoS0100pbs100kbps$id, tcLogsQoS0100pbs100kbps$rtt, type = "l", col = "red")
+points(tcLogsQoS0100pbs1mbps$id, tcLogsQoS0100pbs1mbps$rtt, type = "l", col = "blue")
+
+legend("topleft", c("10kb Max", "100kb Max", "1mb Max"), 
+       text.width = 7, cex = 0.8,
+       col = c("black", "red", "blue", "green4"),
+       text.col = "black" ,lwd = c(2, 2, 2),
+       y.intersp = 1.5, merge = FALSE, bg = "gray95")
+
+plot(tcLogsQoS0100pbs100kbps$id, tcLogsQoS0100pbs100kbps$rtt, ylim = c(0,65), type = "l", col = "red", main = "QoS0 100Pakete/Sek nach Max (ohne 10kb, 10mb, 100mb)")
+points(tcLogsQoS0100pbs1mbps$id, tcLogsQoS0100pbs1mbps$rtt, type = "l", col = "blue")
+
+legend("topleft", c("100kb Max", "1mb Max"), cex = 0.8,
+       col = c("red", "blue", "green4"),
+       text.col = "black" ,lwd = c(2, 2, 2),
+       y.intersp = 1.5, merge = FALSE, bg = "gray95")
+
 ```
 
 ```{r}
@@ -381,6 +432,17 @@ plot(tcLogsQoS11pbs100kbps$id, tcLogsQoS11pbs100kbps$rtt, type = "b", main = "Qo
 plot(tcLogsQoS11pbs1mbps$id, tcLogsQoS11pbs1mbps$rtt, type = "l", main = "QoS_1 1_Paket/Sek 1mb_Max")
 plot(tcLogsQoS11pbs10mbps$id, tcLogsQoS11pbs10mbps$rtt, type = "l", main = "QoS_1 1_Paket/Sek 10mb_Max")
 plot(tcLogsQoS11pbs100mbps$id, tcLogsQoS11pbs100mbps$rtt, type = "l", main = "QoS_1 1_Paket/Sek 100mb_Max")
+
+## Eine Grafik
+plot(tcLogsQoS11pbs100kbps$id, tcLogsQoS11pbs100kbps$rtt, ylim = c(0, 0.25), type = "l", col = "red", main = "QoS1 1Paket/Sek aufgeteilt nach Max Durchsatz (ohne 10kb)")
+points(tcLogsQoS11pbs1mbps$id, tcLogsQoS11pbs1mbps$rtt, type = "l", col = "blue")
+points(tcLogsQoS11pbs10mbps$id, tcLogsQoS11pbs10mbps$rtt, type = "l", col = "green4")
+
+legend("left", c("100kb Max", "1mb Max", "10mb Max"), 
+       text.width = 7, cex = 0.8,
+       col = c("red", "blue", "green4"),
+       text.col = "black" ,lwd = c(2, 2, 2),
+       y.intersp = 1.5, merge = FALSE, bg = "gray95")
 ```
 
 ```{r}
@@ -399,6 +461,31 @@ plot(tcLogsQoS110pbs100kbps$id, tcLogsQoS110pbs100kbps$rtt, type = "l", main = "
 plot(tcLogsQoS110pbs1mbps$id, tcLogsQoS110pbs1mbps$rtt, type = "l", main = "QoS_1 10_Pakete/Sek 1mb_Max")
 plot(tcLogsQoS110pbs10mbps$id, tcLogsQoS110pbs10mbps$rtt, type = "l", main = "QoS_1 10_Pakete/Sek 10mb_Max")
 plot(tcLogsQoS110pbs100mbps$id, tcLogsQoS110pbs100mbps$rtt, type = "l", main = "QoS_1 10_Pakete/Sek 100mb_Max")
+
+## Eine Grafik
+
+plot(tcLogsQoS110pbs100kbps$id, tcLogsQoS110pbs100kbps$rtt, ylim = c(0, 60), type = "l", col = "red", main = "QoS1 10Pakete/Sek aufgeteilt nach Max Durchsatz (ohne 10kb)")
+points(tcLogsQoS110pbs1mbps$id, tcLogsQoS110pbs1mbps$rtt, type = "l", col = "blue")
+points(tcLogsQoS110pbs10mbps$id, tcLogsQoS110pbs10mbps$rtt, type = "l", col = "green4")
+points(tcLogsQoS110pbs100mbps$id, tcLogsQoS110pbs100mbps$rtt, type = "l", col = "purple")
+
+legend("topleft", c("100kb Max", "1mb Max", "10mb Max", "100mb Max"), 
+       cex = 0.8,
+       col = c("red", "blue", "green4", "purple"),
+       text.col = "black" ,lwd = c(2, 2, 2),
+       y.intersp = 1.5, merge = FALSE, bg = "gray95")
+
+
+plot(tcLogsQoS110pbs1mbps$id, tcLogsQoS110pbs1mbps$rtt, ylim = c(0,0.045), type = "l", col = "blue", main = "QoS1 10Pakete/Sek aufgeteilt nach Max Durchsatz (ohne 10kb und 100kb)")
+points(tcLogsQoS110pbs10mbps$id, tcLogsQoS110pbs10mbps$rtt, type = "l", col = "green4")
+points(tcLogsQoS110pbs100mbps$id, tcLogsQoS110pbs100mbps$rtt, type = "l", col = "purple")
+
+legend("topleft", c("1mb Max", "10mb Max", "100mb Max"),  
+       cex = 0.8,
+       col = c("blue", "green4", "purple"),
+       text.col = "black" ,lwd = c(2, 2, 2),
+       y.intersp = 1.5, merge = FALSE, bg = "gray95")
+
 ```
 ```{r}
 #########
@@ -416,6 +503,30 @@ plot(tcLogsQoS1100pbs100kbps$id, tcLogsQoS1100pbs100kbps$rtt, type = "l", main =
 plot(tcLogsQoS1100pbs1mbps$id, tcLogsQoS1100pbs1mbps$rtt, type = "l", main = "QoS_1 100_Pakete/Sek 1mb_Max")
 plot(tcLogsQoS1100pbs10mbps$id, tcLogsQoS1100pbs10mbps$rtt, type = "l", main = "QoS_1 100_Pakete/Sek 10mb_Max")
 plot(tcLogsQoS1100pbs100mbps$id, tcLogsQoS1100pbs100mbps$rtt, type = "l", main = "QoS_1 100_Pakete/Sek 100mb_Max")
+
+## Eine Grafik
+
+plot(tcLogsQoS110pbs100kbps$id, tcLogsQoS110pbs100kbps$rtt, ylim = c(0, 60), type = "l", col = "red", main = "QoS1 100Pakete/Sek aufgeteilt nach Max Durchsatz")
+points(tcLogsQoS1100pbs1mbps$id, tcLogsQoS1100pbs1mbps$rtt, type = "l", col = "blue")
+points(tcLogsQoS1100pbs10mbps$id, tcLogsQoS1100pbs10mbps$rtt, type = "l", col = "green4")
+points(tcLogsQoS1100pbs100mbps$id, tcLogsQoS1100pbs100mbps$rtt, type = "l", col = "purple")
+
+legend("topleft", c("100kb Max", "1mb Max", "10mb Max", "100mb Max"), 
+       cex = 0.8,
+       col = c("red", "blue", "green4", "purple"),
+       text.col = "black" ,lwd = c(2, 2, 2),
+       y.intersp = 1.5, merge = FALSE, bg = "gray95")
+
+plot(tcLogsQoS1100pbs1mbps$id, tcLogsQoS1100pbs1mbps$rtt, ylim = c(0, 0.04), type = "l", col = "blue", main = "QoS1 100Pakete/Sek aufgeteilt nach Max Durchsatz (ohne 100kb)")
+points(tcLogsQoS1100pbs10mbps$id, tcLogsQoS1100pbs10mbps$rtt, type = "l", col = "green4")
+points(tcLogsQoS1100pbs100mbps$id, tcLogsQoS1100pbs100mbps$rtt, type = "l", col = "purple")
+
+legend("topleft", c("100kb Max", "1mb Max", "10mb Max", "100mb Max"), 
+       cex = 0.8,
+       col = c("red", "blue", "green4", "purple"),
+       text.col = "black" ,lwd = c(2, 2, 2),
+       y.intersp = 1.5, merge = FALSE, bg = "gray95")
+
 ```
 
 ```{r}
@@ -434,6 +545,17 @@ plot(tcLogsQoS21pbs100kbps$id, tcLogsQoS21pbs100kbps$rtt, type = "l", main = "Qo
 plot(tcLogsQoS21pbs1mbps$id, tcLogsQoS21pbs1mbps$rtt, type = "l", main = "QoS_2 1_Pakete/Sek 1mb_Max")
 plot(tcLogsQoS21pbs10mbps$id, tcLogsQoS21pbs10mbps$rtt, type = "l", main = "QoS_2 1_Pakete/Sek 10mb_Max")
 plot(tcLogsQoS21pbs100mbps$id, tcLogsQoS21pbs100mbps$rtt, type = "l", main = "QoS_2 1_Pakete/Sek 100mb_Max")
+
+plot(tcLogsQoS21pbs100kbps$id, tcLogsQoS21pbs100kbps$rtt, ylim = c(0, 0.23), type = "l", col = "red", main = "QoS2 1Paket/Sek aufgeteilt nach Max Durchsatz (ohne 10kb)")
+points(tcLogsQoS21pbs1mbps$id, tcLogsQoS21pbs1mbps$rtt, type = "l", col = "blue")
+points(tcLogsQoS21pbs10mbps$id, tcLogsQoS21pbs10mbps$rtt, type = "l", col = "green4")
+points(tcLogsQoS21pbs100mbps$id, tcLogsQoS21pbs100mbps$rtt, type = "l", col = "purple")
+
+legend("left", c("100kb Max", "1mb Max", "10mb Max", "100mb Max"), 
+       cex = 0.8,
+       col = c("red", "blue", "green4", "purple"),
+       text.col = "black" ,lwd = c(2, 2, 2),
+       y.intersp = 1.5, merge = FALSE, bg = "gray95")
 ```
 ```{r}
 #########
@@ -451,6 +573,30 @@ plot(tcLogsQoS210pbs100kbps$id, tcLogsQoS210pbs100kbps$rtt, type = "l", main = "
 plot(tcLogsQoS210pbs1mbps$id, tcLogsQoS210pbs1mbps$rtt, type = "b", main = "QoS_2 10_Pakete/Sek 1mb_Max")
 plot(tcLogsQoS210pbs10mbps$id, tcLogsQoS210pbs10mbps$rtt, type = "l", main = "QoS_2 10_Pakete/Sek 10mb_Max")
 plot(tcLogsQoS210pbs100mbps$id, tcLogsQoS210pbs100mbps$rtt, type = "b", main = "QoS_2 10_Pakete/Sek 100mb_Max")
+
+plot(tcLogsQoS210pbs100kbps$id, tcLogsQoS210pbs100kbps$rtt, ylim = c(0, 60), type = "l", col = "red", main = "QoS2 10Pakete/Sek aufgeteilt nach Max Durchsatz (ohne 10kb)")
+points(tcLogsQoS210pbs1mbps$id, tcLogsQoS210pbs1mbps$rtt, type = "l", col = "blue")
+points(tcLogsQoS210pbs10mbps$id, tcLogsQoS210pbs10mbps$rtt, type = "l", col = "green4")
+points(tcLogsQoS210pbs100mbps$id, tcLogsQoS210pbs100mbps$rtt, type = "l", col = "purple")
+
+legend("left", c("100kb Max", "1mb Max", "10mb Max", "100mb Max"), 
+       cex = 0.8,
+       col = c("red", "blue", "green4", "purple"),
+       text.col = "black" ,lwd = c(2, 2, 2),
+       y.intersp = 1.5, merge = FALSE, bg = "gray95")
+
+plot(tcLogsQoS210pbs1mbps$id, tcLogsQoS210pbs1mbps$rtt, type = "l", col = "blue", main = "QoS2 10Pakete/Sek aufgeteilt nach Max Durchsatz (ohne 10kb, 100kb)")
+points(tcLogsQoS210pbs10mbps$id, tcLogsQoS210pbs10mbps$rtt, type = "l", col = "green4")
+points(tcLogsQoS210pbs100mbps$id, tcLogsQoS210pbs100mbps$rtt, type = "l", col = "purple")
+
+legend("left", c("1mb Max", "10mb Max", "100mb Max"), 
+       cex = 0.8,
+       col = c("blue", "green4", "purple"),
+       text.col = "black" ,lwd = c(2, 2, 2),
+       y.intersp = 1.5, merge = FALSE, bg = "gray95")
+
+
+
 ```
 ```{r}
 #########
@@ -468,6 +614,28 @@ plot(tcLogsQoS2100pbs100kbps$id, tcLogsQoS2100pbs100kbps$rtt, type = "l", main =
 plot(tcLogsQoS2100pbs1mbps$id, tcLogsQoS2100pbs1mbps$rtt, type = "b", main = "QoS_2 100_Pakete/Sek 1mb_Max")
 plot(tcLogsQoS2100pbs10mbps$id, tcLogsQoS2100pbs10mbps$rtt, type = "l", main = "QoS_2 100_Pakete/Sek 10mb_Max")
 plot(tcLogsQoS2100pbs100mbps$id, tcLogsQoS2100pbs100mbps$rtt, type = "b", main = "QoS_2 100_Pakete/Sek 100mb_Max")
+
+
+plot(tcLogsQoS2100pbs100kbps$id, tcLogsQoS2100pbs100kbps$rtt, ylim = c(0, 60), type = "l", col = "red", main = "QoS2 100Pakete/Sek aufgeteilt nach Max Durchsatz (ohne 10kb)")
+points(tcLogsQoS2100pbs1mbps$id, tcLogsQoS2100pbs1mbps$rtt, type = "l", col = "blue")
+points(tcLogsQoS2100pbs10mbps$id, tcLogsQoS2100pbs10mbps$rtt, type = "l", col = "green4")
+points(tcLogsQoS2100pbs100mbps$id, tcLogsQoS2100pbs100mbps$rtt, type = "l", col = "purple")
+
+legend("left", c("100kb Max", "1mb Max", "10mb Max", "100mb Max"), 
+       cex = 0.8,
+       col = c("red", "blue", "green4", "purple"),
+       text.col = "black" ,lwd = c(2, 2, 2),
+       y.intersp = 1.5, merge = FALSE, bg = "gray95")
+
+plot(tcLogsQoS2100pbs1mbps$id, tcLogsQoS2100pbs1mbps$rtt, type = "l", col = "blue", main = "QoS2 100Pakete/Sek aufgeteilt nach Max Durchsatz (ohne 10kb, 100kb)")
+points(tcLogsQoS2100pbs10mbps$id, tcLogsQoS2100pbs10mbps$rtt, type = "l", col = "green4")
+points(tcLogsQoS2100pbs100mbps$id, tcLogsQoS2100pbs100mbps$rtt, type = "l", col = "purple")
+
+legend("left", c("1mb Max", "10mb Max", "100mb Max"), 
+       cex = 0.8,
+       col = c("blue", "green4", "purple"),
+       text.col = "black" ,lwd = c(2, 2, 2),
+       y.intersp = 1.5, merge = FALSE, bg = "gray95")
 ```
 
 
