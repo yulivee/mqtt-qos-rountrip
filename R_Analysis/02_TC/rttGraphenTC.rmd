@@ -1,0 +1,476 @@
+---
+output: pdf_document
+header-includes: 
+    - \usepackage{amsthm}
+    - \usepackage{xcolor}
+documentclass: article
+<!---output: beamer_presentation--->
+---
+
+
+```{r global_options, include=FALSE}
+knitr::opts_chunk$set(error=TRUE,        # Keep compiling upon error
+                      collapse=TRUE,     # collapse by default
+                      echo=TRUE,         # echo code by default
+                      comment = "#>",    # change comment character
+                      fig.width = 7,     # set figure width
+                      out.width = "100%", # set width of displayed images
+                      warning=FALSE,      # show R warnings
+                      message=FALSE)     # show R messages
+```
+
+
+<!--- Solution Region --->
+<style>
+#solution {
+  background-color: #8FBC8F;
+  border-style: solid;
+  border-color: blue;
+  margin-left: 20px;
+  margin-bottom: 15px;
+  padding: 5px;
+}
+</style>
+
+\theoremstyle{break}
+\newtheorem{auf}{Aufgabe}
+
+\newcommand{\R}{{\sffamily R} }
+
+\begin{centering}
+\Huge
+{\bf Anhang 3}\\
+\Large
+Graphische Darstellung der TC Messungen\\
+\normalsize
+
+\end{centering}
+
+
+```{r}
+setwd("/home/lisa/Darmstadt/05_Speicher und Datennetze IoT/Praktikum/Git/mqtt-qos-rountrip/R_Analysis/02_TC/")
+options(digits.secs=3) # needs to be set from time to time - otherwise R doesn't allow for ms
+library("data.table", lib.loc="~/R/x86_64-pc-linux-gnu-library/3.4")
+library("h2o", lib.loc="~/R/x86_64-pc-linux-gnu-library/3.4")
+library("tidyr", lib.loc="~/R/x86_64-pc-linux-gnu-library/3.4")
+library("plyr")
+library(kableExtra)
+
+load("./latenzTC1mbps.Rda")
+load("./latenzTc10kbps.Rda")
+load("./latenzTc10mbps.Rda")
+load("./latenzTc100kbps.Rda")
+load("./latenztc100mbps.Rda")
+```
+
+```{r}
+#files <- list.files(pattern = "*bps.Rda", full.names = TRUE, recursive = FALSE)
+files <- c("latenzTc100kbps", "latenztc100mbps", "latenzTc10kbps", "latenzTc10mbps", "latenzTC1mbps")
+
+```
+
+Übersicht und notwendige Anpassung der Messungen für die mit dem TC der Mayimale Durchsatz (File Name) angepasst wurde.
+Die tatsächlich versendete Paketgröße und Anzahl pro Sekunde ist dem jeweiligen Lognamen zu entnehmen
+```{r}
+latenzTc100kbps$MaxDurc <- "100kbps"
+latenztc100mbps$MaxDurc <- "100mbps"
+latenzTc10kbps$MaxDurc <- "10kbps"
+latenzTc10mbps$MaxDurc <- "10mbps"
+latenzTC1mbps$MaxDurc <- "1mbps"
+ 
+tcLogs <- rbind(latenzTc100kbps, latenztc100mbps, latenzTc10kbps, latenzTc10mbps, latenzTC1mbps)
+tcLogs$Size <- "10KByte"
+
+colnames<-colnames(tcLogs)
+colnames[5]<-"PproSek"
+colnames(tcLogs)<- colnames
+
+tcLogs$Byte<-tcLogs$Size
+tcLogs$Byte[tcLogs$Byte == "1Byte"] <- 1
+tcLogs$Byte[tcLogs$Byte == "10Byte"] <- 10
+tcLogs$Byte[tcLogs$Byte == "100Byte"] <- 100
+tcLogs$Byte[tcLogs$Byte == "1KByte"] <- 1000
+tcLogs$Byte[tcLogs$Byte == "1500Byte"] <- 1500
+tcLogs$Byte[tcLogs$Byte == "10KByte"] <- 10000
+tcLogs$Byte[tcLogs$Byte == "100KByte"] <- 100000
+tcLogs$Byte[tcLogs$Byte == "500KByte"] <- 500000
+tcLogs$Byte[tcLogs$Byte == "1MByte"] <- 1000000
+tcLogsSum <- summary(tcLogs)
+tcLogsSum
+
+tcLogs$ByteD<-tcLogs$MaxDurc
+tcLogs$ByteD[tcLogs$ByteD == "1Byte"] <-   1
+tcLogs$ByteD[tcLogs$ByteD == "10BByte"] <- 10
+tcLogs$ByteD[tcLogs$ByteD == "100Byte"] <- 100
+tcLogs$ByteD[tcLogs$ByteD == "1kbps"] <-   1000
+tcLogs$ByteD[tcLogs$ByteD == "10kbps"] <-  10000
+tcLogs$ByteD[tcLogs$ByteD == "100kbps"] <- 100000
+tcLogs$ByteD[tcLogs$ByteD == "1mbps"] <-   1000000
+tcLogs$ByteD[tcLogs$ByteD == "10mbps"] <-  10000000
+tcLogs$ByteD[tcLogs$ByteD == "100mbps"] <- 100000000
+
+tcLogs$ByteD<-as.numeric(tcLogs$ByteD)
+
+```
+
+
+
+Aggregation der Daten zur Beantwortung der Fragestellung bzgl. Latenzzeiten in Abhängigkeit zu QoS Level und Paketgröße.
+```{r}
+tcLogsAgg <- aggregate(tcLogs$rtt ~ tcLogs$QoS+tcLogs$Size+tcLogs$Byte, tcLogs, mean)
+tcLogsAgg2 <- aggregate(tcLogs$rtt ~ tcLogs$QoS+tcLogs$Size+tcLogs$Byte + tcLogs$MaxDurc + tcLogs$ByteD, tcLogs, mean)
+
+tcLogsAgg$`tcLogs$Byte`<-as.numeric(tcLogsAgg$`tcLogs$Byte`)
+tcLogsAgg<-tcLogsAgg[order(tcLogsAgg$`tcLogs$Byte`),]
+
+tcLogsAgg2$`tcLogs$Byte`<-as.numeric(tcLogsAgg2$`tcLogs$ByteD`)
+tcLogsAgg2<-tcLogsAgg2[order(tcLogsAgg2$`tcLogs$ByteD`),]
+
+
+tcLogsAgg2 %>%
+  kable() %>%
+  kable_styling()
+
+
+```
+
+
+```{r}
+
+tcLogsAgg$Names <- paste(tcLogsAgg$`tcLogs$QoS`, tcLogsAgg$`tcLogs$Size`)
+tcLogsAgg<-tcLogsAgg[order(tcLogsAgg$`tcLogs$Byte`),]
+barplot(tcLogsAgg$`tcLogs$rtt`, main = "Latenz TC nach QoS und Paketgröße", ylab = "RTT in Sekunden", axes=TRUE, names.arg=tcLogsAgg$Names, cex.names=0.7, las=2)
+
+```
+
+```{r}
+
+tcLogsAgg2$Names2 <- paste(tcLogsAgg$`tcLogs$QoS`, tcLogsAgg$`tcLogs$Size`, tcLogsAgg2$`tcLogs$MaxDurc`)
+tcLogsAgg<-tcLogsAgg[order(tcLogsAgg$`tcLogs$Byte`),]
+barplot(tcLogsAgg2$`tcLogs$rtt`, main = "Latenz TC nach Max Durchsatz QoS und Paketgröße", ylab = "RTT in Sekunden", axes=TRUE, names.arg=tcLogsAgg2$Names, cex.names=0.5, las=2)
+
+```
+
+Im nächsten Schritt wird die statistische Abhngigkeit der rtt von QoS und Größe (Byte) untersucht.
+Im Falle einer einfachen linearen Regression sind nur qos2 und hohe Byte Zahlen signifikant.
+
+```{r}
+reg_tcLogs <- lm(tcLogs$rtt~tcLogs$QoS+tcLogs$ByteD, data = tcLogs)
+summary(reg_tcLogs)
+reg_tcLogs2 <- lm(tcLogs$rtt~tcLogs$QoS+tcLogs$MaxDurc, data = tcLogs)
+summary(reg_tcLogs2)
+
+```
+
+```{r}
+par(mfrow=c(1,1))
+qqnorm(tcLogs$rtt, main = "Q-Q Plot TC")
+```
+
+Da rtt nicht normal verteilt ist, liefert die Lineare Regression keine zuverlässigen Ergebnisse.
+Nach der Transformation (logarithmierung) nähert sich die Verteilung der Variable rtt der Normalverteilung.
+(Normalverteilung ist erreicht, wenn die Sample Quantile den Theoretischen entsprechen - die Beobachtugen also auf einer Geraden liegen)
+```{r}
+par(mfrow=c(1,1))
+qqnorm(log(tcLogs$rtt), main = "Q-Q Plot TC")
+```
+Trotz der Logarithmierung sind die Daten nicht perfekt Normalverteilt, jedoch annähernd.
+```{r}
+par(mfrow=c(2,1))
+plot(density(log(tcLogs$rtt)))
+```
+
+```{r}
+reg_tcLogs <- lm(log(tcLogs$rtt)~tcLogs$QoS, data = tcLogs)
+summary(reg_tcLogs)
+```
+
+```{r}
+plot(tcLogs$id, tcLogs$rtt)
+
+#########################
+# Aufsplittung nach QoS #
+#########################
+
+tcLogsQoS0<-tcLogs[tcLogs$QoS == "qos0",]
+tcLogsQoS1<-tcLogs[tcLogs$QoS == "qos1",]
+tcLogsQoS2<-tcLogs[tcLogs$QoS == "qos2",]
+
+plot(tcLogsQoS0$id, tcLogsQoS0$rtt)
+plot(tcLogsQoS1$id, tcLogsQoS1$rtt)
+plot(tcLogsQoS2$id, tcLogsQoS2$rtt)
+```
+
+```{r}
+########################################################
+# QoS Level _ Aufsplittung nach Pakete pro Sekunde Qos #
+########################################################
+## QoS0 - Aufsplittung
+tcLogsQoS01pbs<-tcLogsQoS0[tcLogsQoS0$PproSek == "1pbs",]
+tcLogsQoS010pbs<-tcLogsQoS0[tcLogsQoS0$PproSek == "10pbs",]
+tcLogsQoS0100pbs<-tcLogsQoS0[tcLogsQoS0$PproSek == "100pbs",]
+
+plot(tcLogsQoS01pbs$id, tcLogsQoS01pbs$rtt)
+plot(tcLogsQoS010pbs$id, tcLogsQoS010pbs$rtt)
+plot(tcLogsQoS0100pbs$id, tcLogsQoS0100pbs$rtt)
+
+## QoS1 - Aufsplittung - Eine Grafik!
+plot(tcLogsQoS01pbs$id, tcLogsQoS01pbs$rtt, type = "l", main = "Aufsplittung aller Messungen mit QoS_0 nach Paketen/Sek")
+points(tcLogsQoS010pbs$id, tcLogsQoS010pbs$rtt, col="red", type = "l")
+points(tcLogsQoS0100pbs$id, tcLogsQoS0100pbs$rtt, col="blue", type = "l")
+
+legend("topleft", c("1P/Sek", "10P/Sek", "100P/Sek"), text.width = 7, cex = 0.8,
+       col = c("black", "red", "blue"),
+       text.col = "black" ,lwd = c(2, 2, 2),
+       y.intersp = 1.5, merge = FALSE, bg = "gray95")
+```
+
+```{r}
+## QoS1 - Aufsplittung
+tcLogsQoS11pbs<-tcLogsQoS1[tcLogsQoS1$PproSek == "1pbs",]
+tcLogsQoS110pbs<-tcLogsQoS1[tcLogsQoS1$PproSek == "10pbs",]
+tcLogsQoS1100pbs<-tcLogsQoS1[tcLogsQoS1$PproSek == "100pbs",]
+
+plot(tcLogsQoS11pbs$id, tcLogsQoS11pbs$rtt)
+plot(tcLogsQoS110pbs$id, tcLogsQoS110pbs$rtt)
+plot(tcLogsQoS1100pbs$id, tcLogsQoS1100pbs$rtt)
+
+## QoS1 - Aufsplittung - eine Grafik!
+plot(tcLogsQoS11pbs$id, tcLogsQoS11pbs$rtt, type = "l", ylim = c(0, 9),
+     main = "Aufsplittung aller Messungen mit QoS_1 nach Paketen/Sek")
+points(tcLogsQoS110pbs$id, tcLogsQoS110pbs$rtt, col="red", type = "l")
+points(tcLogsQoS1100pbs$id, tcLogsQoS1100pbs$rtt, col="blue", type = "l")
+
+legend("topleft", c("1P/Sek", "10P/Sek", "100P/Sek"), text.width = 7, cex = 0.8,
+       col = c("black", "red", "blue"),
+       text.col = "black" ,lwd = c(2, 2, 2),
+       y.intersp = 1.5, merge = FALSE, bg = "gray95")
+```
+
+```{r}
+## QoS2 - Aufsplittung
+tcLogsQoS21pbs<-tcLogsQoS2[tcLogsQoS2$PproSek == "1pbs",]
+tcLogsQoS210pbs<-tcLogsQoS2[tcLogsQoS2$PproSek == "10pbs",]
+tcLogsQoS2100pbs<-tcLogsQoS2[tcLogsQoS2$PproSek == "100pbs",]
+
+plot(tcLogsQoS21pbs$id, tcLogsQoS21pbs$rtt)
+plot(tcLogsQoS210pbs$id, tcLogsQoS210pbs$rtt)
+plot(tcLogsQoS2100pbs$id, tcLogsQoS2100pbs$rtt)
+
+## QoS2 - Aufsplittung - eine Grafik!
+plot(tcLogsQoS21pbs$id, tcLogsQoS21pbs$rtt, type = "l", ylim = c(0, 30),
+     main = "Aufsplittung aller Messungen mit QoS_2 nach Paketen/Sek")
+points(tcLogsQoS210pbs$id, tcLogsQoS210pbs$rtt, col="red", type = "l")
+points(tcLogsQoS2100pbs$id, tcLogsQoS2100pbs$rtt, col="blue", type = "l")
+
+legend("topleft", c("1P/Sek", "10P/Sek", "100P/Sek"), text.width = 7, cex = 0.8,
+       col = c("black", "red", "blue"),
+       text.col = "black" ,lwd = c(2, 2, 2),
+       y.intersp = 1.5, merge = FALSE, bg = "gray95")
+```
+
+```{r}
+#########################################
+# Pakete pro Sekunde _ Aufsplittung Qos #
+#########################################
+
+tcLogs1pbs<-tcLogs[tcLogs$PproSek == "1pbs",]
+tcLogs10pbs<-tcLogs[tcLogs$PproSek == "10pbs",]
+tcLogs100pbs<-tcLogs[tcLogs$PproSek == "100pbs",]
+
+#plot(tcLogs1pbs$id, tcLogs1pbs$rtt)
+#plot(tcLogs10pbs$id, tcLogs10pbs$rtt)
+#plot(tcLogs100pbs$id, tcLogs100pbs$rtt)
+```
+
+```{r}
+############################################################
+# QoS Level _ Pakete pro Sekunde Qos _ Aufsplittung Grenze # 
+############################################################
+#########
+# QoS 0 #
+#########
+
+## QoS0_1pbs - Aufsplittung MaxDurc
+
+tcLogsQoS01pbs10kbps<-tcLogsQoS01pbs[tcLogsQoS01pbs$MaxDurc == "10kbps",]
+tcLogsQoS01pbs100kbps<-tcLogsQoS01pbs[tcLogsQoS01pbs$MaxDurc == "100kbps",]
+tcLogsQoS01pbs1mbps<-tcLogsQoS01pbs[tcLogsQoS01pbs$MaxDurc == "1mbps",]
+tcLogsQoS01pbs10mbps<-tcLogsQoS01pbs[tcLogsQoS01pbs$MaxDurc == "10mbps",]
+tcLogsQoS01pbs100mbps<-tcLogsQoS01pbs[tcLogsQoS01pbs$MaxDurc == "100mbps",]
+
+plot(tcLogsQoS01pbs10kbps$id, tcLogsQoS01pbs10kbps$rtt, type = "l", main = "QoS_0 1_Paket/Sek 10kb_Max")
+plot(tcLogsQoS01pbs100kbps$id, tcLogsQoS01pbs100kbps$rtt, type = "l", main = "QoS_0 1_Paket/Sek 100kb_Max")
+plot(tcLogsQoS01pbs1mbps$id, tcLogsQoS01pbs1mbps$rtt, type = "l", main = "QoS_0 1_Paket/Sek 1mb_Max")
+plot(tcLogsQoS01pbs10mbps$id, tcLogsQoS01pbs10mbps$rtt, type = "l", main = "QoS_0 1_Paket/Sek 10mb_Max")
+#plot(tcLogsQoS01pbs100mbps$id, tcLogsQoS01pbs100mbps$rtt, type = "l", main = "QoS_0 1_Paket/Sek 100mb_Max")
+
+## Eine Grafik
+plot(tcLogsQoS01pbs10kbps$id, tcLogsQoS01pbs10kbps$rtt, type = "l", main = "QoS0 1Paket/Sek aufgeteilt nach Max Durchsatz")
+points(tcLogsQoS01pbs100kbps$id, tcLogsQoS01pbs100kbps$rtt, type = "l", col = "red")
+points(tcLogsQoS01pbs1mbps$id, tcLogsQoS01pbs1mbps$rtt, type = "l", col = "blue")
+points(tcLogsQoS01pbs10mbps$id, tcLogsQoS01pbs10mbps$rtt, type = "l", col = "green4")
+
+legend("topleft", c("10kb Max", "100kb Max", "1mb Max", "10mb Max"), 
+       text.width = 7, cex = 0.8,
+       col = c("black", "red", "blue", "green4"),
+       text.col = "black" ,lwd = c(2, 2, 2),
+       y.intersp = 1.5, merge = FALSE, bg = "gray95")
+
+plot(tcLogsQoS01pbs100kbps$id, tcLogsQoS01pbs100kbps$rtt, type = "l", col = "red", main = "QoS0 1Paket/Sek nach Max (ohne 10kb)")
+points(tcLogsQoS01pbs1mbps$id, tcLogsQoS01pbs1mbps$rtt, type = "l", col = "blue")
+points(tcLogsQoS01pbs10mbps$id, tcLogsQoS01pbs10mbps$rtt, type = "l", col = "green4")
+
+legend("topleft", c("100kb Max", "1mb Max", "10mb Max"), 
+       text.width = 7, cex = 0.8,
+       col = c("red", "blue", "green4"),
+       text.col = "black" ,lwd = c(2, 2, 2),
+       y.intersp = 1.5, merge = FALSE, bg = "gray95")
+```
+
+
+```{r}
+#########
+# QoS 0 #
+#########
+## QoS0_10pbs - Aufsplittung MaxDurc
+tcLogsQoS010pbs10kbps<-tcLogsQoS010pbs[tcLogsQoS010pbs$MaxDurc == "10kbps",]
+tcLogsQoS010pbs100kbps<-tcLogsQoS010pbs[tcLogsQoS010pbs$MaxDurc == "100kbps",]
+tcLogsQoS010pbs1mbps<-tcLogsQoS010pbs[tcLogsQoS010pbs$MaxDurc == "1mbps",]
+tcLogsQoS010pbs10mbps<-tcLogsQoS010pbs[tcLogsQoS010pbs$MaxDurc == "10mbps",]
+tcLogsQoS010pbs100mbps<-tcLogsQoS010pbs[tcLogsQoS010pbs$MaxDurc == "100mbps",]
+
+plot(tcLogsQoS010pbs10kbps$id, tcLogsQoS010pbs10kbps$rtt, type = "l", main = "QoS_0 10_Pakete/Sek 10kb_Max")
+plot(tcLogsQoS010pbs100kbps$id, tcLogsQoS010pbs100kbps$rtt, type = "l", main = "QoS_0 10_Pakete/Sek 100kb_Max")
+plot(tcLogsQoS010pbs1mbps$id, tcLogsQoS010pbs1mbps$rtt, type = "l", main = "QoS_0 10_Pakete/Sek 1mb_Max")
+plot(tcLogsQoS010pbs10mbps$id, tcLogsQoS010pbs10mbps$rtt, type = "l", main = "QoS_0 10_Pakete/Sek 10mb_Max")
+#plot(tcLogsQoS010pbs100mbps$id, tcLogsQoS010pbs100mbps$rtt, type = "l", main = "QoS_0 10_Pakete/Sek 100mb_Max")
+```
+
+```{r}
+#########
+# QoS 0 #
+#########
+## QoS0_100pbs - Aufsplittung MaxDurc
+tcLogsQoS0100pbs10kbps<-tcLogsQoS0100pbs[tcLogsQoS0100pbs$MaxDurc == "10kbps",]
+tcLogsQoS0100pbs100kbps<-tcLogsQoS0100pbs[tcLogsQoS0100pbs$MaxDurc == "100kbps",]
+tcLogsQoS0100pbs1mbps<-tcLogsQoS0100pbs[tcLogsQoS0100pbs$MaxDurc == "1mbps",]
+#tcLogsQoS0100pbs10mbps<-tcLogsQoS0100pbs[tcLogsQoS0100pbs$MaxDurc == "10mbps",]
+#tcLogsQoS0100pbs100mbps<-tcLogsQoS0100pbs[tcLogsQoS0100pbs$MaxDurc == "100mbps",]
+
+plot(tcLogsQoS0100pbs10kbps$id, tcLogsQoS0100pbs10kbps$rtt, type = "l", main = "QoS_0 100_Pakete/Sek 10kb_Max")
+plot(tcLogsQoS0100pbs100kbps$id, tcLogsQoS0100pbs100kbps$rtt, type = "l", main = "QoS_0 100_Pakete/Sek 100kb_Max")
+plot(tcLogsQoS0100pbs1mbps$id, tcLogsQoS0100pbs1mbps$rtt, type = "l", main = "QoS_0 100_Pakete/Sek 1mb_Max")
+#plot(tcLogsQoS0100pbs10mbps$id, tcLogsQoS0100pbs10mbps$rtt, type = "l", main = "QoS_0 100_Pakete/Sek 10mb_Max")
+#plot(tcLogsQoS0100pbs100mbps$id, tcLogsQoS0100pbs100mbps$rtt, type = "l", main = "QoS_0 100_Pakete/Sek 100mb_Max")
+```
+
+```{r}
+#########
+# QoS 1 #
+#########
+## QoS1_1pbs - Aufsplittung MaxDurc
+tcLogsQoS11pbs10kbps<-tcLogsQoS11pbs[tcLogsQoS11pbs$MaxDurc == "10kbps",]
+tcLogsQoS11pbs100kbps<-tcLogsQoS11pbs[tcLogsQoS11pbs$MaxDurc == "100kbps",]
+tcLogsQoS11pbs1mbps<-tcLogsQoS11pbs[tcLogsQoS11pbs$MaxDurc == "1mbps",]
+tcLogsQoS11pbs10mbps<-tcLogsQoS11pbs[tcLogsQoS11pbs$MaxDurc == "10mbps",]
+tcLogsQoS11pbs100mbps<-tcLogsQoS11pbs[tcLogsQoS11pbs$MaxDurc == "100mbps",]
+
+#plot(tcLogsQoS11pbs10kbps$id, tcLogsQoS11pbs10kbps$rtt, type = "l", main = "QoS_1 1_Paket/Sek 10kb_Max")
+plot(tcLogsQoS11pbs100kbps$id, tcLogsQoS11pbs100kbps$rtt, type = "b", main = "QoS_1 1_Paket/Sek 100kb_Max")
+plot(tcLogsQoS11pbs1mbps$id, tcLogsQoS11pbs1mbps$rtt, type = "l", main = "QoS_1 1_Paket/Sek 1mb_Max")
+plot(tcLogsQoS11pbs10mbps$id, tcLogsQoS11pbs10mbps$rtt, type = "l", main = "QoS_1 1_Paket/Sek 10mb_Max")
+plot(tcLogsQoS11pbs100mbps$id, tcLogsQoS11pbs100mbps$rtt, type = "l", main = "QoS_1 1_Paket/Sek 100mb_Max")
+```
+
+```{r}
+#########
+# QoS 1 #
+#########
+## QoS1_10pbs - Aufsplittung MaxDurc
+tcLogsQoS110pbs10kbps<-tcLogsQoS110pbs[tcLogsQoS110pbs$MaxDurc == "10kbps",]
+tcLogsQoS110pbs100kbps<-tcLogsQoS110pbs[tcLogsQoS110pbs$MaxDurc == "100kbps",]
+tcLogsQoS110pbs1mbps<-tcLogsQoS110pbs[tcLogsQoS110pbs$MaxDurc == "1mbps",]
+tcLogsQoS110pbs10mbps<-tcLogsQoS110pbs[tcLogsQoS110pbs$MaxDurc == "10mbps",]
+tcLogsQoS110pbs100mbps<-tcLogsQoS110pbs[tcLogsQoS110pbs$MaxDurc == "100mbps",]
+
+#plot(tcLogsQoS110pbs10kbps$id, tcLogsQoS110pbs10kbps$rtt, type = "l", main = "QoS_1 10_Pakete/Sek 10kb_Max")
+plot(tcLogsQoS110pbs100kbps$id, tcLogsQoS110pbs100kbps$rtt, type = "l", main = "QoS_1 10_Pakete/Sek 100kb_Max")
+plot(tcLogsQoS110pbs1mbps$id, tcLogsQoS110pbs1mbps$rtt, type = "l", main = "QoS_1 10_Pakete/Sek 1mb_Max")
+plot(tcLogsQoS110pbs10mbps$id, tcLogsQoS110pbs10mbps$rtt, type = "l", main = "QoS_1 10_Pakete/Sek 10mb_Max")
+plot(tcLogsQoS110pbs100mbps$id, tcLogsQoS110pbs100mbps$rtt, type = "l", main = "QoS_1 10_Pakete/Sek 100mb_Max")
+```
+```{r}
+#########
+# QoS 1 #
+#########
+## QoS1_100pbs - Aufsplittung MaxDurc
+tcLogsQoS1100pbs10kbps<-tcLogsQoS1100pbs[tcLogsQoS1100pbs$MaxDurc == "10kbps",]
+tcLogsQoS1100pbs100kbps<-tcLogsQoS1100pbs[tcLogsQoS1100pbs$MaxDurc == "100kbps",]
+tcLogsQoS1100pbs1mbps<-tcLogsQoS1100pbs[tcLogsQoS1100pbs$MaxDurc == "1mbps",]
+tcLogsQoS1100pbs10mbps<-tcLogsQoS1100pbs[tcLogsQoS1100pbs$MaxDurc == "10mbps",]
+tcLogsQoS1100pbs100mbps<-tcLogsQoS1100pbs[tcLogsQoS1100pbs$MaxDurc == "100mbps",]
+
+#plot(tcLogsQoS1100pbs10kbps$id, tcLogsQoS1100pbs10kbps$rtt, type = "l", main = "QoS_1 100_Pakete/Sek 10kb_Max")
+plot(tcLogsQoS1100pbs100kbps$id, tcLogsQoS1100pbs100kbps$rtt, type = "l", main = "QoS_1 100_Pakete/Sek 100kb_Max")
+plot(tcLogsQoS1100pbs1mbps$id, tcLogsQoS1100pbs1mbps$rtt, type = "l", main = "QoS_1 100_Pakete/Sek 1mb_Max")
+plot(tcLogsQoS1100pbs10mbps$id, tcLogsQoS1100pbs10mbps$rtt, type = "l", main = "QoS_1 100_Pakete/Sek 10mb_Max")
+plot(tcLogsQoS1100pbs100mbps$id, tcLogsQoS1100pbs100mbps$rtt, type = "l", main = "QoS_1 100_Pakete/Sek 100mb_Max")
+```
+
+```{r}
+#########
+# QoS 2 #
+#########
+## QoS2_1pbs - Aufsplittung MaxDurc
+tcLogsQoS21pbs10kbps<-tcLogsQoS21pbs[tcLogsQoS21pbs$MaxDurc == "10kbps", ]
+tcLogsQoS21pbs100kbps<-tcLogsQoS21pbs[tcLogsQoS21pbs$MaxDurc == "100kbps", ]
+tcLogsQoS21pbs1mbps<-tcLogsQoS21pbs[tcLogsQoS21pbs$MaxDurc == "1mbps", ]
+tcLogsQoS21pbs10mbps<-tcLogsQoS21pbs[tcLogsQoS21pbs$MaxDurc == "10mbps", ]
+tcLogsQoS21pbs100mbps<-tcLogsQoS21pbs[tcLogsQoS21pbs$MaxDurc == "100mbps", ]
+
+#plot(tcLogsQoS21pbs10kbps$id, tcLogsQoS21pbs10kbps$rtt, type = "l", main = "QoS_2 1_Pakete/Sek 10kb_Max")
+plot(tcLogsQoS21pbs100kbps$id, tcLogsQoS21pbs100kbps$rtt, type = "l", main = "QoS_2 1_Pakete/Sek 100kb_Max")
+plot(tcLogsQoS21pbs1mbps$id, tcLogsQoS21pbs1mbps$rtt, type = "l", main = "QoS_2 1_Pakete/Sek 1mb_Max")
+plot(tcLogsQoS21pbs10mbps$id, tcLogsQoS21pbs10mbps$rtt, type = "l", main = "QoS_2 1_Pakete/Sek 10mb_Max")
+plot(tcLogsQoS21pbs100mbps$id, tcLogsQoS21pbs100mbps$rtt, type = "l", main = "QoS_2 1_Pakete/Sek 100mb_Max")
+```
+```{r}
+#########
+# QoS 2 #
+#########
+## QoS2_10pbs - Aufsplittung MaxDurc
+tcLogsQoS210pbs10kbps<-tcLogsQoS210pbs[tcLogsQoS210pbs$MaxDurc == "10kbps",]
+tcLogsQoS210pbs100kbps<-tcLogsQoS210pbs[tcLogsQoS210pbs$MaxDurc == "100kbps",]
+tcLogsQoS210pbs1mbps<-tcLogsQoS210pbs[tcLogsQoS210pbs$MaxDurc == "1mbps",]
+tcLogsQoS210pbs10mbps<-tcLogsQoS210pbs[tcLogsQoS210pbs$MaxDurc == "10mbps",]
+tcLogsQoS210pbs100mbps<-tcLogsQoS210pbs[tcLogsQoS210pbs$MaxDurc == "100mbps",]
+
+#plot(tcLogsQoS210pbs10kbps$id, tcLogsQoS210pbs10kbps$rtt, type = "l", main = "QoS_2 10_Pakete/Sek 10kb_Max")
+plot(tcLogsQoS210pbs100kbps$id, tcLogsQoS210pbs100kbps$rtt, type = "l", main = "QoS_2 10_Pakete/Sek 100kb_Max")
+plot(tcLogsQoS210pbs1mbps$id, tcLogsQoS210pbs1mbps$rtt, type = "b", main = "QoS_2 10_Pakete/Sek 1mb_Max")
+plot(tcLogsQoS210pbs10mbps$id, tcLogsQoS210pbs10mbps$rtt, type = "l", main = "QoS_2 10_Pakete/Sek 10mb_Max")
+plot(tcLogsQoS210pbs100mbps$id, tcLogsQoS210pbs100mbps$rtt, type = "b", main = "QoS_2 10_Pakete/Sek 100mb_Max")
+```
+```{r}
+#########
+# QoS 2 #
+#########
+## QoS2_100pbs - Aufsplittung MaxDurc
+tcLogsQoS2100pbs10kbps<-tcLogsQoS2100pbs[tcLogsQoS2100pbs$MaxDurc == "10kbps",]
+tcLogsQoS2100pbs100kbps<-tcLogsQoS2100pbs[tcLogsQoS2100pbs$MaxDurc == "100kbps",]
+tcLogsQoS2100pbs1mbps<-tcLogsQoS2100pbs[tcLogsQoS2100pbs$MaxDurc == "1mbps",]
+tcLogsQoS2100pbs10mbps<-tcLogsQoS2100pbs[tcLogsQoS2100pbs$MaxDurc == "10mbps",]
+tcLogsQoS2100pbs100mbps<-tcLogsQoS2100pbs[tcLogsQoS2100pbs$MaxDurc == "100mbps",]
+
+#plot(tcLogsQoS2100pbs10kbps$id, tcLogsQoS2100pbs10kbps$rtt, type = "l", main = "QoS_2 100_Pakete/Sek 10kb_Max")
+plot(tcLogsQoS2100pbs100kbps$id, tcLogsQoS2100pbs100kbps$rtt, type = "l", main = "QoS_2 100_Pakete/Sek 100kb_Max")
+plot(tcLogsQoS2100pbs1mbps$id, tcLogsQoS2100pbs1mbps$rtt, type = "b", main = "QoS_2 100_Pakete/Sek 1mb_Max")
+plot(tcLogsQoS2100pbs10mbps$id, tcLogsQoS2100pbs10mbps$rtt, type = "l", main = "QoS_2 100_Pakete/Sek 10mb_Max")
+plot(tcLogsQoS2100pbs100mbps$id, tcLogsQoS2100pbs100mbps$rtt, type = "b", main = "QoS_2 100_Pakete/Sek 100mb_Max")
+```
+
+
+
+\textcolor{gray}{\hrulefill}
+
