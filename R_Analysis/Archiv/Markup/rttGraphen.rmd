@@ -1,0 +1,405 @@
+---
+output: pdf_document
+header-includes: 
+    - \usepackage{amsthm}
+    - \usepackage{xcolor}
+documentclass: article
+<!---output: beamer_presentation--->
+---
+
+
+```{r global_options, include=FALSE}
+knitr::opts_chunk$set(error=TRUE,        # Keep compiling upon error
+                      collapse=TRUE,     # collapse by default
+                      echo=TRUE,         # echo code by default
+                      comment = "#>",    # change comment character
+                      fig.width = 7,     # set figure width
+                      out.width = "100%", # set width of displayed images
+                      warning=FALSE,      # show R warnings
+                      message=FALSE)     # show R messages
+```
+
+
+<!--- Solution Region --->
+<style>
+#solution {
+  background-color: #8FBC8F;
+  border-style: solid;
+  border-color: blue;
+  margin-left: 20px;
+  margin-bottom: 15px;
+  padding: 5px;
+}
+</style>
+
+\theoremstyle{break}
+\newtheorem{auf}{Aufgabe}
+
+\newcommand{\R}{{\sffamily R} }
+
+\begin{centering}
+\Huge
+{\bf Anhang 2}\\
+\Large
+Graphische Darstellung der VB (und Pi) Messungen\\
+\normalsize
+
+\end{centering}
+
+```{r}
+setwd("/home/lisa/Darmstadt/05_Speicher und Datennetze IoT/Praktikum/Git/mqtt-qos-rountrip/R_Analysis/01_RTT_Pi_VB/")
+options(digits.secs=3) # needs to be set from time to time - otherwise R doesn't allow for ms
+library("data.table", lib.loc="~/R/x86_64-pc-linux-gnu-library/3.4")
+library("h2o", lib.loc="~/R/x86_64-pc-linux-gnu-library/3.4")
+library("tidyr", lib.loc="~/R/x86_64-pc-linux-gnu-library/3.4")
+library("plyr")
+library(knitr)
+library(kableExtra)
+
+load("./latenzVB.Rda")
+load("./logs_pi.Rda")
+```
+
+```{r}
+
+```
+
+Übersicht und notwendige Anpassung der Messungen die mit dem Pi erzeugt wurden.
+```{r}
+logsPi[,4]<-NA # Die Spalten Speed und Min sind bei diesem Datensatz nicht mit sinnvollen Werten belegt
+logsPi[,5]<-NA # Um das gleiche Format wie die TC Datensätze zu behalten, werden die Werte nur durch NA ersetzt
+logsPi$Byte<-logsPi$Size
+logsPi$Byte[logsPi$Byte == "1Byte"] <- 1
+logsPi$Byte[logsPi$Byte == "10Byte"] <- 10
+logsPi$Byte[logsPi$Byte == "100Byte"] <- 100
+logsPi$Byte[logsPi$Byte == "1KByte"] <- 1000
+logsPi$Byte[logsPi$Byte == "1500Byte"] <- 1500
+logsPi$Byte[logsPi$Byte == "10KByte"] <- 10000
+logsPi$Byte[logsPi$Byte == "100KByte"] <- 100000
+logsPi$Byte[logsPi$Byte == "500KByte"] <- 500000
+logsPi$Byte[logsPi$Byte == "1MByte"] <- 1000000
+logsPiSum <- summary(logsPi)
+logsPiSum
+```
+
+Übersicht und notwendige Anpassung der Messungen die mit dem Laptop erzeugt wurden.
+```{r}
+latenzVB[,5]<-NA
+rtt_zero<-latenzVB[latenzVB$rtt == 0,]
+
+latenzVB<-latenzVB[latenzVB$rtt > 0,]
+
+latenzVB$Byte<-latenzVB$Size
+latenzVB$Byte[latenzVB$Byte == "1Byte"] <- 1
+latenzVB$Byte[latenzVB$Byte == "10Byte"] <- 10
+latenzVB$Byte[latenzVB$Byte == "100Byte"] <- 100
+latenzVB$Byte[latenzVB$Byte == "1KByte"] <- 1000
+latenzVB$Byte[latenzVB$Byte == "1500Byte"] <- 1500
+latenzVB$Byte[latenzVB$Byte == "10KByte"] <- 10000
+latenzVB$Byte[latenzVB$Byte == "100KByte"] <- 100000
+latenzVB$Byte[latenzVB$Byte == "500KByte"] <- 500000
+latenzVB$Byte[latenzVB$Byte == "1MByte"] <- 1000000
+latenzVB$Byte[latenzVB$Byte == "10MByte"] <- 10000000
+latenzVBSum <- summary(latenzVB)
+latenzVBSum
+```
+
+Aggregation der Daten zur Beantwortung der Fragestellung bzgl. Latenzzeiten in Abhängigkeit zu QoS Level und Paketgröße.
+Pi
+```{r}
+logsPiAgg <- aggregate(logsPi$rtt ~ logsPi$QoS+logsPi$Size+logsPi$Byte, logsPi, mean)
+logsPiAgg$`logsPi$Byte`<-as.numeric(logsPiAgg$`logsPi$Byte`)
+logsPiAgg<-logsPiAgg[order(logsPiAgg$`logsPi$Byte`),]
+
+logsPiAgg %>%
+  kable() %>%
+  kable_styling()
+
+```
+
+Laptop (volle bandbreite - VB)
+```{r}
+logsVBAgg <- aggregate(latenzVB$rtt ~ latenzVB$QoS+latenzVB$Size+latenzVB$Byte, latenzVB, mean)
+logsVBAgg$`latenzVB$Byte`<-as.numeric(logsVBAgg$`latenzVB$Byte`)
+logsVBAgg<-logsVBAgg[order(logsVBAgg$`latenzVB$Byte`),]
+
+
+logsVBAgg %>%
+  kable() %>%
+  kable_styling()
+
+```
+
+```{r}
+
+logsPiAgg$Names <- paste(logsPiAgg$`logsPi$QoS`, logsPiAgg$`logsPi$Size`)
+logsPiAgg<-logsPiAgg[order(logsPiAgg$`logsPi$Byte`),]
+barplot(logsPiAgg$`logsPi$rtt`, ylim = c(0, 30), ylab = "RTT (in Sek)", main = "Latenz Pi nach QoS und Paketgröße", axes=TRUE, names.arg=logsPiAgg$Names, cex.names=0.7, las=2)
+
+```
+
+```{r}
+
+logsVBAgg$Names <- paste(logsVBAgg$`latenzVB$QoS`, logsVBAgg$`latenzVB$Size`)
+logsVBAgg<-logsVBAgg[order(logsVBAgg$`latenzVB$Byte`),]
+
+barplot(logsVBAgg$`latenzVB$rtt`, main = "Latenz Laptop nach QoS und Paketgröße", ylab = "RTT in Sekunden", axes=TRUE, names.arg=logsVBAgg$Names, cex.names=0.7, las=2)
+
+
+logsVBAgg_no500<-logsVBAgg[logsVBAgg$`latenzVB$Byte`!=500000,]
+logsVBAgg_no500$Names <- paste(logsVBAgg_no500$`latenzVB$QoS`, logsVBAgg_no500$`latenzVB$Size`)
+barplot(logsVBAgg_no500$`latenzVB$rtt`, main = "Latenz Laptop nach QoS und Paketgröße", ylab = "RTT in Sekunden", axes=TRUE, names.arg=logsVBAgg_no500$Names, cex.names=0.7, las=2)
+
+logsVBAgg_no500_no100M<-logsVBAgg[logsVBAgg$`latenzVB$Byte`!=500000 & logsVBAgg$`latenzVB$Byte`!= 10000000,]
+logsVBAgg_no500_no100M$Names <- paste(logsVBAgg_no500_no100M$`latenzVB$QoS`, logsVBAgg_no500_no100M$`latenzVB$Size`)
+barplot(logsVBAgg_no500_no100M$`latenzVB$rtt`, main = "Latenz Laptop nach QoS und Paketgröße", ylab = "RTT in Sekunden", axes=TRUE, names.arg=logsVBAgg_no500_no100M$Names, cex.names=0.7, las=2)
+
+```
+
+Im nächsten Schritt wird die statistische Abhngigkeit der rtt von QoS und Größe (Byte) untersucht.
+Im Falle einer einfachen linearen Regression sind nur qos2 und hohe Byte Zahlen signifikant.
+
+```{r}
+reg_LogsPi <- lm(logsPi$rtt~logsPi$QoS+logsPi$Byte, data = logsPi)
+summary(reg_LogsPi)
+```
+
+```{r}
+reg_LogsVB <- lm(latenzVB$rtt~latenzVB$QoS+latenzVB$Byte, data = latenzVB)
+summary(reg_LogsVB)
+```
+
+```{r}
+par(mfrow=c(1,2))
+plot(logsPi$Byte, logsPi$rtt)
+logsPiSubset1500 <- logsPi[logsPi$Byte <= 1500, ] 
+plot(logsPiSubset1500$Byte, logsPiSubset1500$rtt)
+```
+
+Scatterplots bringen bei der Größe wenig Übersicht aus zwei Gründen:
+1.) Logische Datenypen, d.h. alle Beobachtungen sind gehäuft in den geweiligen Klassen
+2.) Ohne Standardisierung/ Transformation der Daten haben die extremen Werte (MByte) einen überproportionalen Anteil
+-> Im folgenden wird die Verteilung von rtt in QQ Plots betrachtet /.
+
+```{r}
+par(mfrow=c(1,2))
+qqnorm(logsPi$rtt, main = "Q-Q Plot Pi")
+qqnorm(latenzVB$rtt, main = "Q-Q Plot Laptop")
+```
+
+Da rtt nicht normal verteilt ist, liefert die Lineare Regression keine zuverlässigen Ergebnisse.
+Nach der Transformation (logarithmierung) nähert sich die Verteilung der Variable rtt der Normalverteilung.
+(Normalverteilung ist erreicht, wenn die Sample Quantile den Theoretischen entsprechen - die Beobachtugen also auf einer Geraden liegen)
+```{r}
+par(mfrow=c(1,2))
+qqnorm(log(logsPi$rtt), main = "Q-Q Plot Pi")
+qqnorm(log(latenzVB$rtt), main = "Q-Q Plot Pi")
+```
+Trotz der Logarithmierung sind die Daten nicht perfekt Normalverteilt, jedoch annähernd.
+```{r}
+par(mfrow=c(2,1))
+plot(density(log(logsPi$rtt)))
+plot(density(log(latenzVB$rtt)))
+# shapiro.test(logsPi$rtt)
+```
+```{r}
+reg_LogsPi <- lm(log(logsPi$rtt)~logsPi$QoS+logsPi$Byte, data = logsPi)
+summary(reg_LogsPi)
+```
+
+
+```{r}
+######################
+# Aufteilen nach QoS #
+######################
+
+latenzVBQoS0<-latenzVB[latenzVB$QoS == "qos0",]
+latenzVBQoS1<-latenzVB[latenzVB$QoS == "qos1",]
+latenzVBQoS2<-latenzVB[latenzVB$QoS == "qos2",]
+
+plot(latenzVBQoS0$id, latenzVBQoS0$rtt, type = "l", main = "RTT QoS0", 
+     ylab = "RTT (in Sek)", xlab = "Paket_ID")
+plot(latenzVBQoS1$id, latenzVBQoS1$rtt, type = "l", main = "RTT QoS1", 
+     ylab = "RTT (in Sek)", xlab = "Paket_ID")
+plot(latenzVBQoS2$id, latenzVBQoS2$rtt, type = "l", main = "RTT QoS2", 
+     ylab = "RTT (in Sek)", xlab = "Paket_ID")
+
+```
+
+```{r}
+#######################################
+# QoS_0 Aufteilen nach Payload/ Größe #
+#######################################
+
+latenzVBQoS01Byte<-latenzVBQoS0[latenzVBQoS0$Size == "1Byte",]
+latenzVBQoS010Byte<-latenzVBQoS0[latenzVBQoS0$Size == "10Byte",]
+latenzVBQoS0100Byte<-latenzVBQoS0[latenzVBQoS0$Size == "100Byte",]
+latenzVBQoS01KByte<-latenzVBQoS0[latenzVBQoS0$Size == "1KByte",]
+latenzVBQoS01500Byte<-latenzVBQoS0[latenzVBQoS0$Size == "1500Byte",]
+latenzVBQoS010KByte<-latenzVBQoS0[latenzVBQoS0$Size == "10KByte",]
+latenzVBQoS0100KByte<-latenzVBQoS0[latenzVBQoS0$Size == "100KByte",]
+latenzVBQoS0500KByte<-latenzVBQoS0[latenzVBQoS0$Size == "500KByte",]
+latenzVBQoS01MByte<-latenzVBQoS0[latenzVBQoS0$Size == "1MByte",]
+latenzVBQoS010MByte<-latenzVBQoS0[latenzVBQoS0$Size == "10MByte",]
+
+plot(latenzVBQoS01Byte$id, latenzVBQoS01Byte$rtt, type = "l", main = "RTT QoS0_1Byte", 
+     ylab = "RTT (in Sek)", xlab = "Paket_ID")
+plot(latenzVBQoS010Byte$id, latenzVBQoS010Byte$rtt, type = "l", main = "RTT QoS0_10Byte", 
+     ylab = "RTT (in Sek)", xlab = "Paket_ID")
+plot(latenzVBQoS0100Byte$id, latenzVBQoS0100Byte$rtt, type = "l", main = "RTT QoS0_100Byte", 
+     ylab = "RTT (in Sek)", xlab = "Paket_ID")
+plot(latenzVBQoS01KByte$id, latenzVBQoS01KByte$rtt, type = "l", main = "RTT QoS0_1KByte", 
+     ylab = "RTT (in Sek)", xlab = "Paket_ID")
+plot(latenzVBQoS01500Byte$id, latenzVBQoS01500Byte$rtt, type = "l", main = "RTT QoS0_1500Byte", 
+     ylab = "RTT (in Sek)", xlab = "Paket_ID")
+plot(latenzVBQoS010KByte$id, latenzVBQoS010KByte$rtt, type = "l", main = "RTT QoS0_10KByte", 
+     ylab = "RTT (in Sek)", xlab = "Paket_ID")
+plot(latenzVBQoS0100KByte$id, latenzVBQoS0100KByte$rtt, type = "l", main = "RTT QoS0_100KByte", 
+     ylab = "RTT (in Sek)", xlab = "Paket_ID")
+plot(latenzVBQoS0500KByte$id, latenzVBQoS0500KByte$rtt, type = "l", main = "RTT QoS0_500KByte", 
+     ylab = "RTT (in Sek)", xlab = "Paket_ID")
+plot(latenzVBQoS01MByte$id, latenzVBQoS01MByte$rtt, type = "l", main = "RTT QoS0_1MByte", 
+     ylab = "RTT (in Sek)", xlab = "Paket_ID")
+plot(latenzVBQoS010MByte$id, latenzVBQoS010MByte$rtt, type = "l", main = "RTT QoS0_10MByte", 
+     ylab = "RTT (in Sek)", xlab = "Paket_ID")
+
+
+## QoS0 - Aufsplittung - eine Grafik!
+plot(latenzVBQoS01Byte$id, latenzVBQoS01Byte$rtt, type = "l", ylim = c(0, 30), ylab = "RTT (in Sek)", xlab = "Paket_ID",
+     main = "Aufsplittung aller Messungen mit QoS_0 nach Paketgröße")
+points(latenzVBQoS010Byte$id, latenzVBQoS010Byte$rtt, col = "red", type = "l")
+points(latenzVBQoS0100Byte$id, latenzVBQoS0100Byte$rtt, col = "blue", type = "l")
+points(latenzVBQoS01KByte$id, latenzVBQoS01KByte$rtt, col = "green4", type = "l")
+points(latenzVBQoS01500Byte$id, latenzVBQoS01500Byte$rtt, col = "purple", type = "l")
+points(latenzVBQoS010KByte$id, latenzVBQoS010KByte$rtt, col = "orange",  type = "l")
+points(latenzVBQoS0100KByte$id, latenzVBQoS0100KByte$rtt, col = "pink", type = "l")
+points(latenzVBQoS0500KByte$id, latenzVBQoS0500KByte$rtt, col = "brown", type = "l")
+points(latenzVBQoS01MByte$id, latenzVBQoS01MByte$rtt, col = "yellow2", type = "l")
+points(latenzVBQoS010MByte$id, latenzVBQoS010MByte$rtt, col = "gray", type = "l")
+
+
+legend("right", c("1Byte", "10Byte", "100Byte", "1KByte", "1500Byte", "10KByte", "100KByte", "500KByte", "1MByte", "10MByte"),
+       cex = 0.8,
+       col = c("black", "red", "blue", "green4", "purple", "orange", "pink", "brown", "yellow2", "gray"),
+       text.col = "black" ,lwd = c(2, 2, 2),
+       y.intersp = 1.5, merge = FALSE, bg = "gray95")
+
+```
+
+```{r}
+#######################################
+# QoS_1 Aufteilen nach Payload/ Größe #
+#######################################
+latenzVBQoS11Byte<-latenzVBQoS1[latenzVBQoS1$Size == "1Byte",]
+latenzVBQoS110Byte<-latenzVBQoS1[latenzVBQoS1$Size == "10Byte",]
+latenzVBQoS1100Byte<-latenzVBQoS1[latenzVBQoS1$Size == "100Byte",]
+latenzVBQoS11KByte<-latenzVBQoS1[latenzVBQoS1$Size == "1KByte",]
+latenzVBQoS11500Byte<-latenzVBQoS1[latenzVBQoS1$Size == "1500Byte",]
+latenzVBQoS110KByte<-latenzVBQoS1[latenzVBQoS1$Size == "10KByte",]
+latenzVBQoS1100KByte<-latenzVBQoS1[latenzVBQoS1$Size == "100KByte",]
+latenzVBQoS1500KByte<-latenzVBQoS1[latenzVBQoS1$Size == "500KByte",]
+latenzVBQoS11MByte<-latenzVBQoS1[latenzVBQoS1$Size == "1MByte",]
+latenzVBQoS110MByte<-latenzVBQoS1[latenzVBQoS1$Size == "10MByte",]
+
+plot(latenzVBQoS11Byte$id, latenzVBQoS11Byte$rtt, type = "l", main = "RTT QoS1_1Byte", 
+     ylab = "RTT (in Sek)", xlab = "Paket_ID")
+plot(latenzVBQoS110Byte$id, latenzVBQoS110Byte$rtt, type = "l", main = "RTT QoS1_10Byte", 
+     ylab = "RTT (in Sek)", xlab = "Paket_ID")
+plot(latenzVBQoS1100Byte$id, latenzVBQoS1100Byte$rtt, type = "l", main = "RTT QoS1_100Byte", 
+     ylab = "RTT (in Sek)", xlab = "Paket_ID")
+plot(latenzVBQoS11KByte$id, latenzVBQoS11KByte$rtt, type = "l", main = "RTT QoS1_1KByte", 
+     ylab = "RTT (in Sek)", xlab = "Paket_ID")
+plot(latenzVBQoS11500Byte$id, latenzVBQoS11500Byte$rtt, type = "l", main = "RTT QoS1_1500Byte", 
+     ylab = "RTT (in Sek)", xlab = "Paket_ID")
+plot(latenzVBQoS110KByte$id, latenzVBQoS110KByte$rtt, type = "l", main = "RTT QoS1_10KByte", 
+     ylab = "RTT (in Sek)", xlab = "Paket_ID")
+plot(latenzVBQoS1100KByte$id, latenzVBQoS1100KByte$rtt, type = "l", main = "RTT QoS1_100KByte", 
+     ylab = "RTT (in Sek)", xlab = "Paket_ID")
+plot(latenzVBQoS1500KByte$id, latenzVBQoS1500KByte$rtt, type = "l", main = "RTT QoS1_1500KByte", 
+     ylab = "RTT (in Sek)", xlab = "Paket_ID")
+plot(latenzVBQoS11MByte$id, latenzVBQoS11MByte$rtt, type = "l", main = "RTT QoS1_1MByte", 
+     ylab = "RTT (in Sek)", xlab = "Paket_ID")
+plot(latenzVBQoS110MByte$id, latenzVBQoS110MByte$rtt, type = "l", main = "RTT QoS1_1M0Byte", 
+     ylab = "RTT (in Sek)", xlab = "Paket_ID")
+
+## QoS1 - Aufsplittung - eine Grafik!
+plot(latenzVBQoS11Byte$id, latenzVBQoS11Byte$rtt, type = "l", ylim = c(0, 30), ylab = "RTT (in Sek)", xlab = "Paket_ID",
+     main = "Aufsplittung aller Messungen mit QoS_0 nach Paketgröße")
+points(latenzVBQoS110Byte$id, latenzVBQoS110Byte$rtt, col = "red", type = "l")
+points(latenzVBQoS1100Byte$id, latenzVBQoS1100Byte$rtt, col = "blue", type = "l")
+points(latenzVBQoS11KByte$id, latenzVBQoS11KByte$rtt, col = "green4", type = "l")
+points(latenzVBQoS11500Byte$id, latenzVBQoS11500Byte$rtt, col = "purple", type = "l")
+points(latenzVBQoS110KByte$id, latenzVBQoS110KByte$rtt, col = "orange",  type = "l")
+points(latenzVBQoS1100KByte$id, latenzVBQoS1100KByte$rtt, col = "pink", type = "l")
+points(latenzVBQoS1500KByte$id, latenzVBQoS1500KByte$rtt, col = "brown", type = "l")
+points(latenzVBQoS11MByte$id, latenzVBQoS11MByte$rtt, col = "yellow2", type = "l")
+points(latenzVBQoS110MByte$id, latenzVBQoS110MByte$rtt, col = "gray", type = "l")
+
+
+legend("right", c("1Byte", "10Byte", "100Byte", "1KByte", "1500Byte", "10KByte", "100KByte", "500KByte", "1MByte", "10MByte"),
+       cex = 0.8,
+       col = c("black", "red", "blue", "green4", "purple", "orange", "pink", "brown", "yellow2", "gray"),
+       text.col = "black" ,lwd = c(2, 2, 2),
+       y.intersp = 1.5, merge = FALSE, bg = "gray95")
+```
+
+```{r}
+latenzVBQoS21Byte<-latenzVBQoS2[latenzVBQoS2$Size == "1Byte",]
+latenzVBQoS210Byte<-latenzVBQoS2[latenzVBQoS2$Size == "10Byte",]
+latenzVBQoS2100Byte<-latenzVBQoS2[latenzVBQoS2$Size == "100Byte",]
+latenzVBQoS21KByte<-latenzVBQoS2[latenzVBQoS2$Size == "1KByte",]
+latenzVBQoS21500Byte<-latenzVBQoS2[latenzVBQoS2$Size == "1500Byte",]
+latenzVBQoS210KByte<-latenzVBQoS2[latenzVBQoS2$Size == "10KByte",]
+latenzVBQoS2100KByte<-latenzVBQoS2[latenzVBQoS2$Size == "100KByte",]
+latenzVBQoS2500KByte<-latenzVBQoS2[latenzVBQoS2$Size == "500KByte",]
+latenzVBQoS21MByte<-latenzVBQoS2[latenzVBQoS2$Size == "1MByte",]
+latenzVBQoS210MByte<-latenzVBQoS2[latenzVBQoS2$Size == "10MByte",]
+
+
+plot(latenzVBQoS21Byte$id, latenzVBQoS21Byte$rtt, type = "l", main = "RTT QoS2_1Byte", 
+     ylab = "RTT (in Sek)", xlab = "Paket_ID")
+plot(latenzVBQoS210Byte$id, latenzVBQoS210Byte$rtt, type = "l", main = "RTT QoS2_10Byte", 
+     ylab = "RTT (in Sek)", xlab = "Paket_ID")
+plot(latenzVBQoS2100Byte$id, latenzVBQoS2100Byte$rtt, type = "l", main = "RTT QoS2_100Byte", 
+     ylab = "RTT (in Sek)", xlab = "Paket_ID")
+plot(latenzVBQoS21KByte$id, latenzVBQoS21KByte$rtt, type = "l", main = "RTT QoS2_1KByte", 
+     ylab = "RTT (in Sek)", xlab = "Paket_ID")
+plot(latenzVBQoS21500Byte$id, latenzVBQoS21500Byte$rtt, type = "l", main = "RTT QoS2_1500Byte", 
+     ylab = "RTT (in Sek)", xlab = "Paket_ID")
+plot(latenzVBQoS210KByte$id, latenzVBQoS210KByte$rtt, type = "l", main = "RTT QoS2_10KByte", 
+     ylab = "RTT (in Sek)", xlab = "Paket_ID")
+plot(latenzVBQoS2100KByte$id, latenzVBQoS2100KByte$rtt, type = "l", main = "RTT QoS2_100KByte", 
+     ylab = "RTT (in Sek)", xlab = "Paket_ID")
+plot(latenzVBQoS2500KByte$id, latenzVBQoS2500KByte$rtt, type = "l", main = "RTT QoS2_500KByte", 
+     ylab = "RTT (in Sek)", xlab = "Paket_ID")
+plot(latenzVBQoS21MByte$id, latenzVBQoS21MByte$rtt, type = "l", main = "RTT QoS2_1MByte", 
+     ylab = "RTT (in Sek)", xlab = "Paket_ID")
+plot(latenzVBQoS210MByte$id, latenzVBQoS210MByte$rtt, type = "l", main = "RTT QoS2_10MByte", 
+     ylab = "RTT (in Sek)", xlab = "Paket_ID")
+
+## QoS2 - Aufsplittung - eine Grafik!
+plot(latenzVBQoS21Byte$id, latenzVBQoS21Byte$rtt, type = "l", ylim = c(0, 0.18), ylab = "RTT (in Sek)", xlab = "Paket_ID",
+     main = "Aufsplittung aller Messungen mit QoS_0 nach Paketgröße")
+points(latenzVBQoS210Byte$id, latenzVBQoS210Byte$rtt, col = "red", type = "l")
+points(latenzVBQoS2100Byte$id, latenzVBQoS2100Byte$rtt, col = "blue", type = "l")
+points(latenzVBQoS21KByte$id, latenzVBQoS21KByte$rtt, col = "green4", type = "l")
+points(latenzVBQoS21500Byte$id, latenzVBQoS21500Byte$rtt, col = "purple", type = "l")
+points(latenzVBQoS210KByte$id, latenzVBQoS210KByte$rtt, col = "orange",  type = "l")
+points(latenzVBQoS2100KByte$id, latenzVBQoS2100KByte$rtt, col = "pink", type = "l")
+points(latenzVBQoS2500KByte$id, latenzVBQoS2500KByte$rtt, col = "brown", type = "l")
+points(latenzVBQoS21MByte$id, latenzVBQoS21MByte$rtt, col = "yellow2", type = "l")
+points(latenzVBQoS210MByte$id, latenzVBQoS210MByte$rtt, col = "gray", type = "l")
+
+
+legend("right", c("1Byte", "10Byte", "100Byte", "1KByte", "1500Byte", "10KByte", "100KByte", "500KByte", "1MByte", "10MByte"),
+       cex = 0.8,
+       col = c("black", "red", "blue", "green4", "purple", "orange", "pink", "brown", "yellow2", "gray"),
+       text.col = "black" ,lwd = c(2, 2, 2),
+       y.intersp = 1.5, merge = FALSE, bg = "gray95")
+```
+
+
+
+
+\textcolor{gray}{\hrulefill}
+

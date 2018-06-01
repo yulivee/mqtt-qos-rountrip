@@ -81,10 +81,39 @@ latenzPL20proz$PL_Proz <- 20
 latenzPL25proz$PL_Proz <- 25
 latenzPL30proz$PL_Proz <- 30
 
-
 PLoss_Logs <- rbind(latenzPL1proz, latenzPL5proz, latenzPL10proz, latenzPL15proz, latenzPL20proz, latenzPL25proz, latenzPL30proz)
 
+PLoss_Logs$Byte<-PLoss_Logs$Size
+PLoss_Logs$Byte[PLoss_Logs$Byte == "1Byte"] <- 1
+PLoss_Logs$Byte[PLoss_Logs$Byte == "10Byte"] <- 10
+PLoss_Logs$Byte[PLoss_Logs$Byte == "100Byte"] <- 100
+PLoss_Logs$Byte[PLoss_Logs$Byte == "1KByte"] <- 1000
+PLoss_Logs$Byte[PLoss_Logs$Byte == "1500Byte"] <- 1500
+PLoss_Logs$Byte[PLoss_Logs$Byte == "10KByte"] <- 10000
+PLoss_Logs$Byte[PLoss_Logs$Byte == "100KByte"] <- 100000
+PLoss_Logs$Byte[PLoss_Logs$Byte == "500KByte"] <- 500000
+PLoss_Logs$Byte[PLoss_Logs$Byte == "1MByte"] <- 1000000
+PLoss_LogsSum <- summary(PLoss_Logs)
 
+```
+
+```{r}
+#PLoss_LogsAgg <- aggregate(PLoss_Logs$rtt ~ PLoss_Logs$QoS+PLoss_Logs$Size+PLoss_Logs$Byte, PLoss_Logs, mean)
+PLoss_LogsAgg <- aggregate(PLoss_Logs$rtt ~ PLoss_Logs$QoS+ PLoss_Logs$PL_Proz, PLoss_Logs, mean)
+
+#PLoss_LogsAgg$`tcLogs$Byte`<-as.numeric(PLoss_LogsAgg$`tcLogs$Byte`)
+#PLoss_LogsAgg<-PLoss_LogsAgg[order(PLoss_LogsAgg$`tcLogs$Byte`),]
+
+PLoss_LogsAgg %>%
+  kable() %>%
+  kable_styling()
+
+```
+
+```{r}
+PLoss_LogsAgg$Names <- paste(PLoss_LogsAgg$`PLoss_Logs$QoS`, PLoss_LogsAgg$`PLoss_Logs$PL_Proz`)
+#PLoss_LogsAgg<-PLoss_LogsAgg[order(PLoss_LogsAgg$`tcLogs$Byte`),]
+barplot(PLoss_LogsAgg$`PLoss_Logs$rtt`, main = "RTT nach QoS und Max Traffik", col = c("black", "red", "blue"), ylab = "RTT in Sekunden", axes=TRUE, names.arg=PLoss_LogsAgg$Names, cex.names=0.7, las=2)
 
 ```
 
@@ -266,10 +295,10 @@ plot(PLoss_LogsQoS0_20PL$id, PLoss_LogsQoS0_20PL$rtt, type = "b", main = "RTT Qo
 plot(PLoss_LogsQoS0_25PL$id, PLoss_LogsQoS0_25PL$rtt, type = "b", main = "RTT QoS0_PL25 (10KByte, 1PproSek)")
 plot(PLoss_LogsQoS0_30PL$id, PLoss_LogsQoS0_30PL$rtt, type = "b", main = "RTT QoS0_PL30 (10KByte, 1PproSek)")
 
-plot(PLoss_LogsQoS0_1PL$id, PLoss_LogsQoS0_1PL$rtt, main = "RTT QoS0 (10KByte, 1PproSek)", ylim = c(0, 45),
+plot(PLoss_LogsQoS0_1PL$id, PLoss_LogsQoS0_1PL$rtt, main = "RTT QoS0 (10KByte, 1PproSek)", ylim = c(0, 60),
      ylab = "RTT (in Sek)", xlab = "Paket_ID", type = "l")
 points(PLoss_LogsQoS0_10PL$id, PLoss_LogsQoS0_10PL$rtt, col = "red", type = "l")
-points(PLoss_LogsQoS0_20PL$id, PLoss_LogsQoS0_20PL$rtt, col = "blue", type = "b")
+points(PLoss_LogsQoS0_20PL$id, PLoss_LogsQoS0_20PL$rtt, col = "blue", type = "l")
 points(PLoss_LogsQoS0_25PL$id, PLoss_LogsQoS0_25PL$rtt, col = "green4", type = "b")
 points(PLoss_LogsQoS0_30PL$id, PLoss_LogsQoS0_30PL$rtt, col = "purple2", type = "b")
 
@@ -296,8 +325,8 @@ plot(PLoss_LogsQoS1_20PL$id, PLoss_LogsQoS1_20PL$rtt, type = "b", main = "RTT Qo
 plot(PLoss_LogsQoS1_25PL$id, PLoss_LogsQoS1_25PL$rtt, type = "b", main = "RTT QoS1_PL25 (10KByte, 1PproSek)")
 plot(PLoss_LogsQoS1_30PL$id, PLoss_LogsQoS1_30PL$rtt, type = "b", main = "RTT QoS1_PL30 (10KByte, 1PproSek)")
 
-plot(PLoss_LogsQoS1_1PL$id, PLoss_LogsQoS1_1PL$rtt, main = "RTT QoS0 (10KByte, 1PproSek)", ylim = c(0, 60),
-     ylab = "RTT (in Sek)", xlab = "Paket_ID", type = "l")
+plot(PLoss_LogsQoS1_1PL$id, PLoss_LogsQoS1_1PL$rtt, main = "RTT QoS1 (10KByte, 1PproSek)", 
+     ylab = "RTT (in Sek)", xlab = "Paket_ID", type = "l", ylim = c(0, 60))
 points(PLoss_LogsQoS1_10PL$id, PLoss_LogsQoS1_10PL$rtt, col = "red", type = "l")
 points(PLoss_LogsQoS1_20PL$id, PLoss_LogsQoS1_20PL$rtt, col = "blue", type = "l")
 points(PLoss_LogsQoS1_25PL$id, PLoss_LogsQoS1_25PL$rtt, col = "green4", type = "b")
