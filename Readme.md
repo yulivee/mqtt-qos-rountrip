@@ -1,5 +1,5 @@
-## Create File of 5MB filesize
-
+## Create File of fixed filesize
+```
 dd if=/dev/zero of=1Byte.txt bs=1B count=1
 dd if=/dev/zero of=1Byte.txt bs=1 count=1
 dd if=/dev/zero of=10Byte.txt bs=10 count=1
@@ -12,6 +12,7 @@ dd if=/dev/zero of=1MByte.txt bs=1M count=1
 dd if=/dev/zero of=10MByte.txt bs=10M count=1
 dd if=/dev/zero of=100MByte.txt bs=100M count=1
 dd if=/dev/zero of=256MByte.txt bs=256M count=1
+```
 
 ## Most efficient measuring
 ```
